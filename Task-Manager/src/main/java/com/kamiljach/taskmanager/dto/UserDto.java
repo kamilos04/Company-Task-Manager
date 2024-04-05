@@ -45,30 +45,42 @@ public class UserDto {
         this.surname=user.getSurname();
         this.email=user.getEmail();
         this.role=user.getRole();
+
         for(Team team : user.getTeams()){
             TeamDto teamDto = new TeamDto();
+
             teamDto.setId(team.getId());
             teamDto.setName(team.getName());
+
             this.teams.add(teamDto);
         }
+
         for(Team teamAdmin : user.getTeamsAdmin()){
             TeamDto teamDto = new TeamDto();
+
             teamDto.setId(teamAdmin.getId());
             teamDto.setName(teamAdmin.getName());
+
             this.teamsAdmin.add(teamDto);
         }
+
         for(Task task : user.getTasks()){
             TaskDto taskDto = new TaskDto();
+
             taskDto.setId(task.getId());
             taskDto.setName(task.getName());
             taskDto.setStatus(task.getStatus());
+
             this.tasks.add(taskDto);
         }
+
         for(Task taskAdmin : user.getTasksAdmin()){
             TaskDto taskDto = new TaskDto();
+
             taskDto.setId(taskAdmin.getId());
             taskDto.setName(taskAdmin.getName());
             taskDto.setStatus(taskAdmin.getStatus());
+
             this.tasks.add(taskDto);
         }
     }
