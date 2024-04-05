@@ -41,6 +41,7 @@ public class AuthController {
         User isEmailExist=userRepository.findByEmail(user.getEmail());
         if(isEmailExist!=null){
             throw new Exception("Email is already used with another account");
+
         }
 
         User createdUser = new User();
@@ -55,7 +56,6 @@ public class AuthController {
         AuthResponse authResponse = new AuthResponse();
         authResponse.setJwt(jwt);
         authResponse.setMessage("Register success");
-
         return new ResponseEntity<>(authResponse, HttpStatus.CREATED);
 
     }

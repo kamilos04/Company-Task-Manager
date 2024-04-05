@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class TestController {
-    @GetMapping("/test")
+    @GetMapping("/api/test")
     public ResponseEntity<String> TestController(){
         return new ResponseEntity<>("Works", HttpStatus.OK);
     }
