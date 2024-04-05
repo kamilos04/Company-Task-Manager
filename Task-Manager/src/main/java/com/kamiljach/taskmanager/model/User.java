@@ -31,7 +31,7 @@ public class User {
     private String email;
 
 
-    @JsonIgnore
+//    @JsonIgnore
     private String password;
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
