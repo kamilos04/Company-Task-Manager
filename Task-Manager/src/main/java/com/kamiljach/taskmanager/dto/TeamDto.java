@@ -42,7 +42,7 @@ public class TeamDto {
 
             this.users.add(userDto);
         }
-        
+
         for(User admin : team.getAdmins()){
             UserDto userDto = new UserDto();
 
@@ -52,7 +52,7 @@ public class TeamDto {
             userDto.setSurname(admin.getSurname());
             userDto.setEmail(admin.getEmail());
 
-            this.users.add(userDto);
+            this.admins.add(userDto);
         }
 
         for(Task task : team.getTasks()){

@@ -81,7 +81,7 @@ public class UserDto {
             taskDto.setName(taskAdmin.getName());
             taskDto.setStatus(taskAdmin.getStatus());
 
-            this.tasks.add(taskDto);
+            this.tasksAdmin.add(taskDto);
         }
     }
 
