@@ -15,11 +15,11 @@ public class TaskServiceImpl implements TaskService {
         this.taskRepository = taskRepository;
     }
 
-    @Override
-    public Task createTask(CreateTaskRequest req) {
-        Task newTask = new Task();
-        newTask.setName(req.getName());
-        newTask.setTeam(req.getTeam());
-        return taskRepository.save(newTask);
-    }
+//    @Override
+//    public Task createTask(CreateTaskRequest req) {
+//        Task newTask = new Task();
+//        newTask.setName(req.getName());
+//        newTask.setTeams(req.getTeam());
+//        return taskRepository.save(newTask);
+//    }
 }

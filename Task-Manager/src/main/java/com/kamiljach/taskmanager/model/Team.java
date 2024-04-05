@@ -37,7 +37,7 @@ public class Team {
     )
     private List<User> admins = new ArrayList<>();
 
-    @OneToMany
+    @ManyToMany(mappedBy = "teams", fetch = FetchType.LAZY)
     private List<Task> tasks = new ArrayList<>();
 
 }

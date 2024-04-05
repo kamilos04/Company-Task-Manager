@@ -1,10 +1,8 @@
 package com.kamiljach.taskmanager.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -31,17 +29,18 @@ public class User {
     @NotBlank
     private String email;
 
+    @Enumerated(EnumType.STRING)
+    private USER_ROLES role = USER_ROLES.USER;
 
-//    @JsonIgnore
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private String password;
+
 
     @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
     private List<Team> teams = new ArrayList<>();
 
-
     @ManyToMany(mappedBy = "admins", fetch = FetchType.LAZY)
-    private List<Team> admin = new ArrayList<>();
+    private List<Team> teamsAdmin = new ArrayList<>();
 
     @ManyToMany(mappedBy = "admins", fetch = FetchType.LAZY)
     private List<Task> tasksAdmin = new ArrayList<>();

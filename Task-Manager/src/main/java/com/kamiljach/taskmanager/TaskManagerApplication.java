@@ -50,7 +50,7 @@ public class TaskManagerApplication {
 		CreateTaskRequest request = new CreateTaskRequest();
 		request.setName("pierwszy");
 		request.setTeam(team1);
-		taskService.createTask(request);
+//		taskService.createTask(request);
 
 
 

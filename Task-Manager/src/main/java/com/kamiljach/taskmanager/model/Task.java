@@ -19,8 +19,16 @@ public class Task {
 
     private String name;
 
-    @ManyToOne
-    private Team team;
+    @Enumerated(EnumType.STRING)
+    private TASK_STATUS status;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "task_team",
+            joinColumns = @JoinColumn(name = "task_id"),
+            inverseJoinColumns = @JoinColumn(name = "team_id")
+    )
+    private List<Team> teams = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

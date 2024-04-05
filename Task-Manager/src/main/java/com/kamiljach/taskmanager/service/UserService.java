@@ -1,11 +1,13 @@
 package com.kamiljach.taskmanager.service;
 
+import com.kamiljach.taskmanager.dto.UserDto;
 import com.kamiljach.taskmanager.model.User;
 
 public interface UserService {
-    public User findUserByJwtToken(String jwt) throws Exception;
+    public UserDto findUserByJwtToken(String jwt) throws Exception;
 
-    public User findUserByEmail(String email) throws Exception;
+    public UserDto findUserByEmail(String email) throws Exception;
+
 
 
 }

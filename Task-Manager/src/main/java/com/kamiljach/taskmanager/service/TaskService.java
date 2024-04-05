@@ -4,5 +4,5 @@ import com.kamiljach.taskmanager.model.Task;
 import com.kamiljach.taskmanager.request.CreateTaskRequest;
 
 public interface TaskService {
-    public Task createTask(CreateTaskRequest req);
+//    public Task createTask(CreateTaskRequest req);
 }
