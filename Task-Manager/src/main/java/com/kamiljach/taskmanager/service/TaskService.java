@@ -1,12 +1,13 @@
 package com.kamiljach.taskmanager.service;
 
+import com.kamiljach.taskmanager.dto.TaskDto;
 import com.kamiljach.taskmanager.model.Task;
 import com.kamiljach.taskmanager.request.CreateTaskRequest;
 
 import java.util.List;
 
 public interface TaskService {
-    public Task createTask(CreateTaskRequest req);
+    public TaskDto createTask(CreateTaskRequest req) throws Exception;
 
     public List<Task> getAllTasks();
 }

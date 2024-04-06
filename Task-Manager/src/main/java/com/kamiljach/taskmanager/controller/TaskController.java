@@ -1,5 +1,6 @@
 package com.kamiljach.taskmanager.controller;
 
+import com.kamiljach.taskmanager.dto.TaskDto;
 import com.kamiljach.taskmanager.model.Task;
 import com.kamiljach.taskmanager.request.CreateTaskRequest;
 import com.kamiljach.taskmanager.service.TaskService;
@@ -22,8 +23,8 @@ public class TaskController {
     }
 
     @PostMapping("/task")
-    public ResponseEntity<Task> createTask(@RequestBody CreateTaskRequest req){
-        Task createdTask = taskService.createTask(req);
+    public ResponseEntity<TaskDto> createTask(@RequestBody CreateTaskRequest req, @RequestHeader("Authorization") String jwt) throws Exception {
+        TaskDto createdTask = taskService.createTask(req);
         return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
 

@@ -18,10 +18,10 @@ import java.util.Optional;
 
 @Service
 public class TeamServiceImpl implements TeamService {
-    TeamRepository teamRepository;
-    UserService userService;
-    UserRepository userRepository;
-    TaskRepository taskRepository;
+    private TeamRepository teamRepository;
+    private UserService userService;
+    private UserRepository userRepository;
+    private TaskRepository taskRepository;
 
     public TeamServiceImpl(TeamRepository teamRepository, UserService userService, UserRepository userRepository, TaskRepository taskRepository) {
         this.teamRepository = teamRepository;
