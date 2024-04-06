@@ -1,19 +1,16 @@
 package com.kamiljach.taskmanager.service.impl;
 
 import com.kamiljach.taskmanager.dto.TaskDto;
-import com.kamiljach.taskmanager.dto.TeamDto;
 import com.kamiljach.taskmanager.model.Task;
 import com.kamiljach.taskmanager.model.Team;
 import com.kamiljach.taskmanager.model.User;
 import com.kamiljach.taskmanager.repository.TaskRepository;
 import com.kamiljach.taskmanager.repository.TeamRepository;
 import com.kamiljach.taskmanager.repository.UserRepository;
-import com.kamiljach.taskmanager.request.CreateTaskRequest;
+import com.kamiljach.taskmanager.request.task.CreateTaskRequest;
 import com.kamiljach.taskmanager.service.TaskService;
-import com.kamiljach.taskmanager.service.TeamService;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 

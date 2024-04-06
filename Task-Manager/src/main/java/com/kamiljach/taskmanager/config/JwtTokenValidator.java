@@ -1,5 +1,6 @@
 package com.kamiljach.taskmanager.config;
 
+import com.kamiljach.taskmanager.model.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
@@ -19,6 +20,7 @@ import javax.crypto.SecretKey;
 import java.io.IOException;
 import java.security.Security;
 import java.util.List;
+import java.util.Optional;
 
 public class JwtTokenValidator extends OncePerRequestFilter {
 
@@ -37,7 +39,6 @@ public class JwtTokenValidator extends OncePerRequestFilter {
 
                 String email = String.valueOf(claims.get("email"));
                 String authorities = String.valueOf(claims.get("authorities"));
-
                 List<GrantedAuthority> auth = AuthorityUtils.commaSeparatedStringToAuthorityList(authorities);
                 Authentication authentication = new UsernamePasswordAuthenticationToken(email, null, auth);
                 SecurityContextHolder.getContext().setAuthentication(authentication);

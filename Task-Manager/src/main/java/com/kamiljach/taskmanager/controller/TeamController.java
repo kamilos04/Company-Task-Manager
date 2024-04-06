@@ -1,7 +1,8 @@
 package com.kamiljach.taskmanager.controller;
 
 import com.kamiljach.taskmanager.dto.TeamDto;
-import com.kamiljach.taskmanager.request.CreateTeamRequest;
+import com.kamiljach.taskmanager.request.team.AddUserToTeamRequest;
+import com.kamiljach.taskmanager.request.team.CreateTeamRequest;
 import com.kamiljach.taskmanager.service.TeamService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,12 +22,16 @@ public class TeamController {
     @PostMapping("/team")
     public ResponseEntity<TeamDto> createTeam(@RequestBody CreateTeamRequest req, @RequestHeader("Authorization") String jwt) throws Exception {
         TeamDto newTeam =  teamService.createTeam(req);
-        System.out.println(req.getUsersIds());
         return new ResponseEntity<>(newTeam, HttpStatus.CREATED);
     }
 
     @GetMapping("/team")
     public ResponseEntity<List<TeamDto>> allTeams(@RequestHeader("Authorization") String jwt){
         return new ResponseEntity<>(teamService.allTeams(), HttpStatus.OK);
+    }
+
+    @PostMapping("/team/addUser")
+    public ResponseEntity<TeamDto> addUserToTeam(@RequestBody AddUserToTeamRequest req, @RequestHeader("Authorization") String jwt) throws Exception {
+        return new ResponseEntity<>(teamService.addUserToTeam(req), HttpStatus.OK);
     }
 }

@@ -1,4 +1,4 @@
-package com.kamiljach.taskmanager.request;
+package com.kamiljach.taskmanager.request.task;
 
 import com.kamiljach.taskmanager.model.TASK_STATUS;
 import com.kamiljach.taskmanager.model.Team;

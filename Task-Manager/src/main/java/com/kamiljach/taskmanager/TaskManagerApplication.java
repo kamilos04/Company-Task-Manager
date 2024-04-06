@@ -5,9 +5,7 @@ import com.kamiljach.taskmanager.model.User;
 import com.kamiljach.taskmanager.repository.TaskRepository;
 import com.kamiljach.taskmanager.repository.TeamRepository;
 import com.kamiljach.taskmanager.repository.UserRepository;
-import com.kamiljach.taskmanager.request.CreateTaskRequest;
 import com.kamiljach.taskmanager.service.TaskService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

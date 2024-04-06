@@ -1,4 +1,4 @@
-package com.kamiljach.taskmanager.request;
+package com.kamiljach.taskmanager.request.team;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -2,7 +2,7 @@ package com.kamiljach.taskmanager.service;
 
 import com.kamiljach.taskmanager.dto.TaskDto;
 import com.kamiljach.taskmanager.model.Task;
-import com.kamiljach.taskmanager.request.CreateTaskRequest;
+import com.kamiljach.taskmanager.request.task.CreateTaskRequest;
 
 import java.util.List;
 

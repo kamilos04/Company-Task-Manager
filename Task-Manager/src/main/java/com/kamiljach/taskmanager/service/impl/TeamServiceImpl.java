@@ -1,16 +1,19 @@
 package com.kamiljach.taskmanager.service.impl;
 
 import com.kamiljach.taskmanager.dto.TeamDto;
+import com.kamiljach.taskmanager.dto.UserDto;
 import com.kamiljach.taskmanager.model.Task;
 import com.kamiljach.taskmanager.model.Team;
 import com.kamiljach.taskmanager.model.User;
 import com.kamiljach.taskmanager.repository.TaskRepository;
 import com.kamiljach.taskmanager.repository.TeamRepository;
 import com.kamiljach.taskmanager.repository.UserRepository;
-import com.kamiljach.taskmanager.request.CreateTeamRequest;
+import com.kamiljach.taskmanager.request.team.AddUserToTeamRequest;
+import com.kamiljach.taskmanager.request.team.CreateTeamRequest;
 import com.kamiljach.taskmanager.service.TeamService;
 import com.kamiljach.taskmanager.service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +33,7 @@ public class TeamServiceImpl implements TeamService {
         this.taskRepository = taskRepository;
     }
 
+    @Transactional
     @Override
     public TeamDto createTeam(CreateTeamRequest req) throws Exception{
         Team newTeam = new Team();
@@ -41,8 +45,9 @@ public class TeamServiceImpl implements TeamService {
                 throw new Exception("Invalid users");
             }
             User user = optionalUser.get();
-
             newTeam.getUsers().add(user);
+            user.getTeams().add(newTeam);
+            userRepository.save(user);
         }
         for(Long userId : req.getAdminsIds()){
             Optional<User> optionalUser= userRepository.findById(userId);
@@ -51,6 +56,8 @@ public class TeamServiceImpl implements TeamService {
             }
             User user = optionalUser.get();
             newTeam.getAdmins().add(user);
+            user.getTeamsAdmin().add(newTeam);
+            userRepository.save(user);
         }
         for(Long taskId : req.getTasksIds()){
             Optional<Task> optionalTask= taskRepository.findById(taskId);
@@ -59,22 +66,10 @@ public class TeamServiceImpl implements TeamService {
             }
             Task task = optionalTask.get();
             newTeam.getTasks().add(task);
-        }
-        teamRepository.save(newTeam);
-
-        for(User user : newTeam.getUsers()){
-            user.getTeams().add(newTeam);
-            userRepository.save(user);
-        }
-        for(User user : newTeam.getAdmins()){
-            user.getTeamsAdmin().add(newTeam);
-            userRepository.save(user);
-        }
-        for(Task task : newTeam.getTasks()){
             task.getTeams().add(newTeam);
             taskRepository.save(task);
         }
-
+        teamRepository.save(newTeam);
 
         TeamDto teamDto = new TeamDto(newTeam);
         return teamDto;
@@ -90,5 +85,26 @@ public class TeamServiceImpl implements TeamService {
             teamsDto.add(teamDto);
         }
         return teamsDto;
+    }
+
+    @Transactional
+    @Override
+    public TeamDto addUserToTeam(AddUserToTeamRequest req) throws Exception {
+        Optional<Team> optionalTeam = teamRepository.findById(req.getId());
+        if(optionalTeam.isEmpty()){throw new Exception("Invalid team");}
+
+        Optional<User> optionalUser = userRepository.findById(req.getUserId());
+        if(optionalUser.isEmpty()){throw new Exception("Invalid user");}
+
+        User user = optionalUser.get();
+        Team team = optionalTeam.get();
+
+        team.getUsers().add(user);
+        teamRepository.save(team);
+        user.getTeams().add(team);
+        userRepository.save(user);
+
+        TeamDto teamDto = new TeamDto(team);
+        return teamDto;
     }
 }
