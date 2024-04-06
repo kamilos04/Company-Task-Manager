@@ -19,19 +19,22 @@ public class TeamController {
         this.teamService = teamService;
     }
 
+    //Create team
     @PostMapping("/team")
     public ResponseEntity<TeamDto> createTeam(@RequestBody CreateTeamRequest req, @RequestHeader("Authorization") String jwt) throws Exception {
         TeamDto newTeam =  teamService.createTeam(req);
         return new ResponseEntity<>(newTeam, HttpStatus.CREATED);
     }
 
+    //All teams
     @GetMapping("/team")
     public ResponseEntity<List<TeamDto>> allTeams(@RequestHeader("Authorization") String jwt){
         return new ResponseEntity<>(teamService.allTeams(), HttpStatus.OK);
     }
 
+    //Update team
     @PutMapping("/team")
-    public ResponseEntity<TeamDto> addUsersToTeam(@RequestBody UpdateTeamRequest req, @RequestHeader("Authorization") String jwt) throws Exception {
-        return new ResponseEntity<>(teamService.updateTeam(req), HttpStatus.OK);
+    public ResponseEntity<TeamDto> updateTeam(@RequestBody UpdateTeamRequest req, @RequestHeader("Authorization") String jwt) throws Exception {
+        return new ResponseEntity<>(teamService.updateTeam(req, jwt), HttpStatus.OK);
     }
 }

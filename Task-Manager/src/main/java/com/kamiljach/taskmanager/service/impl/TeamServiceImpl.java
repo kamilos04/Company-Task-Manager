@@ -3,6 +3,7 @@ package com.kamiljach.taskmanager.service.impl;
 import com.kamiljach.taskmanager.dto.TeamDto;
 import com.kamiljach.taskmanager.model.Task;
 import com.kamiljach.taskmanager.model.Team;
+import com.kamiljach.taskmanager.model.USER_ROLES;
 import com.kamiljach.taskmanager.model.User;
 import com.kamiljach.taskmanager.repository.TaskRepository;
 import com.kamiljach.taskmanager.repository.TeamRepository;
@@ -11,6 +12,7 @@ import com.kamiljach.taskmanager.request.team.UpdateTeamRequest;
 import com.kamiljach.taskmanager.request.team.CreateTeamRequest;
 import com.kamiljach.taskmanager.service.TeamService;
 import com.kamiljach.taskmanager.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -88,51 +90,94 @@ public class TeamServiceImpl implements TeamService {
 
     @Transactional
     @Override
-    public TeamDto updateTeam(UpdateTeamRequest req) throws Exception {
+    public TeamDto updateTeam(UpdateTeamRequest req, String jwt) throws Exception {
+        User requestUser = userService.findUserByJwt(jwt);
+        boolean namePermission = false;
+        boolean usersPermission = false;
+        boolean adminsPermission = false;
+        boolean tasksPermission = false;
+
         Optional<Team> optionalTeam = teamRepository.findById(req.getId());
         if(optionalTeam.isEmpty()){throw new Exception("Invalid team");}
         Team team = optionalTeam.get();
+
+        //Check permissions
+        if(requestUser.getRole()== USER_ROLES.SUPER_ADMIN){
+            namePermission = true;
+            usersPermission = true;
+            adminsPermission = true;
+            tasksPermission = true;
+        }
+        else if(requestUser.getTeamsAdmin().contains(team)){
+            usersPermission = true;
+            tasksPermission = true;
+            namePermission = true;
+        }
+
+
         if(!req.getName().isEmpty() && req.getName() != null){
-            team.setName(req.getName());
+            if(namePermission){
+                team.setName(req.getName());
+            }
+            else{
+                throw new Exception("No permission");
+            }
         }
 
         for(Long userId : req.getUsersIds()){
-            Optional<User> optionalUser = userRepository.findById(userId);
-            if(optionalUser.isEmpty()){throw new Exception("Invalid users");}
-            User user = optionalUser.get();
-            if(!team.getUsers().contains(user)){
-                team.getUsers().add(user);
-                user.getTeams().add(team);
-                userRepository.save(user);
+            if(usersPermission){
+                Optional<User> optionalUser = userRepository.findById(userId);
+                if(optionalUser.isEmpty()){throw new Exception("Invalid users");}
+                User user = optionalUser.get();
+                if(!team.getUsers().contains(user)){
+                    team.getUsers().add(user);
+                    user.getTeams().add(team);
+                    userRepository.save(user);
+                }
             }
+            else{
+                throw new Exception("No permission");
+            }
+
         }
 
         for(Long userId : req.getAdminsIds()){
-            Optional<User> optionalUser= userRepository.findById(userId);
-            if(optionalUser.isEmpty()){throw new Exception("Invalid admins");}
-            User user = optionalUser.get();
-            if(!team.getAdmins().contains(user)){
-                team.getAdmins().add(user);
-                user.getTeamsAdmin().add(team);
-                userRepository.save(user);
+            if(adminsPermission){
+                Optional<User> optionalUser= userRepository.findById(userId);
+                if(optionalUser.isEmpty()){throw new Exception("Invalid admins");}
+                User user = optionalUser.get();
+                if(!team.getAdmins().contains(user)){
+                    team.getAdmins().add(user);
+                    user.getTeamsAdmin().add(team);
+                    userRepository.save(user);
+                }
             }
+            else{
+                throw new Exception("No permission");
+            }
+
         }
 
         for(Long taskId : req.getTasksIds()){
-            Optional<Task> optionalTask= taskRepository.findById(taskId);
-            if(optionalTask.isEmpty()){
-                throw new Exception("Invalid tasks");
+            if(tasksPermission){
+                Optional<Task> optionalTask= taskRepository.findById(taskId);
+                if(optionalTask.isEmpty()){
+                    throw new Exception("Invalid tasks");
+                }
+                Task task = optionalTask.get();
+                if(!team.getTasks().contains(task)){
+                    team.getTasks().add(task);
+                    task.getTeams().add(team);
+                    taskRepository.save(task);
+                }
             }
-            Task task = optionalTask.get();
-            if(!team.getTasks().contains(task)){
-                team.getTasks().add(task);
-                task.getTeams().add(team);
-                taskRepository.save(task);
+            else{
+                throw new Exception("No permission");
             }
+
 
         }
         teamRepository.save(team);
-
         TeamDto teamDto = new TeamDto(team);
         return teamDto;
     }

@@ -1,7 +1,6 @@
 package com.kamiljach.taskmanager.controller;
 
 import com.kamiljach.taskmanager.dto.UserDto;
-import com.kamiljach.taskmanager.model.User;
 import com.kamiljach.taskmanager.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,13 +18,13 @@ public class UserController {
 
     @GetMapping("/profile")
     public ResponseEntity<UserDto> userProfileByJwt(@RequestHeader("Authorization") String jwt) throws Exception {
-        UserDto userDto = userService.findUserByJwtToken(jwt);
+        UserDto userDto = userService.findUserDtoByJwtToken(jwt);
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
     @GetMapping("/user")
     public ResponseEntity<UserDto> userProfileByEmail(@RequestParam("email") String email) throws Exception {
-        UserDto userDto = userService.findUserByEmail(email);
+        UserDto userDto = userService.findUserDtoByEmail(email);
 
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }

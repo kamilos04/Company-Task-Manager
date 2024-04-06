@@ -21,14 +21,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto findUserByJwtToken(String jwt) throws Exception {
+    public UserDto findUserDtoByJwtToken(String jwt) throws Exception {
         String email = jwtProvider.getEmailFromJwtToken(jwt);
-        UserDto userDto = findUserByEmail(email);
+        UserDto userDto = findUserDtoByEmail(email);
         return userDto;
     }
 
     @Override
-    public UserDto findUserByEmail(String email) throws Exception {
+    public UserDto findUserDtoByEmail(String email) throws Exception {
         Optional<User> optionalUser = userRepository.findByEmail(email);
         if(optionalUser.isEmpty()){
             throw new Exception("User not found");
@@ -36,4 +36,15 @@ public class UserServiceImpl implements UserService {
         UserDto userDto = new UserDto(optionalUser.get());
         return userDto;
     }
+
+    public User findUserByJwt(String jwt) throws Exception{
+        String email = jwtProvider.getEmailFromJwtToken(jwt);
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if(optionalUser.isEmpty()){
+            throw new Exception("User not found");
+        }
+        return optionalUser.get();
+    }
+
+
 }
