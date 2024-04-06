@@ -1,14 +1,13 @@
 package com.kamiljach.taskmanager.service.impl;
 
 import com.kamiljach.taskmanager.dto.TeamDto;
-import com.kamiljach.taskmanager.dto.UserDto;
 import com.kamiljach.taskmanager.model.Task;
 import com.kamiljach.taskmanager.model.Team;
 import com.kamiljach.taskmanager.model.User;
 import com.kamiljach.taskmanager.repository.TaskRepository;
 import com.kamiljach.taskmanager.repository.TeamRepository;
 import com.kamiljach.taskmanager.repository.UserRepository;
-import com.kamiljach.taskmanager.request.team.AddUserToTeamRequest;
+import com.kamiljach.taskmanager.request.team.UpdateTeamRequest;
 import com.kamiljach.taskmanager.request.team.CreateTeamRequest;
 import com.kamiljach.taskmanager.service.TeamService;
 import com.kamiljach.taskmanager.service.UserService;
@@ -89,20 +88,50 @@ public class TeamServiceImpl implements TeamService {
 
     @Transactional
     @Override
-    public TeamDto addUserToTeam(AddUserToTeamRequest req) throws Exception {
+    public TeamDto updateTeam(UpdateTeamRequest req) throws Exception {
         Optional<Team> optionalTeam = teamRepository.findById(req.getId());
         if(optionalTeam.isEmpty()){throw new Exception("Invalid team");}
-
-        Optional<User> optionalUser = userRepository.findById(req.getUserId());
-        if(optionalUser.isEmpty()){throw new Exception("Invalid user");}
-
-        User user = optionalUser.get();
         Team team = optionalTeam.get();
+        if(!req.getName().isEmpty() && req.getName() != null){
+            team.setName(req.getName());
+        }
 
-        team.getUsers().add(user);
+        for(Long userId : req.getUsersIds()){
+            Optional<User> optionalUser = userRepository.findById(userId);
+            if(optionalUser.isEmpty()){throw new Exception("Invalid users");}
+            User user = optionalUser.get();
+            if(!team.getUsers().contains(user)){
+                team.getUsers().add(user);
+                user.getTeams().add(team);
+                userRepository.save(user);
+            }
+        }
+
+        for(Long userId : req.getAdminsIds()){
+            Optional<User> optionalUser= userRepository.findById(userId);
+            if(optionalUser.isEmpty()){throw new Exception("Invalid admins");}
+            User user = optionalUser.get();
+            if(!team.getAdmins().contains(user)){
+                team.getAdmins().add(user);
+                user.getTeamsAdmin().add(team);
+                userRepository.save(user);
+            }
+        }
+
+        for(Long taskId : req.getTasksIds()){
+            Optional<Task> optionalTask= taskRepository.findById(taskId);
+            if(optionalTask.isEmpty()){
+                throw new Exception("Invalid tasks");
+            }
+            Task task = optionalTask.get();
+            if(!team.getTasks().contains(task)){
+                team.getTasks().add(task);
+                task.getTeams().add(team);
+                taskRepository.save(task);
+            }
+
+        }
         teamRepository.save(team);
-        user.getTeams().add(team);
-        userRepository.save(user);
 
         TeamDto teamDto = new TeamDto(team);
         return teamDto;
