@@ -12,6 +12,8 @@ import com.kamiljach.taskmanager.service.TeamService;
 import com.kamiljach.taskmanager.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -77,5 +79,16 @@ public class TeamServiceImpl implements TeamService {
         TeamDto teamDto = new TeamDto(newTeam);
         return teamDto;
 
+    }
+
+    @Override
+    public List<TeamDto> allTeams() {
+        List<Team> teams = teamRepository.findAll();
+        List<TeamDto> teamsDto = new ArrayList<>();
+        for(Team team : teams){
+            TeamDto teamDto = new TeamDto(team);
+            teamsDto.add(teamDto);
+        }
+        return teamsDto;
     }
 }
