@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Collection;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/auth")
@@ -38,8 +39,8 @@ public class AuthController {
 
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> createUserHandler(@RequestBody User user) throws Exception {
-        User isEmailExist=userRepository.findByEmail(user.getEmail());
-        if(isEmailExist!=null){
+        Optional<User> isEmailExist=userRepository.findByEmail(user.getEmail());
+        if(isEmailExist.isPresent()){
             throw new Exception("Email is already used with another account");
 
         }

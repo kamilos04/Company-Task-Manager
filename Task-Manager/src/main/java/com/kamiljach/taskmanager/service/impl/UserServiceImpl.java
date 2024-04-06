@@ -7,6 +7,8 @@ import com.kamiljach.taskmanager.repository.UserRepository;
 import com.kamiljach.taskmanager.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -25,46 +27,13 @@ public class UserServiceImpl implements UserService {
         return userDto;
     }
 
-//    public void removeLongListsFromUser(User user){
-//        int index = 0;
-//        for (int i = 0; i < user.getTeams().size(); i++){
-//            user.getTeams().get(i).setUsers(new ArrayList<>());
-//            user.getTeams().get(i).setTasks(new ArrayList<>());
-//            user.getTeams().get(i).setAdmins(new ArrayList<>());
-//            index++;
-//        }
-//        index = 0;
-//        for (int i = 0; i < user.getTasks().size(); i++){
-//            user.getTasks().get(i).setUsers(new ArrayList<>());
-//            user.getTasks().get(i).setAdmins(new ArrayList<>());
-//            user.getTasks().get(i).setTeams(new ArrayList<>());
-//            index++;
-//        }
-//        index = 0;
-//        for (int i = 0; i < user.getTasksAdmin().size(); i++){
-//            user.getTasksAdmin().get(i).setUsers(new ArrayList<>());
-//            user.getTasksAdmin().get(i).setAdmins(new ArrayList<>());
-//            user.getTasksAdmin().get(i).setTeams(new ArrayList<>());
-//            index++;
-//        }
-//        index = 0;
-//        for (int i = 0; i < user.getTeamsAdmin().size(); i++){
-//            user.getTeamsAdmin().get(i).setUsers(new ArrayList<>());
-//            user.getTeamsAdmin().get(i).setAdmins(new ArrayList<>());
-//            user.getTeamsAdmin().get(i).setTasks(new ArrayList<>());
-//            index++;
-//        }
-//
-//
-//    }
-
     @Override
     public UserDto findUserByEmail(String email) throws Exception {
-        User user = userRepository.findByEmail(email);
-        if(user==null){
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        if(optionalUser.isEmpty()){
             throw new Exception("User not found");
         }
-        UserDto userDto = new UserDto(user);
+        UserDto userDto = new UserDto(optionalUser.get());
         return userDto;
     }
 }

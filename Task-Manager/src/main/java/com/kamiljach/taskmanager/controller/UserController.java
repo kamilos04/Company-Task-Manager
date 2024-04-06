@@ -23,7 +23,7 @@ public class UserController {
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
-    @GetMapping("/profile1")
+    @GetMapping("/user")
     public ResponseEntity<UserDto> userProfileByEmail(@RequestParam("email") String email) throws Exception {
         UserDto userDto = userService.findUserByEmail(email);
 

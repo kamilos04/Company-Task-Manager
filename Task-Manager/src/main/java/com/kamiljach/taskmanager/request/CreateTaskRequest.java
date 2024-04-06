@@ -11,6 +11,4 @@ import lombok.NoArgsConstructor;
 public class CreateTaskRequest {
 
     private String name;
-
-    private Team team;
 }

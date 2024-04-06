@@ -1,6 +1,7 @@
 package com.kamiljach.taskmanager.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,10 +18,13 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     private String name;
 
+
+
     @Enumerated(EnumType.STRING)
-    private TASK_STATUS status;
+    private TASK_STATUS status = TASK_STATUS.WAITING;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(

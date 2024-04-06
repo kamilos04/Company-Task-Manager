@@ -21,7 +21,7 @@ public class TaskDto {
 
     private String name;
 
-    private TASK_STATUS status = TASK_STATUS.WAITING;
+    private TASK_STATUS status;
 
     private List<TeamDto> teams = new ArrayList<>();
 

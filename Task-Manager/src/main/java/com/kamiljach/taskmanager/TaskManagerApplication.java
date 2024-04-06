@@ -40,6 +40,7 @@ public class TaskManagerApplication {
 		user1.setName("Kamil");
 		user1.setSurname("Jach");
 		user1.setEmail("kamiljach2004@gmail.com");
+		user1.setPassword("test");
 		userRepository.save(user1);
 
 		team1.getUsers().add(user1);
@@ -47,9 +48,8 @@ public class TaskManagerApplication {
 		userRepository.save(user1);
 		teamRepository.save(team1);
 
-		CreateTaskRequest request = new CreateTaskRequest();
-		request.setName("pierwszy");
-		request.setTeam(team1);
+//		CreateTaskRequest request = new CreateTaskRequest();
+//		request.setName("pierwszy");
 //		taskService.createTask(request);
 
 

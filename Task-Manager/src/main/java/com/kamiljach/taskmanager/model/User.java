@@ -33,6 +33,7 @@ public class User {
     private USER_ROLES role = USER_ROLES.USER;
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @NotBlank
     private String password;
 
 
