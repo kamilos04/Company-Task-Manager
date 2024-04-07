@@ -89,7 +89,7 @@ public class TeamServiceImpl implements TeamService {
         return teamsDto;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public TeamDto updateTeam(UpdateTeamRequest req, String jwt) throws Exception {
         User requestUser = userService.findUserByJwt(jwt);
@@ -125,59 +125,104 @@ public class TeamServiceImpl implements TeamService {
             }
         }
 
-        for(Long userId : req.getUsersIds()){
+        //Users
+        if(req.getUsersIds() != null){
             if(usersPermission){
-                Optional<User> optionalUser = userRepository.findById(userId);
-                if(optionalUser.isEmpty()){throw new Exception("Invalid users");}
-                User user = optionalUser.get();
-                if(!team.getUsers().contains(user)){
-                    team.getUsers().add(user);
-                    user.getTeams().add(team);
+                //Removing users
+                List<User> usersToRemove = new ArrayList<>();
+                for(User user : team.getUsers()){
+                    if(!req.getUsersIds().contains(user.getId())){
+                        usersToRemove.add(user);
+                    }
+                }
+                for(User user : usersToRemove){
+                    team.getUsers().remove(user);
+                    user.getTeams().remove(team);
                     userRepository.save(user);
+                }
+
+                //Adding users
+                for(Long userId : req.getUsersIds()){
+                    Optional<User> optionalUser = userRepository.findById(userId);
+                    if(optionalUser.isEmpty()){throw new Exception("Invalid users");}
+                    User user = optionalUser.get();
+                    if(!team.getUsers().contains(user)){
+                        team.getUsers().add(user);
+                        user.getTeams().add(team);
+                        userRepository.save(user);
+                    }
                 }
             }
             else{
                 throw new Exception("No permission");
             }
-
         }
-
-        for(Long userId : req.getAdminsIds()){
+        //Admins
+        if(req.getAdminsIds() != null){
             if(adminsPermission){
-                Optional<User> optionalUser= userRepository.findById(userId);
-                if(optionalUser.isEmpty()){throw new Exception("Invalid admins");}
-                User user = optionalUser.get();
-                if(!team.getAdmins().contains(user)){
-                    team.getAdmins().add(user);
-                    user.getTeamsAdmin().add(team);
+                //Removing admins
+                List<User> adminsToRemove = new ArrayList<>();
+                for(User user : team.getAdmins()){
+                    if(!req.getAdminsIds().contains(user.getId())){
+                        adminsToRemove.add(user);
+                    }
+                }
+                for(User user : adminsToRemove){
+                    team.getAdmins().remove(user);
+                    user.getTeamsAdmin().remove(team);
                     userRepository.save(user);
+                }
+
+                //Adding admins
+                for(Long userId : req.getAdminsIds()){
+                    Optional<User> optionalUser = userRepository.findById(userId);
+                    if(optionalUser.isEmpty()){throw new Exception("Invalid users");}
+                    User user = optionalUser.get();
+                    if(!team.getAdmins().contains(user)){
+                        team.getAdmins().add(user);
+                        user.getTeamsAdmin().add(team);
+                        userRepository.save(user);
+                    }
                 }
             }
             else{
                 throw new Exception("No permission");
             }
-
         }
 
-        for(Long taskId : req.getTasksIds()){
+        //Tasks
+        if(req.getTasksIds() != null){
             if(tasksPermission){
-                Optional<Task> optionalTask= taskRepository.findById(taskId);
-                if(optionalTask.isEmpty()){
-                    throw new Exception("Invalid tasks");
+                //Removing tasks
+                List<Task> tasksToRemove = new ArrayList<>();
+                for(Task task : team.getTasks()){
+                    if(!req.getTasksIds().contains(task.getId())){
+                        tasksToRemove.add(task);
+                    }
                 }
-                Task task = optionalTask.get();
-                if(!team.getTasks().contains(task)){
-                    team.getTasks().add(task);
-                    task.getTeams().add(team);
+                for(Task task : tasksToRemove){
+                    team.getTasks().remove(task);
+                    task.getTeams().remove(team);
                     taskRepository.save(task);
                 }
+
+                //Adding tasks
+                for(Long taskId : req.getTasksIds()){
+                    Optional<Task> optionalTask = taskRepository.findById(taskId);
+                    if(optionalTask.isEmpty()){throw new Exception("Invalid users");}
+                    Task task = optionalTask.get();
+                    if(!team.getTasks().contains(task)){
+                        team.getTasks().add(task);
+                        task.getTeams().add(team);
+                        taskRepository.save(task);
+                    }
+                }
             }
             else{
                 throw new Exception("No permission");
             }
-
-
         }
+
         teamRepository.save(team);
         TeamDto teamDto = new TeamDto(team);
         return teamDto;
