@@ -34,7 +34,7 @@ public class TeamServiceImpl implements TeamService {
         this.taskRepository = taskRepository;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public TeamDto createTeam(CreateTeamRequest req) throws Exception{
         Team newTeam = new Team();
