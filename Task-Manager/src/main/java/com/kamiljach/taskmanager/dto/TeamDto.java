@@ -3,10 +3,6 @@ package com.kamiljach.taskmanager.dto;
 import com.kamiljach.taskmanager.model.Task;
 import com.kamiljach.taskmanager.model.Team;
 import com.kamiljach.taskmanager.model.User;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -61,6 +57,9 @@ public class TeamDto {
             taskDto.setId(task.getId());
             taskDto.setName(task.getName());
             taskDto.setStatus(task.getStatus());
+            taskDto.setDesc(task.getDescription());
+            taskDto.setDateOfCreation(task.getDateOfCreation());
+            taskDto.setPriority(task.getPriority());
 
             this.tasks.add(taskDto);
         }

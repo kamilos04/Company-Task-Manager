@@ -4,11 +4,6 @@ import com.kamiljach.taskmanager.model.Task;
 import com.kamiljach.taskmanager.model.Team;
 import com.kamiljach.taskmanager.model.USER_ROLES;
 import com.kamiljach.taskmanager.model.User;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.ManyToMany;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -70,6 +65,9 @@ public class UserDto {
             taskDto.setId(task.getId());
             taskDto.setName(task.getName());
             taskDto.setStatus(task.getStatus());
+            taskDto.setDesc(task.getDescription());
+            taskDto.setDateOfCreation(task.getDateOfCreation());
+            taskDto.setPriority(task.getPriority());
 
             this.tasks.add(taskDto);
         }
@@ -80,6 +78,9 @@ public class UserDto {
             taskDto.setId(taskAdmin.getId());
             taskDto.setName(taskAdmin.getName());
             taskDto.setStatus(taskAdmin.getStatus());
+            taskDto.setDesc(taskAdmin.getDescription());
+            taskDto.setDateOfCreation(taskAdmin.getDateOfCreation());
+            taskDto.setPriority(taskAdmin.getPriority());
 
             this.tasksAdmin.add(taskDto);
         }

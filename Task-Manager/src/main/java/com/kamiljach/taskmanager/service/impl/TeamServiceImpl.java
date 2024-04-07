@@ -39,6 +39,7 @@ public class TeamServiceImpl implements TeamService {
     public TeamDto createTeam(CreateTeamRequest req) throws Exception{
         Team newTeam = new Team();
         newTeam.setName(req.getName());
+        teamRepository.save(newTeam);
 
         for(Long userId : req.getUsersIds()){
             Optional<User> optionalUser= userRepository.findById(userId);

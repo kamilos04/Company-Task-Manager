@@ -10,7 +10,9 @@ import com.kamiljach.taskmanager.repository.UserRepository;
 import com.kamiljach.taskmanager.request.task.CreateTaskRequest;
 import com.kamiljach.taskmanager.service.TaskService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,19 +29,15 @@ public class TaskServiceImpl implements TaskService {
         this.teamRepository = teamRepository;
     }
 
-//    @Override
-//    public Task createTask(CreateTaskRequest req) {
-//        Task newTask = new Task();
-//        newTask.setName(req.getName());
-//        newTask.setTeams(req.getTeam());
-//        return taskRepository.save(newTask);
-//    }
-
-
+    @Transactional
     @Override
     public TaskDto createTask(CreateTaskRequest req) throws Exception{
         Task newTask = new Task();
         newTask.setName(req.getName());
+        newTask.setDescription(req.getDesc());
+        newTask.setPriority(req.getPriority());
+        newTask.setDateOfCreation(new Date());
+        taskRepository.save(newTask);
 
         for(Long userId : req.getUsersIds()){
             Optional<User> optionalUser= userRepository.findById(userId);
@@ -47,8 +45,10 @@ public class TaskServiceImpl implements TaskService {
                 throw new Exception("Invalid users");
             }
             User user = optionalUser.get();
-
             newTask.getUsers().add(user);
+
+            user.getTasks().add(newTask);
+            userRepository.save(user);
         }
         for(Long userId : req.getAdminsIds()){
             Optional<User> optionalUser= userRepository.findById(userId);
@@ -57,6 +57,9 @@ public class TaskServiceImpl implements TaskService {
             }
             User user = optionalUser.get();
             newTask.getAdmins().add(user);
+
+            user.getTasksAdmin().add(newTask);
+            userRepository.save(user);
         }
         for(Long teamId : req.getTeamsIds()){
             Optional<Team> optionalTask= teamRepository.findById(teamId);
@@ -65,21 +68,11 @@ public class TaskServiceImpl implements TaskService {
             }
             Team team = optionalTask.get();
             newTask.getTeams().add(team);
-        }
-        taskRepository.save(newTask);
 
-        for(User user : newTask.getUsers()){
-            user.getTasks().add(newTask);
-            userRepository.save(user);
-        }
-        for(User user : newTask.getAdmins()){
-            user.getTasksAdmin().add(newTask);
-            userRepository.save(user);
-        }
-        for(Team team : newTask.getTeams()){
             team.getTasks().add(newTask);
             teamRepository.save(team);
         }
+        taskRepository.save(newTask);
 
 
         TaskDto taskDto = new TaskDto(newTask);

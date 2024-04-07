@@ -1,15 +1,12 @@
 package com.kamiljach.taskmanager.dto;
 
-import com.kamiljach.taskmanager.model.TASK_STATUS;
-import com.kamiljach.taskmanager.model.Task;
-import com.kamiljach.taskmanager.model.Team;
-import com.kamiljach.taskmanager.model.User;
-import jakarta.persistence.*;
+import com.kamiljach.taskmanager.model.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -20,6 +17,12 @@ public class TaskDto {
     private Long id;
 
     private String name;
+
+    private String desc;
+
+    private Date dateOfCreation;
+
+    private TASK_PRIORITY priority;
 
     private TASK_STATUS status;
 
@@ -33,6 +36,9 @@ public class TaskDto {
         this.id = task.getId();
         this.name = task.getName();
         this.status = task.getStatus();
+        this.desc = task.getDescription();
+        this.dateOfCreation = task.getDateOfCreation();
+        this.priority = task.getPriority();
 
         for(Team team : task.getTeams()){
             TeamDto teamDto = new TeamDto();
