@@ -176,7 +176,7 @@ public class TeamServiceImpl implements TeamService {
                 //Adding admins
                 for(Long userId : req.getAdminsIds()){
                     Optional<User> optionalUser = userRepository.findById(userId);
-                    if(optionalUser.isEmpty()){throw new Exception("Invalid users");}
+                    if(optionalUser.isEmpty()){throw new Exception("Invalid admins");}
                     User user = optionalUser.get();
                     if(!team.getAdmins().contains(user)){
                         team.getAdmins().add(user);
@@ -209,7 +209,7 @@ public class TeamServiceImpl implements TeamService {
                 //Adding tasks
                 for(Long taskId : req.getTasksIds()){
                     Optional<Task> optionalTask = taskRepository.findById(taskId);
-                    if(optionalTask.isEmpty()){throw new Exception("Invalid users");}
+                    if(optionalTask.isEmpty()){throw new Exception("Invalid tasks");}
                     Task task = optionalTask.get();
                     if(!team.getTasks().contains(task)){
                         team.getTasks().add(task);
