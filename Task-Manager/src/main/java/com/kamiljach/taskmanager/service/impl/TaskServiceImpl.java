@@ -92,7 +92,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskDto updateTask(UpdateTaskRequest req, String jwt) throws Exception {
         User requestUser = userService.findUserByJwt(jwt);
-        boolean statusPermission = true;
+        boolean statusPermission = false;
         boolean namePermission = false;
         boolean descPermission = false;
         boolean priorityPermission = false;
@@ -113,12 +113,37 @@ public class TaskServiceImpl implements TaskService {
             adminsPermission = true;
             teamsPermission = true;
         }
-        else if(requestUser.getTasksAdmin().contains(task)){
-            namePermission = true;
-            descPermission = true;
-            priorityPermission = true;
-            usersPermission = true;
-            teamsPermission = true;
+        else{
+            boolean isAdminByTeamAdmin = false;
+            for(Team t : requestUser.getTeamsAdmin()){
+                if(task.getTeams().contains(t)){
+                    isAdminByTeamAdmin = true;
+                    break;
+                }
+            }
+
+            if(requestUser.getTasksAdmin().contains(task) || isAdminByTeamAdmin){
+                namePermission = true;
+                descPermission = true;
+                priorityPermission = true;
+                usersPermission = true;
+                teamsPermission = true;
+                statusPermission = true;
+            }
+            else{
+                boolean isMemberOfTaskTeams = false;
+                for(Team t : requestUser.getTeams()){
+                    if(task.getTeams().contains(t)){
+                        isMemberOfTaskTeams = true;
+                        break;
+                    }
+                }
+                if(requestUser.getTasks().contains(task) || isMemberOfTaskTeams){
+                    statusPermission = true;
+                }
+            }
+
+
         }
 
 
