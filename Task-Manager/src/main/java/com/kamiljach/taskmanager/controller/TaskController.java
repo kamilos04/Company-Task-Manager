@@ -37,4 +37,11 @@ public class TaskController {
 //        List<Task> list= taskService.getAllTasks();
 //        return new ResponseEntity<>(list, HttpStatus.OK);
 //    }
+
+    @DeleteMapping("/task")
+    public ResponseEntity<Object> deleteTask(@RequestParam Long id, @RequestHeader("Authorization") String jwt) throws Exception{
+        taskService.deleteTask(id, jwt);
+        return new ResponseEntity<>(STR."Deleted task. ID: \{id}", HttpStatus.OK);
+
+    }
 }

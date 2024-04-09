@@ -294,4 +294,27 @@ public class TaskServiceImpl implements TaskService {
 //        List<Task> tasksList = taskRepository
 //
 //    }
+
+    @Override
+    public void deleteTask(Long taskId, String jwt) throws Exception {
+        Optional<Task> optionalTask = taskRepository.findById(taskId);
+        if(optionalTask.isEmpty()){
+            throw new Exception("Invalid task");
+        }
+        Task task = optionalTask.get();
+        for(User user : task.getUsers()){
+            user.getTasks().remove(task);
+            userRepository.save(user);
+        }
+        for(User user : task.getAdmins()){
+            user.getTasksAdmin().remove(task);
+            userRepository.save(user);
+        }
+        for(Team team : task.getTeams()){
+            team.getTasks().remove(task);
+            teamRepository.save(team);
+        }
+
+        taskRepository.delete(task);
+    }
 }

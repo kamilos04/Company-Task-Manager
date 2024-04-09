@@ -14,4 +14,6 @@ public interface TaskService {
 
     public TaskDto updateTask(UpdateTaskRequest req, String jwt) throws Exception;
     public List<Task> getAllTasks();
+
+    public void deleteTask(Long taskId, String jwt) throws Exception;
 }
