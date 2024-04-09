@@ -12,6 +12,8 @@ import com.kamiljach.taskmanager.request.team.UpdateTeamRequest;
 import com.kamiljach.taskmanager.request.team.CreateTeamRequest;
 import com.kamiljach.taskmanager.service.TeamService;
 import com.kamiljach.taskmanager.service.UserService;
+import org.hibernate.FetchNotFoundException;
+import org.hibernate.annotations.NotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,6 +39,9 @@ public class TeamServiceImpl implements TeamService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public TeamDto createTeam(CreateTeamRequest req) throws Exception{
+        Optional<Team> ifTeamWithSameNameExists = teamRepository.findByName(req.getName());
+        if(ifTeamWithSameNameExists.isPresent()){throw new Exception("Team with the same name is already exists");}
+
         Team newTeam = new Team();
         newTeam.setName(req.getName());
         teamRepository.save(newTeam);
@@ -88,6 +93,7 @@ public class TeamServiceImpl implements TeamService {
         }
         return teamsDto;
     }
+    
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -118,6 +124,8 @@ public class TeamServiceImpl implements TeamService {
 
         if(!req.getName().isEmpty() && req.getName() != null){
             if(namePermission){
+                Optional<Team> ifTeamWithSameNameExists = teamRepository.findByName(req.getName());
+                if(ifTeamWithSameNameExists.isPresent()){throw new Exception("Team with the same name is already exists");}
                 team.setName(req.getName());
             }
             else{
@@ -226,5 +234,29 @@ public class TeamServiceImpl implements TeamService {
         teamRepository.save(team);
         TeamDto teamDto = new TeamDto(team);
         return teamDto;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void deleteTeam(Long teamId, String jwt) throws Exception {
+        Optional<Team> optionalTeam = teamRepository.findById(teamId);
+        if(optionalTeam.isEmpty()){
+            throw new Exception("Invalid team");
+        }
+        Team team = optionalTeam.get();
+        for(User user : team.getUsers()){
+            user.getTeams().remove(team);
+            userRepository.save(user);
+        }
+        for(User user : team.getAdmins()){
+            user.getTeamsAdmin().remove(team);
+            userRepository.save(user);
+        }
+        for(Task task : team.getTasks()){
+            task.getTeams().remove(team);
+            taskRepository.save(task);
+        }
+
+        teamRepository.delete(team);
     }
 }

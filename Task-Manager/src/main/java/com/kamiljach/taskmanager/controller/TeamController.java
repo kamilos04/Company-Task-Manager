@@ -37,4 +37,11 @@ public class TeamController {
     public ResponseEntity<TeamDto> updateTeam(@RequestBody UpdateTeamRequest req, @RequestHeader("Authorization") String jwt) throws Exception {
         return new ResponseEntity<>(teamService.updateTeam(req, jwt), HttpStatus.OK);
     }
+
+    @DeleteMapping("/team")
+    public ResponseEntity<Object> deleteTeam(@RequestParam Long id, @RequestHeader("Authorization") String jwt) throws Exception{
+        teamService.deleteTeam(id, jwt);
+        return new ResponseEntity<>(STR."Deleted team. ID: \{id}", HttpStatus.OK);
+
+    }
 }

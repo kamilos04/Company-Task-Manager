@@ -37,7 +37,7 @@ public class TaskServiceImpl implements TaskService {
         this.userService = userService;
     }
 
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     @Override
     public TaskDto createTask(CreateTaskRequest req) throws Exception{
         Task newTask = new Task();
@@ -289,4 +289,9 @@ public class TaskServiceImpl implements TaskService {
     public List<Task> getAllTasks() {
         return taskRepository.findAll();
     }
+
+//    public List<TaskDto> getAllMyTasks(){
+//        List<Task> tasksList = taskRepository
+//
+//    }
 }
