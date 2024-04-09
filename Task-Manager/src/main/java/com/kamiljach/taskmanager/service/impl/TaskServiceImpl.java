@@ -297,11 +297,33 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public void deleteTask(Long taskId, String jwt) throws Exception {
+        User requestUser = userService.findUserByJwt(jwt);
         Optional<Task> optionalTask = taskRepository.findById(taskId);
         if(optionalTask.isEmpty()){
             throw new Exception("Invalid task");
         }
         Task task = optionalTask.get();
+
+        //Check permission
+        boolean permission = false;
+        if(requestUser.getRole().equals(USER_ROLES.SUPER_ADMIN)){permission = true;}
+        else {
+            boolean isAdminByTeamAdmin = false;
+            for(Team t : requestUser.getTeamsAdmin()){
+                if(task.getTeams().contains(t)){
+                    isAdminByTeamAdmin = true;
+                    break;
+                }
+            }
+
+            if(requestUser.getTasksAdmin().contains(task) || isAdminByTeamAdmin){
+                permission = true;
+            }
+        }
+        if(!permission){
+            throw new Exception("No permission");
+        }
+
         for(User user : task.getUsers()){
             user.getTasks().remove(task);
             userRepository.save(user);
