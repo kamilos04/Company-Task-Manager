@@ -239,6 +239,16 @@ public class TeamServiceImpl implements TeamService {
     @Transactional(rollbackFor = Exception.class)
     @Override
     public void deleteTeam(Long teamId, String jwt) throws Exception {
+        User requestUser = userService.findUserByJwt(jwt);
+        boolean permission = false;
+
+       if(requestUser.getRole().equals(USER_ROLES.SUPER_ADMIN)){
+           permission = true;
+       }
+       if(!permission){
+           throw new Exception("No permission");
+       }
+
         Optional<Team> optionalTeam = teamRepository.findById(teamId);
         if(optionalTeam.isEmpty()){
             throw new Exception("Invalid team");

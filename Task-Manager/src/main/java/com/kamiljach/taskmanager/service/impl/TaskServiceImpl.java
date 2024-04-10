@@ -339,4 +339,14 @@ public class TaskServiceImpl implements TaskService {
 
         taskRepository.delete(task);
     }
+
+    @Override
+    public List<TaskDto> findUsersAndHisTeamsTasks(Long userId, String jwt) {
+        List<Task> tasksList = taskRepository.findUsersAndHisTeamsTasks(userId);
+        List<TaskDto> tasksDtoList = new ArrayList<>();
+        for(Task task : tasksList){
+            tasksDtoList.add(new TaskDto(task));
+        }
+        return tasksDtoList;
+    }
 }

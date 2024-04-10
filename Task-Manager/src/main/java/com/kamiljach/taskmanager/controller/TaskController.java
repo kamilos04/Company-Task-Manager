@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api")
 public class TaskController {
@@ -43,5 +45,10 @@ public class TaskController {
         taskService.deleteTask(id, jwt);
         return new ResponseEntity<>(STR."Deleted task. ID: \{id}", HttpStatus.OK);
 
+    }
+
+    @GetMapping("/mytasks")
+    public ResponseEntity<List<TaskDto>> findUsersAndHisTeamsTasks(@RequestParam Long id,  @RequestHeader("Authorization") String jwt){
+        return new ResponseEntity<>(taskService.findUsersAndHisTeamsTasks(id, jwt), HttpStatus.OK);
     }
 }

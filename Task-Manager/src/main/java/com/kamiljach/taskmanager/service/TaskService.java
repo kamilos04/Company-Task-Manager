@@ -16,4 +16,6 @@ public interface TaskService {
     public List<Task> getAllTasks();
 
     public void deleteTask(Long taskId, String jwt) throws Exception;
+
+    public List<TaskDto> findUsersAndHisTeamsTasks(Long userId, String jwt);
 }
