@@ -5,6 +5,7 @@ import com.kamiljach.taskmanager.dto.TeamDto;
 import com.kamiljach.taskmanager.request.task.CreateTaskRequest;
 import com.kamiljach.taskmanager.request.task.UpdateTaskRequest;
 import com.kamiljach.taskmanager.request.team.UpdateTeamRequest;
+import com.kamiljach.taskmanager.response.task.MyTasksResponse;
 import com.kamiljach.taskmanager.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -48,7 +49,11 @@ public class TaskController {
     }
 
     @GetMapping("/mytasks")
-    public ResponseEntity<List<TaskDto>> findUsersAndHisTeamsTasks(@RequestParam Long id,  @RequestHeader("Authorization") String jwt){
-        return new ResponseEntity<>(taskService.findUsersAndHisTeamsTasks(id, jwt), HttpStatus.OK);
+    public ResponseEntity<MyTasksResponse> findUsersAndHisTeamsTasks(@RequestParam Long id,
+                                                                     @RequestParam String sortedBy,
+                                                                     @RequestParam Long pageNumber,
+                                                                     @RequestParam Long pageElementsNumber,
+                                                                     @RequestHeader("Authorization") String jwt) throws Exception{
+        return new ResponseEntity<>(taskService.findUsersAndHisTeamsTasks(id, sortedBy, pageNumber, pageElementsNumber, jwt), HttpStatus.OK);
     }
 }

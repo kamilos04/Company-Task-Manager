@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,7 +21,7 @@ public class TaskDto {
 
     private String desc;
 
-    private Date dateOfCreation;
+    private String dateOfCreation;
 
     private TASK_PRIORITY priority;
 
@@ -37,7 +38,8 @@ public class TaskDto {
         this.name = task.getName();
         this.status = task.getStatus();
         this.desc = task.getDescription();
-        this.dateOfCreation = task.getDateOfCreation();
+        this.dateOfCreation = dateToString(task.getDateOfCreation());
+        //this.dateOfCreation = task.getDateOfCreation();
         this.priority = task.getPriority();
 
         for(Team team : task.getTeams()){
@@ -72,5 +74,10 @@ public class TaskDto {
 
             this.admins.add(userDto);
         }
+    }
+
+    public String dateToString(Date date){
+        SimpleDateFormat simpleDateFormat= new SimpleDateFormat("dd-MM-yyyy HH:mm");
+        return simpleDateFormat.format(date);
     }
 }

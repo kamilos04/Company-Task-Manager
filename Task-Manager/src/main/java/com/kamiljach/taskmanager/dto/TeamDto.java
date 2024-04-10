@@ -58,7 +58,7 @@ public class TeamDto {
             taskDto.setName(task.getName());
             taskDto.setStatus(task.getStatus());
             taskDto.setDesc(task.getDescription());
-            taskDto.setDateOfCreation(task.getDateOfCreation());
+            taskDto.setDateOfCreation(taskDto.dateToString(task.getDateOfCreation()));
             taskDto.setPriority(task.getPriority());
 
             this.tasks.add(taskDto);

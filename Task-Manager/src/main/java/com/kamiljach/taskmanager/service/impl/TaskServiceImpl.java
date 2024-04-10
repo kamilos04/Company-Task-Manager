@@ -1,7 +1,6 @@
 package com.kamiljach.taskmanager.service.impl;
 
 import com.kamiljach.taskmanager.dto.TaskDto;
-import com.kamiljach.taskmanager.dto.TeamDto;
 import com.kamiljach.taskmanager.model.Task;
 import com.kamiljach.taskmanager.model.Team;
 import com.kamiljach.taskmanager.model.USER_ROLES;
@@ -11,16 +10,17 @@ import com.kamiljach.taskmanager.repository.TeamRepository;
 import com.kamiljach.taskmanager.repository.UserRepository;
 import com.kamiljach.taskmanager.request.task.CreateTaskRequest;
 import com.kamiljach.taskmanager.request.task.UpdateTaskRequest;
-import com.kamiljach.taskmanager.request.team.UpdateTeamRequest;
+import com.kamiljach.taskmanager.response.task.MyTasksResponse;
 import com.kamiljach.taskmanager.service.TaskService;
 import com.kamiljach.taskmanager.service.UserService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class TaskServiceImpl implements TaskService {
@@ -341,12 +341,20 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskDto> findUsersAndHisTeamsTasks(Long userId, String jwt) {
-        List<Task> tasksList = taskRepository.findUsersAndHisTeamsTasks(userId);
+    public MyTasksResponse findUsersAndHisTeamsTasks(Long userId, String sortedBy, Long pageNumber, Long pageElementsNumber, String jwt) throws Exception{
+        if(pageElementsNumber > 30){
+            throw new Exception("Invalid pageElementsNumber");
+        }
+
+        Pageable sortedByName = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
+        Page<Task> tasksPage = taskRepository.findUsersAndHisTeamsTasks(userId, sortedByName);
+        MyTasksResponse myTasksResponse = new MyTasksResponse();
+        myTasksResponse.setTotalElements(tasksPage.getTotalElements());
         List<TaskDto> tasksDtoList = new ArrayList<>();
-        for(Task task : tasksList){
+        for(Task task : tasksPage){
             tasksDtoList.add(new TaskDto(task));
         }
-        return tasksDtoList;
+        myTasksResponse.setTasks(tasksDtoList);
+        return myTasksResponse;
     }
 }

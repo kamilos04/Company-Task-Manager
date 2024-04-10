@@ -66,7 +66,7 @@ public class UserDto {
             taskDto.setName(task.getName());
             taskDto.setStatus(task.getStatus());
             taskDto.setDesc(task.getDescription());
-            taskDto.setDateOfCreation(task.getDateOfCreation());
+            taskDto.setDateOfCreation(taskDto.dateToString(task.getDateOfCreation()));
             taskDto.setPriority(task.getPriority());
 
             this.tasks.add(taskDto);
@@ -79,7 +79,7 @@ public class UserDto {
             taskDto.setName(taskAdmin.getName());
             taskDto.setStatus(taskAdmin.getStatus());
             taskDto.setDesc(taskAdmin.getDescription());
-            taskDto.setDateOfCreation(taskAdmin.getDateOfCreation());
+            taskDto.setDateOfCreation(taskDto.dateToString(taskAdmin.getDateOfCreation()));
             taskDto.setPriority(taskAdmin.getPriority());
 
             this.tasksAdmin.add(taskDto);
