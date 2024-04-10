@@ -53,7 +53,8 @@ public class TaskController {
                                                                      @RequestParam String sortedBy,
                                                                      @RequestParam Long pageNumber,
                                                                      @RequestParam Long pageElementsNumber,
+                                                                     @RequestParam List<String> filters,
                                                                      @RequestHeader("Authorization") String jwt) throws Exception{
-        return new ResponseEntity<>(taskService.findUsersAndHisTeamsTasks(id, sortedBy, pageNumber, pageElementsNumber, jwt), HttpStatus.OK);
+        return new ResponseEntity<>(taskService.findUsersAndHisTeamsTasks(id, sortedBy, pageNumber, pageElementsNumber, filters, jwt), HttpStatus.OK);
     }
 }

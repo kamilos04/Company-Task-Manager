@@ -341,13 +341,28 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public MyTasksResponse findUsersAndHisTeamsTasks(Long userId, String sortedBy, Long pageNumber, Long pageElementsNumber, String jwt) throws Exception{
+    public MyTasksResponse findUsersAndHisTeamsTasks(Long userId, String sortedBy, Long pageNumber, Long pageElementsNumber,
+                                                     List<String> filters, String jwt) throws Exception{
         if(pageElementsNumber > 30){
             throw new Exception("Invalid pageElementsNumber");
         }
+        List<String> filtersPriority = new ArrayList<>();
+        List<String> filtersStatus = new ArrayList<>();
 
-        Pageable sortedByName = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
-        Page<Task> tasksPage = taskRepository.findUsersAndHisTeamsTasks(userId, sortedByName);
+        for(String filter : filters){
+            System.out.println(filter);
+            if(Objects.equals(filter, "low")){filtersPriority.add("LOW");}
+            else if(Objects.equals(filter, "medium")){filtersPriority.add("MEDIUM");}
+            else if(Objects.equals(filter, "high")){filtersPriority.add("HIGH");}
+            else if(Objects.equals(filter, "waiting")){filtersStatus.add("WAITING");}
+            else if(Objects.equals(filter, "inProgress")){filtersStatus.add("IN_PROGRESS");}
+            else if(Objects.equals(filter, "finished")){filtersStatus.add("FINISHED");}
+        }
+
+        System.out.println(filters);
+        System.out.println(filtersStatus);
+        Pageable pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
+        Page<Task> tasksPage = taskRepository.findUsersAndHisTeamsTasks(userId, filtersPriority, filtersStatus, pageable);
         MyTasksResponse myTasksResponse = new MyTasksResponse();
         myTasksResponse.setTotalElements(tasksPage.getTotalElements());
         List<TaskDto> tasksDtoList = new ArrayList<>();

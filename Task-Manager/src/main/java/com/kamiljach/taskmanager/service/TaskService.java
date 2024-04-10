@@ -18,5 +18,5 @@ public interface TaskService {
 
     public void deleteTask(Long taskId, String jwt) throws Exception;
 
-    public MyTasksResponse findUsersAndHisTeamsTasks(Long userId, String sortedBy, Long pageNumber, Long pageElementsNumber, String jwt) throws Exception;
+    public MyTasksResponse findUsersAndHisTeamsTasks(Long userId, String sortedBy, Long pageNumber, Long pageElementsNumber, List<String> filters, String jwt) throws Exception;
 }
