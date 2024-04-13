@@ -27,9 +27,9 @@ public class TeamController {
     }
 
     //All teams
-    @GetMapping("/team")
-    public ResponseEntity<List<TeamDto>> allTeams(@RequestHeader("Authorization") String jwt){
-        return new ResponseEntity<>(teamService.allTeams(), HttpStatus.OK);
+    @GetMapping("/allteams")
+    public ResponseEntity<List<TeamDto>> allTeams(@RequestHeader("Authorization") String jwt) throws Exception {
+        return new ResponseEntity<>(teamService.allTeams(jwt), HttpStatus.OK);
     }
 
     //Update team

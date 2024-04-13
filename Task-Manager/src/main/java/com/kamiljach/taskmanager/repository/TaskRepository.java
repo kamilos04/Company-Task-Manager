@@ -36,18 +36,17 @@ public interface TaskRepository extends JpaRepository<Task, Long> {
                                          Pageable pageable);
 
 
+    @Query("SELECT DISTINCT task FROM Task task " +
+//            "LEFT JOIN task.users taskUsers " +
+//            "LEFT JOIN task.admins taskAdmins " +
+//            "LEFT JOIN task.teams taskTeams " +
+//            "LEFT JOIN taskTeams.users " +
+//            "LEFT JOIN taskTeams.admins " +
+            "WHERE task.status IN :filtersStatus " +
+            "AND task.priority IN :filtersPriority")
+    Page<Task> findAllTasksWithSortingAndFiltering(@Param("filtersPriority") List<String> filtersPriority,
+                                                   @Param("filtersStatus") List<String> filtersStatus,
+                                                   Pageable pageable);
 
 
-//    @Query("SELECT DISTINCT task FROM Task task " +
-//            "LEFT JOIN FETCH task.users taskUsers " +
-//            "LEFT JOIN FETCH task.teams taskTeams " +
-//            "LEFT JOIN FETCH taskTeams.users " +
-//            "WHERE :userId IN (SELECT user.id FROM task.users user) " +
-//            "OR :userId IN (SELECT user.id FROM taskTeams.users user)")
-
-//    @Query("SELECT DISTINCT task FROM Task task " +
-//            "LEFT JOIN FETCH task.users taskUsers " +
-//            "LEFT JOIN FETCH task.teams taskTeams " +
-////            "LEFT JOIN FETCH taskTeams.users " +
-//            "WHERE :userId IN (SELECT user.id FROM task.users user) ")
 }

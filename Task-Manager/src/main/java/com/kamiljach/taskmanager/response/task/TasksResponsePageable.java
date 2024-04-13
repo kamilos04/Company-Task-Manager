@@ -10,7 +10,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class MyTasksResponse {
+public class TasksResponsePageable {
     private Long totalElements;
     private List<TaskDto> tasks;
 }

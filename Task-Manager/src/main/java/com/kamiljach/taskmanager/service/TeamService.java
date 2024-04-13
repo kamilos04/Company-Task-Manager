@@ -9,7 +9,7 @@ import java.util.List;
 public interface TeamService {
     public TeamDto createTeam(CreateTeamRequest req) throws Exception;
 
-    public List<TeamDto> allTeams();
+    public List<TeamDto> allTeams(String jwt) throws Exception;
 
     public TeamDto updateTeam(UpdateTeamRequest req, String jwt) throws Exception;
 

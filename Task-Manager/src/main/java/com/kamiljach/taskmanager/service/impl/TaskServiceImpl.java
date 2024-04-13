@@ -10,7 +10,7 @@ import com.kamiljach.taskmanager.repository.TeamRepository;
 import com.kamiljach.taskmanager.repository.UserRepository;
 import com.kamiljach.taskmanager.request.task.CreateTaskRequest;
 import com.kamiljach.taskmanager.request.task.UpdateTaskRequest;
-import com.kamiljach.taskmanager.response.task.MyTasksResponse;
+import com.kamiljach.taskmanager.response.task.TasksResponsePageable;
 import com.kamiljach.taskmanager.service.TaskService;
 import com.kamiljach.taskmanager.service.UserService;
 import org.springframework.data.domain.Page;
@@ -106,6 +106,7 @@ public class TaskServiceImpl implements TaskService {
 
         //Check permissions
         if(requestUser.getRole()== USER_ROLES.SUPER_ADMIN){
+            statusPermission = true;
             namePermission = true;
             descPermission = true;
             priorityPermission = true;
@@ -128,6 +129,7 @@ public class TaskServiceImpl implements TaskService {
                 priorityPermission = true;
                 usersPermission = true;
                 teamsPermission = true;
+                adminsPermission = true;
                 statusPermission = true;
             }
             else{
@@ -285,15 +287,42 @@ public class TaskServiceImpl implements TaskService {
         TaskDto taskDto = new TaskDto(task);
         return taskDto;
     }
-    @Override
-    public List<Task> getAllTasks() {
-        return taskRepository.findAll();
-    }
 
-//    public List<TaskDto> getAllMyTasks(){
-//        List<Task> tasksList = taskRepository
-//
-//    }
+    @Override
+    public TasksResponsePageable getAllTasksWithSortingAndFiltering(String sortedBy, Long pageNumber, Long pageElementsNumber,
+                                                                    List<String> filters, String jwt) throws Exception{
+        boolean permission = false;
+        User userRequest = userService.findUserByJwt(jwt);
+        if(userRequest.getRole().equals(USER_ROLES.SUPER_ADMIN)){
+            permission = true;
+        }
+        if(!permission){throw new Exception("No permission");}
+
+        List<String> filtersPriority = new ArrayList<>();
+        List<String> filtersStatus = new ArrayList<>();
+
+        for(String filter : filters){
+            if(Objects.equals(filter, "low")){filtersPriority.add("LOW");}
+            else if(Objects.equals(filter, "medium")){filtersPriority.add("MEDIUM");}
+            else if(Objects.equals(filter, "high")){filtersPriority.add("HIGH");}
+            else if(Objects.equals(filter, "waiting")){filtersStatus.add("WAITING");}
+            else if(Objects.equals(filter, "inProgress")){filtersStatus.add("IN_PROGRESS");}
+            else if(Objects.equals(filter, "finished")){filtersStatus.add("FINISHED");}
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
+        Page<Task> tasksPage = taskRepository.findAllTasksWithSortingAndFiltering(filtersPriority, filtersStatus, pageable);
+
+        List<TaskDto> tasksDtoList = new ArrayList<>();
+        for(Task task : tasksPage){
+            tasksDtoList.add(new TaskDto(task));
+        }
+
+        TasksResponsePageable response = new TasksResponsePageable();
+        response.setTasks(tasksDtoList);
+        response.setTotalElements(tasksPage.getTotalElements());
+        return response;
+    }
 
     @Override
     public void deleteTask(Long taskId, String jwt) throws Exception {
@@ -341,8 +370,8 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public MyTasksResponse findUsersAndHisTeamsTasks(Long userId, String sortedBy, Long pageNumber, Long pageElementsNumber,
-                                                     List<String> filters, String jwt) throws Exception{
+    public TasksResponsePageable findUsersAndHisTeamsTasks(Long userId, String sortedBy, Long pageNumber, Long pageElementsNumber,
+                                                           List<String> filters, String jwt) throws Exception{
         boolean permission = false;
         User user = userService.findUserByJwt(jwt);
         if(user.getRole().equals(USER_ROLES.SUPER_ADMIN)){
@@ -370,13 +399,13 @@ public class TaskServiceImpl implements TaskService {
 
         Pageable pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
         Page<Task> tasksPage = taskRepository.findUsersAndHisTeamsTasks(userId, filtersPriority, filtersStatus, pageable);
-        MyTasksResponse myTasksResponse = new MyTasksResponse();
-        myTasksResponse.setTotalElements(tasksPage.getTotalElements());
+        TasksResponsePageable tasksResponsePageable = new TasksResponsePageable();
+        tasksResponsePageable.setTotalElements(tasksPage.getTotalElements());
         List<TaskDto> tasksDtoList = new ArrayList<>();
         for(Task task : tasksPage){
             tasksDtoList.add(new TaskDto(task));
         }
-        myTasksResponse.setTasks(tasksDtoList);
-        return myTasksResponse;
+        tasksResponsePageable.setTasks(tasksDtoList);
+        return tasksResponsePageable;
     }
 }

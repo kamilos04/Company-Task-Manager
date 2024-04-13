@@ -80,8 +80,16 @@ public class TeamServiceImpl implements TeamService {
 
     }
 
+
     @Override
-    public List<TeamDto> allTeams() {
+    public List<TeamDto> allTeams(String jwt) throws Exception{
+        User user = userService.findUserByJwt(jwt);
+//        boolean permission = false;
+//        if(user.getRole().equals(USER_ROLES.SUPER_ADMIN)){
+//            permission = true;
+//        }
+//        if(!permission){throw new Exception("No permission");}
+
         List<Team> teams = teamRepository.findAll();
         List<TeamDto> teamsDto = new ArrayList<>();
         for(Team team : teams){
@@ -119,7 +127,7 @@ public class TeamServiceImpl implements TeamService {
         }
 
 
-        if(!req.getName().isEmpty() && req.getName() != null){
+        if(req.getName() != null &&!req.getName().isEmpty()){
             if(namePermission){
                 Optional<Team> ifTeamWithSameNameExists = teamRepository.findByName(req.getName());
                 if(ifTeamWithSameNameExists.isPresent()){throw new Exception("Team with the same name is already exists");}
