@@ -12,9 +12,6 @@ import com.kamiljach.taskmanager.request.team.UpdateTeamRequest;
 import com.kamiljach.taskmanager.request.team.CreateTeamRequest;
 import com.kamiljach.taskmanager.service.TeamService;
 import com.kamiljach.taskmanager.service.UserService;
-import org.hibernate.FetchNotFoundException;
-import org.hibernate.annotations.NotFound;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -268,5 +265,28 @@ public class TeamServiceImpl implements TeamService {
         }
 
         teamRepository.delete(team);
+    }
+
+
+    @Override
+    public List<TeamDto> findUsersTeams(Long userId, String jwt) throws Exception {
+        User user = userService.findUserByJwt(jwt);
+        boolean permission = false;
+        if(user.getRole().equals(USER_ROLES.SUPER_ADMIN)){
+            permission = true;
+        }
+        else if(user.getId().equals(userId)){
+            permission = true;
+        }
+        if(!permission){throw new Exception("No permission");}
+
+        List<Team> teamsList = teamRepository.findUsersTeams(userId);
+        List<TeamDto> teamsDtoList = new ArrayList<>();
+
+        for(Team team: teamsList){
+            teamsDtoList.add(new TeamDto(team));
+        }
+
+        return teamsDtoList;
     }
 }

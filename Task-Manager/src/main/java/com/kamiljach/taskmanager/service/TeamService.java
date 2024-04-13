@@ -14,4 +14,6 @@ public interface TeamService {
     public TeamDto updateTeam(UpdateTeamRequest req, String jwt) throws Exception;
 
     public void deleteTeam(Long teamId, String jwt) throws Exception;
+
+    public List<TeamDto> findUsersTeams(Long userId, String jwt) throws Exception;
 }

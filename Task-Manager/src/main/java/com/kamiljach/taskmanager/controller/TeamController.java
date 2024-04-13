@@ -44,4 +44,10 @@ public class TeamController {
         return new ResponseEntity<>(STR."Deleted team. ID: \{id}", HttpStatus.OK);
 
     }
+
+    @GetMapping("/myteams")
+    public ResponseEntity<List<TeamDto>> teamsOfUser(@RequestParam Long id, @RequestHeader("Authorization") String jwt) throws Exception{
+        return new ResponseEntity<>(teamService.findUsersTeams(id, jwt), HttpStatus.OK);
+
+    }
 }
