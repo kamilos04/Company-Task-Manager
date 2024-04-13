@@ -343,6 +343,16 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public MyTasksResponse findUsersAndHisTeamsTasks(Long userId, String sortedBy, Long pageNumber, Long pageElementsNumber,
                                                      List<String> filters, String jwt) throws Exception{
+        boolean permission = false;
+        User user = userService.findUserByJwt(jwt);
+        if(user.getRole().equals(USER_ROLES.SUPER_ADMIN)){
+            permission = true;
+        }
+        else if(user.getId().equals(userId)){
+            permission = true;
+        }
+        if(!permission){throw new Exception("No permission");}
+
         if(pageElementsNumber > 30){
             throw new Exception("Invalid pageElementsNumber");
         }
@@ -350,7 +360,6 @@ public class TaskServiceImpl implements TaskService {
         List<String> filtersStatus = new ArrayList<>();
 
         for(String filter : filters){
-            System.out.println(filter);
             if(Objects.equals(filter, "low")){filtersPriority.add("LOW");}
             else if(Objects.equals(filter, "medium")){filtersPriority.add("MEDIUM");}
             else if(Objects.equals(filter, "high")){filtersPriority.add("HIGH");}
@@ -359,8 +368,6 @@ public class TaskServiceImpl implements TaskService {
             else if(Objects.equals(filter, "finished")){filtersStatus.add("FINISHED");}
         }
 
-        System.out.println(filters);
-        System.out.println(filtersStatus);
         Pageable pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
         Page<Task> tasksPage = taskRepository.findUsersAndHisTeamsTasks(userId, filtersPriority, filtersStatus, pageable);
         MyTasksResponse myTasksResponse = new MyTasksResponse();
