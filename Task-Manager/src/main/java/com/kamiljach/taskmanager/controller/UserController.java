@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(("/api"))
 public class UserController {
@@ -27,6 +29,11 @@ public class UserController {
         UserDto userDto = userService.findUserDtoByEmail(email);
 
         return new ResponseEntity<>(userDto, HttpStatus.OK);
+    }
+
+    @GetMapping("/allusers")
+    public ResponseEntity<List<UserDto>> allUsers(@RequestHeader("Authorization") String jwt) throws Exception {
+        return new ResponseEntity<>(userService.findAllUsersSorted(jwt), HttpStatus.OK);
     }
 
 }

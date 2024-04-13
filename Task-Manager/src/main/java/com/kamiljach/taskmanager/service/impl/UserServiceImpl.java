@@ -5,8 +5,11 @@ import com.kamiljach.taskmanager.dto.UserDto;
 import com.kamiljach.taskmanager.model.User;
 import com.kamiljach.taskmanager.repository.UserRepository;
 import com.kamiljach.taskmanager.service.UserService;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -47,6 +50,21 @@ public class UserServiceImpl implements UserService {
     }
 
 
+    @Override
+    public List<UserDto> findAllUsersSorted(String jwt) throws Exception {
+        Sort sort = Sort.by(Sort.Direction.ASC, "surname");
+        List<User> userList = userRepository.findAll(sort);
+        List<UserDto> usersDto = new ArrayList<>();
+        for(User user : userList){
+            usersDto.add(new UserDto(user));
+        }
+        for(UserDto userDto : usersDto){
+            userDto.setTasks(null);
+            userDto.setTasksAdmin(null);
+            userDto.setTeams(null);
+            userDto.setTeamsAdmin(null);
 
-
+        }
+        return usersDto;
+    }
 }
