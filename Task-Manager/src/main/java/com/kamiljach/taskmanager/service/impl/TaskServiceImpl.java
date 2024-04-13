@@ -412,7 +412,7 @@ public class TaskServiceImpl implements TaskService {
         }
 
 
-//        Pageable pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
+
         Page<Task> tasksPage = taskRepository.findUsersAndHisTeamsTasks(userId, filtersPriority, filtersStatus, pageable);
         TasksResponsePageable tasksResponsePageable = new TasksResponsePageable();
         tasksResponsePageable.setTotalElements(tasksPage.getTotalElements());
