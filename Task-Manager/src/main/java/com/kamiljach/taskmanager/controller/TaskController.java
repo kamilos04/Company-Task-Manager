@@ -37,9 +37,10 @@ public class TaskController {
     public ResponseEntity<TasksResponsePageable> getAllTasks(@RequestParam String sortedBy,
                                                      @RequestParam Long pageNumber,
                                                      @RequestParam Long pageElementsNumber,
+                                                     @RequestParam String sortingDirection,
                                                      @RequestParam List<String> filters,
                                                      @RequestHeader("Authorization") String jwt) throws Exception {
-        TasksResponsePageable response= taskService.getAllTasksWithSortingAndFiltering(sortedBy, pageNumber, pageElementsNumber, filters, jwt);
+        TasksResponsePageable response= taskService.getAllTasksWithSortingAndFiltering(sortedBy, pageNumber, pageElementsNumber, filters, sortingDirection, jwt);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
@@ -55,8 +56,9 @@ public class TaskController {
                                                                            @RequestParam String sortedBy,
                                                                            @RequestParam Long pageNumber,
                                                                            @RequestParam Long pageElementsNumber,
+                                                                           @RequestParam String sortingDirection,
                                                                            @RequestParam List<String> filters,
                                                                            @RequestHeader("Authorization") String jwt) throws Exception{
-        return new ResponseEntity<>(taskService.findUsersAndHisTeamsTasks(id, sortedBy, pageNumber, pageElementsNumber, filters, jwt), HttpStatus.OK);
+        return new ResponseEntity<>(taskService.findUsersAndHisTeamsTasks(id, sortedBy, pageNumber, pageElementsNumber, filters, sortingDirection, jwt), HttpStatus.OK);
     }
 }

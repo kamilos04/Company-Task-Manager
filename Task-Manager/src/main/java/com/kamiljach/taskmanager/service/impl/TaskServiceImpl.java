@@ -290,7 +290,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TasksResponsePageable getAllTasksWithSortingAndFiltering(String sortedBy, Long pageNumber, Long pageElementsNumber,
-                                                                    List<String> filters, String jwt) throws Exception{
+                                                                    List<String> filters, String sortingDirection, String jwt) throws Exception{
         boolean permission = false;
         User userRequest = userService.findUserByJwt(jwt);
         if(userRequest.getRole().equals(USER_ROLES.SUPER_ADMIN)){
@@ -309,8 +309,15 @@ public class TaskServiceImpl implements TaskService {
             else if(Objects.equals(filter, "inProgress")){filtersStatus.add("IN_PROGRESS");}
             else if(Objects.equals(filter, "finished")){filtersStatus.add("FINISHED");}
         }
+        Pageable pageable;
+        if(sortingDirection.equals("desc")){
+            pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(Sort.Direction.DESC, sortedBy));
+        }
+        else{
+            pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(Sort.Direction.ASC, sortedBy));
+        }
 
-        Pageable pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
+//        Pageable pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
         Page<Task> tasksPage = taskRepository.findAllTasksWithSortingAndFiltering(filtersPriority, filtersStatus, pageable);
 
         List<TaskDto> tasksDtoList = new ArrayList<>();
@@ -371,7 +378,7 @@ public class TaskServiceImpl implements TaskService {
 
     @Override
     public TasksResponsePageable findUsersAndHisTeamsTasks(Long userId, String sortedBy, Long pageNumber, Long pageElementsNumber,
-                                                           List<String> filters, String jwt) throws Exception{
+                                                           List<String> filters, String sortingDirection, String jwt) throws Exception{
         boolean permission = false;
         User user = userService.findUserByJwt(jwt);
         if(user.getRole().equals(USER_ROLES.SUPER_ADMIN)){
@@ -396,8 +403,16 @@ public class TaskServiceImpl implements TaskService {
             else if(Objects.equals(filter, "inProgress")){filtersStatus.add("IN_PROGRESS");}
             else if(Objects.equals(filter, "finished")){filtersStatus.add("FINISHED");}
         }
+        Pageable pageable;
+        if(sortingDirection.equals("desc")){
+            pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(Sort.Direction.DESC, sortedBy));
+        }
+        else{
+            pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(Sort.Direction.ASC, sortedBy));
+        }
 
-        Pageable pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
+
+//        Pageable pageable = PageRequest.of(pageNumber.intValue(),pageElementsNumber.intValue(), Sort.by(sortedBy));
         Page<Task> tasksPage = taskRepository.findUsersAndHisTeamsTasks(userId, filtersPriority, filtersStatus, pageable);
         TasksResponsePageable tasksResponsePageable = new TasksResponsePageable();
         tasksResponsePageable.setTotalElements(tasksPage.getTotalElements());
