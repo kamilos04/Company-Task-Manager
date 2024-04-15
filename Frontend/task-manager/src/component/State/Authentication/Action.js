@@ -47,8 +47,8 @@ export const getProfile=()=>async(dispatch)=>{
     dispatch({type:PROFILE_REQUEST})
     console.log("Test")
     try {
-        // const jwt = localStorage.getItem("jwt")
-        const jwt = "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTMxODY1NzIsImV4cCI6MTcxMzE5NTIxMiwiZW1haWwiOiJ0ZXN0MTExQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjoiIn0.UXKD66N8mZTScpQITCyzYD_59sVSkvPRJpG3Maj_I0g"
+        const jwt = localStorage.getItem("jwt")
+        // const jwt = "eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE3MTMxODY1NzIsImV4cCI6MTcxMzE5NTIxMiwiZW1haWwiOiJ0ZXN0MTExQGdtYWlsLmNvbSIsImF1dGhvcml0aWVzIjoiIn0.UXKD66N8mZTScpQITCyzYD_59sVSkvPRJpG3Maj_I0g"
         const {data} = await axios.get(`${API_URL}/api/profile`, {
             headers:{
                 Authorization:`Bearer ${jwt}`
