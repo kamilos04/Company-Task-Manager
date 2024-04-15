@@ -44,6 +44,9 @@ public class AuthController {
             throw new Exception("Email is already used with another account");
 
         }
+        if(!(user.getPassword().length()>=5)){
+            throw new Exception("Password to short");
+        }
 
         User createdUser = new User();
         createdUser.setEmail(user.getEmail());
