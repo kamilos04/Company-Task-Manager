@@ -6,6 +6,7 @@ const initialState = {
     jwt: null,
     success: null,
     profile: null,
+    fail: null
 }
 
 export const authReducer=(state = initialState, action)=>{
@@ -20,15 +21,15 @@ export const authReducer=(state = initialState, action)=>{
         case REGISTER_SUCCESS:
         case LOGIN_SUCCESS:
             return{
-                ...state, isLoading:false, jwt:action.payload, success:"Login"
+                ...state, isLoading:false, jwt:action.payload, success:"login"
             };
         case LOGOUT_SUCCESS:
             return{
-                ...state, isLoading:false, jwt: null, success:"Logout"
+                ...state, isLoading:false, jwt: null, success:"logout"
             };
         case PROFILE_SUCCESS:
             return{
-                ...state, isLoading:false, success:"Profile", profile: action.payload
+                ...state, isLoading:false, success:"profile", profile: action.payload
             }
         
         case REGISTER_FAILURE:
@@ -36,7 +37,7 @@ export const authReducer=(state = initialState, action)=>{
         case LOGOUT_FAILURE:
         case PROFILE_FAILURE:
             return{
-                ...state, isLoading:false, error: action.payload
+                ...state, isLoading:false, error: action.payload, profile: null, fail: "profile"
             };
         default:
             return{...state}

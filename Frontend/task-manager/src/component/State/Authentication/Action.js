@@ -43,7 +43,7 @@ export const logoutUser=()=>async(dispatch)=>{
     }
 }
 
-export const getProfile=()=>async(dispatch)=>{
+export const getProfile=(reqData)=>async(dispatch)=>{
     dispatch({type:PROFILE_REQUEST})
     console.log("Test")
     try {

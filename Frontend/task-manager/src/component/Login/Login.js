@@ -2,7 +2,7 @@ import { Button, Stack, TextField } from '@mui/material'
 import React, { useEffect } from 'react'
 import { Form, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { loginUser } from '../State/Authentication/Action'
+import { getProfile, loginUser } from '../State/Authentication/Action'
 import { useNavigate } from 'react-router-dom'
 import { store } from '../State/store'
 
@@ -11,13 +11,31 @@ const Login = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const auth = useSelector(store=>store.auth)
+  console.log(auth.profile)
+  console.log(auth.jwt)
 
   useEffect(() => {
-    if(auth.success === "Login"){
+    dispatch(getProfile());
+  }, [dispatch]);
+
+
+//   useEffect(() => {
+//     if(auth.fail === "profile" && auth.profile === null){
+//         navigate("/")
+//     }
+// },[auth.fail])
+
+  useEffect(() => {
+    if(auth.success === "login"){
     navigate("/")
   }
   }, [auth.success])
-
+  
+  useEffect(() =>{
+    if(auth.profile !== null){
+      navigate("/")
+    }
+  }, [auth.profile])
 
   
 
