@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getProfile, loginUser } from '../State/Authentication/Action'
 import { useNavigate } from 'react-router-dom'
 import { store } from '../State/store'
+import { lightTheme } from '../Theme/LightTheme'
 
 const Login = () => {
   const { register, handleSubmit } = useForm()
@@ -18,19 +19,14 @@ const Login = () => {
     dispatch(getProfile());
   }, [dispatch]);
 
-
-//   useEffect(() => {
-//     if(auth.fail === "profile" && auth.profile === null){
-//         navigate("/")
-//     }
-// },[auth.fail])
-
+  //if login succeffully - go to /
   useEffect(() => {
     if(auth.success === "login"){
     navigate("/")
   }
   }, [auth.success])
   
+  //if jwt is ok - go to /
   useEffect(() =>{
     if(auth.profile !== null){
       navigate("/")
@@ -58,10 +54,16 @@ const Login = () => {
       <div className='bg-white p-7 rounded-lg drop-shadow-lg flex-col'>
         <h1 className='text-3xl font-medium mt-4 mb-4'>Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
-          <Stack spacing={1}>
+          <Stack spacing={1} sx={{
+                        width: "25rem",
+                        [lightTheme.breakpoints.down('sm')]: {
+                            width: "80vw",
+                        },
+                    }}>
             <TextField
               color="primary"
-              className='w-[20rem] text-trans'
+              className=''
+              fullWidth
               id="email"
               label="E-mail"
               variant="standard" 
@@ -69,7 +71,8 @@ const Login = () => {
 
             <TextField
               type="password"
-              className='w-[20rem]'
+              className=''
+              fullWidth
               id="password"
               label="Password"
               variant="standard" 
@@ -78,15 +81,15 @@ const Login = () => {
           </Stack>
           <Button
             type="submit"
-            className='w-[20rem]'
+            className='w-[10rem]'
             sx={{ marginTop: "2rem" }}
             variant="contained">
             Sign in
           </Button>
         </form>
         <div className='pt-8 flex justify-center items-center text-[1rem]'>
-          <span>Don't have account?</span>
-          <Button sx={{ color: "#000000", fontSize: "1rem", fontWeight: 500 }}> Sign up</Button>
+          <span>Don't have an account?</span>
+          <Button onClick={() => (navigate("/register"))} sx={{ color: "#000000", fontSize: "1rem", fontWeight: 500 }}> Sign up</Button>
         </div>
       </div>
     </div>
