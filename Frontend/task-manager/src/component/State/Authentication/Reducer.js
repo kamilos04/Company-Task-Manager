@@ -39,6 +39,9 @@ export const authReducer=(state = initialState, action)=>{
         case REGISTER_FAILURE:
         case LOGIN_FAILURE:
         case LOGOUT_FAILURE:
+            return{
+                ...state, isLoading:false, error: action.payload, fail: "login"
+            };
         case PROFILE_FAILURE:
             return{
                 ...state, isLoading:false, error: action.payload, profile: null, fail: "profile"
