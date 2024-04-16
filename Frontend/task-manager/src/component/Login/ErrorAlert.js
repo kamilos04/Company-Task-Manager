@@ -1,7 +1,7 @@
 import { Alert } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 
-const InvalidLoginAlert = (props) => {
+const ErrorAlert = (props) => {
     useEffect(() => {
         const timer = setTimeout(() => {
             props.setV(false)
@@ -11,7 +11,6 @@ const InvalidLoginAlert = (props) => {
     }, [])
 
     const handleClose = () => {
-        console.log("t")
         props.setV(false)
     }
 
@@ -19,10 +18,10 @@ const InvalidLoginAlert = (props) => {
     return (
         <div>
             <Alert sx={{ position: "fixed", top: "2rem", left: "50%", transform: "translateX(-50%)"}} variant="filled" severity="error" onClose={() => {handleClose()}}>
-                This is a filled error Alert.
+                {props.text}
             </Alert>
         </div>
     )
 }
 
-export default InvalidLoginAlert
+export default ErrorAlert

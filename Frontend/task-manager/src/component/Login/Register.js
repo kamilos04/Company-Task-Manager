@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
@@ -6,12 +6,15 @@ import { getProfile, registerUser } from '../State/Authentication/Action'
 import { Button, Grid, Stack, TextField } from '@mui/material'
 import { store } from '../State/store'
 import { lightTheme } from '../Theme/LightTheme'
+import ErrorAlert from './ErrorAlert'
 
 const Register = () => {
     const { register, handleSubmit } = useForm()
     const dispatch = useDispatch()
     const navigate = useNavigate()
     const auth = useSelector(store => store.auth)
+    const [visibleAlert, setVisibleAlert] = useState(false)
+    const [alertText, setAlertText] = useState("")
 
     useEffect(() => {
         dispatch(getProfile());
@@ -34,27 +37,52 @@ const Register = () => {
 
 
 
-
     const onSubmit = (data) => {
         console.log(data)
-        const requestBody = {
-            userData: {
-                email: data.email,
-                password: data.password,
-                name: data.name,
-                surname: data.surname
+        let isOkToSubmit = true
+        if (data.email == "") {
+            setAlertText("Invalid email!")
+            setVisibleAlert(true)
+            isOkToSubmit = false
+        }
+        if (data.name == "") {
+            setAlertText("Invalid name!")
+            setVisibleAlert(true)
+            isOkToSubmit = false
+        }
+        if (data.surname == "") {
+            setAlertText("Invalid surname!")
+            setVisibleAlert(true)
+            isOkToSubmit = false
+        }
+        if (data.password.length < 5) {
+            setAlertText("Password has to be longer than 5 characters!")
+            setVisibleAlert(true)
+            isOkToSubmit = false
+        }
+
+        if (isOkToSubmit === true) {
+            const requestBody = {
+                userData: {
+                    email: data.email,
+                    password: data.password,
+                    name: data.name,
+                    surname: data.surname
+                }
+            }
+            try {
+                dispatch(registerUser(requestBody))
+            }
+            catch (error) {
+                console.log(error)
             }
         }
-        try {
-            dispatch(registerUser(requestBody))
-        }
-        catch (error) {
-            console.log(error)
-        }
+
     }
 
     return (
         <div className='flex justify-center items-center h-screen'>
+            {visibleAlert && <ErrorAlert text={alertText} setV={setVisibleAlert} />}
             <div className='bg-white p-7 rounded-lg drop-shadow-lg flex-col'>
                 <h1 className='text-3xl font-medium mt-4 mb-4'>Register</h1>
                 <form onSubmit={handleSubmit(onSubmit)}>
@@ -106,12 +134,12 @@ const Register = () => {
                         </Grid>
                     </Grid>
                     <Button
-                                type="submit"
-                                className='w-[10rem]'
-                                sx={{ marginTop: "2rem"}}
-                                variant="contained">
-                                Sign up
-                            </Button>
+                        type="submit"
+                        className='w-[10rem]'
+                        sx={{ marginTop: "2rem" }}
+                        variant="contained">
+                        Sign up
+                    </Button>
 
 
                 </form>
