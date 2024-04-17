@@ -16,7 +16,6 @@ function App() {
       <CssBaseline/>
       <div className="App">
         <HomeRoute/>
-        <Navbar />
       </div>
     </ThemeProvider>
 

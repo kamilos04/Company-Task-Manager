@@ -40,17 +40,17 @@ const Register = () => {
     const onSubmit = (data) => {
         console.log(data)
         let isOkToSubmit = true
-        if (data.email == "") {
+        if (data.email === "") {
             setAlertText("Invalid email!")
             setVisibleAlert(true)
             isOkToSubmit = false
         }
-        if (data.name == "") {
+        if (data.name === "") {
             setAlertText("Invalid name!")
             setVisibleAlert(true)
             isOkToSubmit = false
         }
-        if (data.surname == "") {
+        if (data.surname === "") {
             setAlertText("Invalid surname!")
             setVisibleAlert(true)
             isOkToSubmit = false
@@ -81,7 +81,7 @@ const Register = () => {
     }
 
     return (
-        <div className='flex justify-center items-center h-screen'>
+        <div className='flex justify-center items-center h-screen text-center'>
             {visibleAlert && <ErrorAlert text={alertText} setV={setVisibleAlert} />}
             <div className='bg-white p-7 rounded-lg drop-shadow-lg flex-col'>
                 <h1 className='text-3xl font-medium mt-4 mb-4'>Register</h1>
@@ -115,7 +115,7 @@ const Register = () => {
                         <Grid item xs={12}>
                             <TextField
                                 color="primary"
-                                className='w-[20rem]'
+                                className=''
                                 id="email"
                                 fullWidth
                                 label="E-mail"
@@ -125,7 +125,7 @@ const Register = () => {
                         <Grid item xs={12}>
                             <TextField
                                 type="password"
-                                className='w-[20rem]'
+                                className=''
                                 id="password"
                                 fullWidth
                                 label="Password"

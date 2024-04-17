@@ -66,7 +66,7 @@ const Login = () => {
 
     <div className='flex justify-center items-center h-screen'>
       {visible === true && <ErrorAlert setV={setVisible} text="Invalid email or password!" />}
-      <div className='bg-white p-7 rounded-lg drop-shadow-lg flex-col'>
+      <div className='bg-white p-7 rounded-lg drop-shadow-lg flex-col text-center'>
         <h1 className='text-3xl font-medium mt-4 mb-4'>Login</h1>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={1} sx={{
