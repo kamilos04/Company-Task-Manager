@@ -16,7 +16,7 @@ const Navbar = () => {
       </div>
 
       <div>
-        <AccountCircleIcon className='text-4xl mr-6 block' />
+        <AccountCircleIcon className='text-4xl mr-6 block cursor-pointer' />
       </div>
     </div>
   )
