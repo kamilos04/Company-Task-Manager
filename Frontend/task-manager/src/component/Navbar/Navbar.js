@@ -8,11 +8,11 @@ const Navbar = () => {
   const location = useLocation()
   console.log(location)
   return (
-    <div className='w-[100%] shadow-md flex flex-row h-[3.5rem] justify-between items-center'>
+    <div className='w-[100%] shadow-lg  bg-blue-500 flex flex-row h-[4rem] justify-between items-center'>
       <div className='flex flex-row items-center'>
-        <div className='ml-8 text-xl font-bold text-zinc-700 mr-[2rem]'>TASK MANAGER</div>
-        <Button onClick={() => {navigate("/")}} className={`ml-6  ${location.pathname=="/" ? "text-pink-600" : "text-zinc-700"} text-base normal-case`} variant="text">Home</Button>
-        <Button onClick={() => {navigate("/tasks")}} className={`ml-2  ${location.pathname=="/tasks" ? "text-pink-600" : "text-zinc-700"} text-base normal-case`} variant="text">Tasks</Button>
+        <div className='ml-8 text-xl font-bold text-white mr-[2rem]'>TASK MANAGER</div>
+        <Button onClick={() => {navigate("/")}} className={`ml-6  ${location.pathname=="/" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Home</Button>
+        <Button onClick={() => {navigate("/tasks")}} className={`ml-2  ${location.pathname=="/tasks" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Tasks</Button>
       </div>
 
       <div>

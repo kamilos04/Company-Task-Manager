@@ -28,7 +28,9 @@ export const lightTheme=createTheme({
         },
         background:{
             main:"#ffffff",
-            default:"#eef2ff",
+            default:"#f8f9fd",
+            // default:"#eef2ff",
+            // default:"#030714",
             // default:"#D8E1FF",
             paper:"#dbdbdb"
         },
