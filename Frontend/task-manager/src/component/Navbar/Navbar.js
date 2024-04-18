@@ -6,7 +6,6 @@ import { useLocation, useNavigate } from 'react-router-dom';
 const Navbar = () => {
   const navigate = useNavigate()
   const location = useLocation()
-  console.log(location)
   return (
     <div className='w-[100%] shadow-lg  bg-blue-500 flex flex-row h-[4rem] justify-between items-center'>
       <div className='flex flex-row items-center'>

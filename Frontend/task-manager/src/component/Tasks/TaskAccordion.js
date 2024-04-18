@@ -1,11 +1,11 @@
-import { Accordion, AccordionDetails, AccordionSummary, Chip } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from 'react'
 
 const TaskAccordion = () => {
     return (
-        <div>
-            <Accordion className='bg-white w-[50rem] shadow-lg'>
+        <div className='flex w-[100%] mt-5'>
+            <Accordion className='bg-slate-200 w-[100%] shadow-lg'>
                 <AccordionSummary
                     className='font-medium'
                     expandIcon={<ExpandMoreIcon />}
@@ -28,11 +28,11 @@ const TaskAccordion = () => {
                 </AccordionSummary>
                 <AccordionDetails className=''>
                     <div>
-                        <span className='font-bold'>Description:<br/></span>
-                    Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska.
+                        <span className='font-bold'>Description:<br /></span>
+                        Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska.
                     </div>
                     <div className='mt-3'>
-                        <span className='font-bold'>Teams:<br/></span>
+                        <span className='font-bold'>Teams:<br /></span>
                         <div className='font-medium mt-1'>
                             <Chip className='bg-green-300 mr-3 shadow-md' label="Backend developers" />
                             <Chip className='bg-green-300 mr-3 shadow-md' label="Help-desk" />
@@ -41,7 +41,7 @@ const TaskAccordion = () => {
                         </div>
                     </div>
                     <div className='mt-3'>
-                        <span className='font-bold'>Users:<br/></span>
+                        <span className='font-bold'>Users:<br /></span>
                         <div className='font-medium mt-1'>
                             <Chip className='bg-violet-300 mr-3 shadow-md' label="Kamil Jach" />
                             <Chip className='bg-violet-300 mr-3 shadow-md' label="Jan Kowalski" />
@@ -50,16 +50,17 @@ const TaskAccordion = () => {
                         </div>
                     </div>
                     <div className='mt-3'>
-                        <span className='font-bold'>Admins:<br/></span>
+                        <span className='font-bold'>Admins:<br /></span>
                         <div className='font-medium mt-1'>
                             <Chip className='bg-cyan-200 mr-3 shadow-md' label="Kamil Jach" />
                             <Chip className='bg-cyan-200 mr-3 shadow-md' label="Jan Kowalski" />
                         </div>
                     </div>
-                    
+
                 </AccordionDetails>
             </Accordion>
         </div>
+
     )
 }
 
