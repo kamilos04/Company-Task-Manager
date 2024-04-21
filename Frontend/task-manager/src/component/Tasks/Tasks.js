@@ -13,7 +13,7 @@ const Tasks = () => {
     <div className='flex flex-col'>
       <Navbar />
       <div className='flex flex-row' >
-        <div className='flex w-[25rem] shadow-md flex-col'>
+        <div className='flex shadow-md flex-col'>
           <FilterBar />
 
         </div>
