@@ -2,7 +2,7 @@ import React from 'react'
 import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 
-const FilterBar = () => {
+const FilterBar = (props) => {
     const { handleSubmit, control } = useForm({
         defaultValues: {
             waiting: true,
@@ -17,7 +17,7 @@ const FilterBar = () => {
 
     return (
         <div>
-            <form onSubmit={handleSubmit((data) => console.log(data))}>
+            <form onSubmit={handleSubmit((data) => props.handleFilterSubmit(data))}>
                 <div className='flex flex-col bg-slate-50 items-left pl-3 ml-3 mt-3 pt-2 pr-3 pb-4 border-solid border border-gray-200 shadow-md rounded-lg'>
                     <span className='text-xl font-medium'>Status</span>
 

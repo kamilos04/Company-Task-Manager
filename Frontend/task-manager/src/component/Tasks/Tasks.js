@@ -5,17 +5,77 @@ import CheckIfProfileLoad from '../Logic/checkIfProfileLoad'
 import { Button, Checkbox, FormControlLabel, FormLabel, Pagination } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 import FilterBar from './FilterBar'
+import { getMyTasks } from '../State/Tasks/Action'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 
 const Tasks = () => {
-  
+  const auth = useSelector(store=>store.auth)
+  const dispatch = useDispatch()
+  CheckIfProfileLoad()
   const handlePageChange = (event, value) => {
     setPage(value)
     console.log(event)
   }
   
-  CheckIfProfileLoad()
+  const handleFilterSubmit = (data) => {
+    console.log(data)
+    let sortedBy = "name"
+    let sortingDirection = "asc"
+    let filters = []
+    if(data.sortedBy === "nameAsc"){
+      sortedBy = "name"
+      sortingDirection = "asc"
+    }
+    else if(data.sortedBy === "nameDesc"){
+      sortedBy = "name"
+      sortingDirection = "desc"
+    }
+    else if(data.sortedBy === "dateOfCreationAsc"){
+      sortedBy = "dateOfCreation"
+      sortingDirection = "asc"
+    }
+    else if(data.sortedBy === "dateOfCreationDesc"){
+      sortedBy = "dateOfCreation"
+      sortingDirection = "desc"
+    }
+    if(data.low === true){
+      filters.push("low")
+    }
+    if(data.medium === true){
+      filters.push("medium")
+    }
+    if(data.high === true){
+      filters.push("high")
+    }
+    if(data.wating === true){
+      filters.push("waiting")
+    }
+    if(data.inProgress === true){
+      filters.push("inProgress")
+    }
+    if(data.finished === true){
+      filters.push("finished")
+    }
+
+    const requestBody = {
+        userId: auth.profile.id,
+        sortedBy: sortedBy,
+        pageNumber: page, 
+        filters: filters,
+        sortingDirection: sortingDirection
+    }
+    try {
+      dispatch(getMyTasks(requestBody))
+    }
+    catch (error) {
+      console.log(error)
+    }
+  }
+
+
+
   const [page, setPage] = useState(1)
   console.log(page)
   return (
@@ -23,7 +83,7 @@ const Tasks = () => {
       <Navbar />
       <div className='flex flex-row' >
         <div className='flex flex-col'>
-          <FilterBar />
+          <FilterBar handleFilterSubmit={handleFilterSubmit}/>
 
         </div>
         <div className='flex w-[100%] mr-40 ml-40 flex-col'>
