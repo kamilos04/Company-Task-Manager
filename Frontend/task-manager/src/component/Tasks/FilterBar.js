@@ -11,14 +11,14 @@ const FilterBar = () => {
             low: true,
             medium: true,
             high: true,
-            sortedBy: null
+            sortedBy: "nameAsc"
         }
     })
 
     return (
         <div>
             <form onSubmit={handleSubmit((data) => console.log(data))}>
-                <div className='flex flex-col items-left ml-6 mt-3'>
+                <div className='flex flex-col bg-slate-50 items-left pl-3 ml-3 mt-3 pt-2 pr-3 pb-4 border-solid border border-gray-200 shadow-md rounded-lg'>
                     <span className='text-xl font-medium'>Status</span>
 
                     <Controller
@@ -115,7 +115,7 @@ const FilterBar = () => {
                         name="sortedBy"
                         render={({
                             field: { value, onChange } }) => (
-                            <FormControl className='w-[16rem] mt-5 mr-6' size='small'>
+                            <FormControl className='w-[16rem] mt-5' size='small'>
                                 <InputLabel className='text-black' id="demo-simple-select-label">Sorted by</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
@@ -127,8 +127,8 @@ const FilterBar = () => {
                                 >
                                     <MenuItem value="nameAsc">Name A-Z</MenuItem>
                                     <MenuItem value="nameDesc">Name Z-A</MenuItem>
-                                    <MenuItem value="dateOfCreationAsc">Date of creation - ascending</MenuItem>
-                                    <MenuItem value="dateOfCreationDesc">Date of creation - descending</MenuItem>
+                                    <MenuItem value="dateOfCreationAsc">Date of creation - oldest</MenuItem>
+                                    <MenuItem value="dateOfCreationDesc">Date of creation - latest</MenuItem>
                                 </Select>
                             </FormControl>
 

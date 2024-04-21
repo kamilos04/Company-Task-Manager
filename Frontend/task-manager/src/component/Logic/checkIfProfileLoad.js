@@ -7,7 +7,7 @@ export default function CheckIfProfileLoad(){
     const dispatch=useDispatch()
     const auth = useSelector(store=>store.auth)
     const navigate = useNavigate()
-  
+    
     useEffect(() => {
       dispatch(getProfile());
     }, [dispatch]);
