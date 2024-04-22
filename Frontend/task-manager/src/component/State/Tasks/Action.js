@@ -1,25 +1,39 @@
 import axios from "axios"
 import { API_URL } from "../../config/api"
-import { MYTASKS_FAILURE, MYTASKS_REQUEST, MYTASKS_SUCCESS } from "./ActionType"
+import { createAsyncThunk } from "@reduxjs/toolkit"
 
-export const getMyTasks=(reqData)=>async(dispatch)=>{
-    dispatch({type:MYTASKS_REQUEST})
-    try {
+// export const getMyTasks=(reqData)=>async(dispatch)=>{
+//     dispatch({type:MYTASKS_REQUEST})
+//     try {
+//         console.log(`${API_URL}/api/mytasks?id=${reqData.userId}&sortedBy=${reqData.sortedBy}&pageNumber=${reqData.pageNumber}&pageElementsNumber=10&filters=${reqData.filters}&sortingDirection=${reqData.sortingDirection}`)
+//         const jwt = localStorage.getItem("jwt")
+//         const {data} = await axios.get(`${API_URL}/api/mytasks?id=${reqData.userId}&sortedBy=${reqData.sortedBy}&pageNumber=${reqData.pageNumber}&pageElementsNumber=10&filters=${reqData.filters}&sortingDirection=${reqData.sortingDirection}`, {
+//                          headers:{
+//                              Authorization:`Bearer ${jwt}`
+//                          }
+//                      })
+
+//         dispatch({type:MYTASKS_SUCCESS, payload: {tasks: data.tasks, totalElements: data.totalElements}})
+//     }
+//     catch (error) {
+//         console.log("error", error)
+//         dispatch({type:MYTASKS_FAILURE, payload:error})
+//     }
+// }
+
+export const fetchMyTasks = createAsyncThunk("tasks/fetchMytasks", async (reqData) => {
+        console.log(`${API_URL}/api/mytasks?id=${reqData.userId}&sortedBy=${reqData.sortedBy}&pageNumber=${reqData.pageNumber}&pageElementsNumber=10&filters=${reqData.filters}&sortingDirection=${reqData.sortingDirection}`)
         const jwt = localStorage.getItem("jwt")
-        const {data} = await axios.post(`${API_URL}/api/mytasks?id=${reqData.userId}&sortedBy=${reqData.sortedBy}&pageNumber=${reqData.pageNumber}&pageElementsNumber=10&filters=${reqData.filters}&sortingDirection=${reqData.sortingDirection}`, {
+        const {data} = await axios.get(`${API_URL}/api/mytasks?id=${reqData.userId}&sortedBy=${reqData.sortedBy}&pageNumber=${reqData.pageNumber}&pageElementsNumber=10&filters=${reqData.filters}&sortingDirection=${reqData.sortingDirection}`, {
                          headers:{
                              Authorization:`Bearer ${jwt}`
                          }
                      })
-
-        console.log("mytasks")
-        dispatch({type:MYTASKS_SUCCESS, payload: {tasks: data.tasks, totalElements: data.totalElements}})
-    }
-    catch (error) {
-        console.log("error", error)
-        dispatch({type:MYTASKS_FAILURE, payload:error})
-    }
-}
+        return data
+        // dispatch({type:MYTASKS_SUCCESS, payload: {tasks: data.tasks, totalElements: data.totalElements}})
+        // console.log("error", error)
+        // dispatch({type:MYTASKS_FAILURE, payload:error})
+})
 
 // export const loginUser=(reqData)=>async(dispatch)=>{
 //     dispatch({type:LOGIN_REQUEST})

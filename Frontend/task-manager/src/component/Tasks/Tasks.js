@@ -1,17 +1,18 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Navbar from '../Navbar/Navbar'
 import TaskAccordion from './TaskAccordion'
 import CheckIfProfileLoad from '../Logic/checkIfProfileLoad'
 import { Button, Checkbox, FormControlLabel, FormLabel, Pagination } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 import FilterBar from './FilterBar'
-import { getMyTasks } from '../State/Tasks/Action'
 import { useDispatch, useSelector } from 'react-redux'
+import { fetchMyTasks } from '../State/Tasks/Action'
 
 
 
 const Tasks = () => {
   const auth = useSelector(store=>store.auth)
+  const tasks = useSelector(store=>store.tasks)
   const dispatch = useDispatch()
   CheckIfProfileLoad()
   const handlePageChange = (event, value) => {
@@ -49,7 +50,7 @@ const Tasks = () => {
     if(data.high === true){
       filters.push("high")
     }
-    if(data.wating === true){
+    if(data.waiting === true){
       filters.push("waiting")
     }
     if(data.inProgress === true){
@@ -67,17 +68,15 @@ const Tasks = () => {
         sortingDirection: sortingDirection
     }
     try {
-      dispatch(getMyTasks(requestBody))
+      dispatch(fetchMyTasks(requestBody))
     }
     catch (error) {
       console.log(error)
     }
   }
 
-
-
   const [page, setPage] = useState(1)
-  console.log(page)
+
   return (
     <div className='flex flex-col'>
       <Navbar />
