@@ -17,7 +17,6 @@ const Tasks = () => {
   CheckIfProfileLoad()
   const handlePageChange = (event, value) => {
     setPage(value)
-    console.log(event)
   }
   
   const handleFilterSubmit = (data) => {

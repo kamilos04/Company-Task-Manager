@@ -10,19 +10,9 @@ const Home = () => {
     const auth = useSelector(store=>store.auth)
     const navigate = useNavigate()
   
-    // useEffect(() => {
-    //   dispatch(getProfile());
-    // }, [dispatch]);
-        
-    // //If profile didnt download - go to /login
-    // useEffect(() => {
-    //     if(auth.fail === "profile" && auth.profile === null){
-    //         navigate("/login")
-    //     }
-    // },[auth.fail])
     CheckIfProfileLoad()
 
-    console.log(auth.profile)
+    // console.log(auth.profile)
     return (
     <div>
       <Navbar/>

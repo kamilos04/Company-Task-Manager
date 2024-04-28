@@ -2,7 +2,7 @@ import { Alert, Button, Stack, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Form, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProfile, loginUser } from '../State/Authentication/Action'
+import { getProfile, loginUserRequest } from '../State/Authentication/Action'
 import { useNavigate } from 'react-router-dom'
 import { store } from '../State/store'
 import { lightTheme } from '../Theme/LightTheme'
@@ -54,7 +54,7 @@ const Login = () => {
       }
     }
     try {
-      dispatch(loginUser(requestBody))
+      dispatch(loginUserRequest(requestBody))
     }
     catch (error) {
       console.log(error)

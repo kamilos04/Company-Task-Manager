@@ -1,41 +1,40 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchMyTasks } from "./Action"
+import { loginUserRequest } from "./Action"
 
 const initialState = {
-    mytasks: null,
     isLoading: false,
     error: null,
+    jwt: null,
     success: null,
-    fail: null,
-    totalElements: null
+    profile: null,
+    fail: null
 }
 
-const tasksSlice = createSlice({
-    name: "tasks",
+const authenticationSlice = createSlice({
+    name: "auth",
     initialState,
     reducers:{},
     extraReducers: builder => {
-        builder.addCase(fetchMyTasks.pending, (state, action) => {
+        builder.addCase(loginUserRequest.pending, (state, action) => {
             state.isLoading = true
             state.error=null
             state.success= null
             state.fail = null
             console.log("pending")
         })
-        .addCase(fetchMyTasks.fulfilled, (state, action) => {
+        .addCase(loginUserRequest.fulfilled, (state, action) => {
             state.isLoading = false
-            state.success= "fetchMyTasks"
-            state.mytasks = action.payload.mytasks
-            state.totalElements = action.payload.totalElements
+            state.success= "login"
+            state.jwt = action.payload
             console.log("fulfilled")
         })
-        .addCase(fetchMyTasks.rejected, (state, action) => {
+        .addCase(loginUserRequest.rejected, (state, action) => {
             state.isLoading = false
             state.error=action.error
-            state.fail="fetchMyTasks"
+            state.fail="login"
             console.log("rejected")
         })
     }
 })
 
-export default tasksSlice.reducer
+export default authenticationSlice.reducer
