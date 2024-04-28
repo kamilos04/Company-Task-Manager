@@ -2,7 +2,7 @@ import { Alert, Button, Stack, TextField } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import { Form, useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
-import { getProfile, loginUserRequest } from '../State/Authentication/Action'
+import { fetchProfile, loginUserRequest } from '../State/Authentication/Action'
 import { useNavigate } from 'react-router-dom'
 import { store } from '../State/store'
 import { lightTheme } from '../Theme/LightTheme'
@@ -16,7 +16,7 @@ const Login = () => {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
-    dispatch(getProfile());
+    dispatch(fetchProfile());
   }, [dispatch]);
 
   //if login succeffully - go to /

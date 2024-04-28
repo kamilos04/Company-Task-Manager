@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
-import { getProfile, registerUser } from '../State/Authentication/Action'
+import { fetchProfile, getProfile, registerUserRequest } from '../State/Authentication/Action'
 import { Button, Grid, Stack, TextField } from '@mui/material'
 import { store } from '../State/store'
 import { lightTheme } from '../Theme/LightTheme'
@@ -12,12 +12,13 @@ const Register = () => {
     const { register, handleSubmit } = useForm()
     const dispatch = useDispatch()
     const navigate = useNavigate()
-    const auth = useSelector(store => store.auth)
     const [visibleAlert, setVisibleAlert] = useState(false)
     const [alertText, setAlertText] = useState("")
+    const auth = useSelector(store => store.auth)
+
 
     useEffect(() => {
-        dispatch(getProfile());
+        dispatch(fetchProfile());
     }, [dispatch]);
 
     //if jwt is ok - go to /
@@ -32,7 +33,7 @@ const Register = () => {
         if (auth.success === "register") {
             navigate("/")
         }
-    }, [auth.success])
+    },[auth.success])
 
 
 
@@ -71,7 +72,7 @@ const Register = () => {
                 }
             }
             try {
-                dispatch(registerUser(requestBody))
+                dispatch(registerUserRequest(requestBody))
             }
             catch (error) {
                 console.log(error)

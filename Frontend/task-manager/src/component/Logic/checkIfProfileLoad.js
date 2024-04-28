@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getProfile } from '../State/Authentication/Action';
+import { fetchProfile} from '../State/Authentication/Action';
 
 export default function CheckIfProfileLoad(){
     const dispatch=useDispatch()
-    const auth = useSelector(store=>store.auth)
+    const auth = useSelector((store)=>store.auth)
     const navigate = useNavigate()
     
     useEffect(() => {
-      dispatch(getProfile());
+      dispatch(fetchProfile());
     }, [dispatch]);
         
     //If profile didnt download - go to /login
