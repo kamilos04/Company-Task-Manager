@@ -25,7 +25,7 @@ const tasksSlice = createSlice({
         .addCase(fetchMyTasks.fulfilled, (state, action) => {
             state.isLoading = false
             state.success= "fetchMyTasks"
-            state.mytasks = action.payload.mytasks
+            state.mytasks = action.payload.tasks
             state.totalElements = action.payload.totalElements
             console.log("fulfilled")
         })

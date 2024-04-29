@@ -2,8 +2,9 @@ import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider } from '@m
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from 'react'
 
-const TaskAccordion = () => {
+const TaskAccordion = (props) => {
     return (
+
         <div className='flex w-[100%] mt-5'>
             <Accordion className='bg-slate-200 w-[100%] shadow-lg'>
                 <AccordionSummary
@@ -13,8 +14,8 @@ const TaskAccordion = () => {
                 >
                     <div className='flex flex-row justify-between items-center w-[100%]'>
                         <div className='flex flex-row '>
-                            <span className='mr-8 font-bold'>Nazwa taska</span>
-                            <span className=''>Date of creation: 09-04-2024 13:05</span>
+                            <span className='mr-8 font-bold'>{props.task.name}</span>
+                            <span className=''>Date of creation: {props.task.dateOfCreation}</span>
                         </div>
                         <div className='flex flex-row '>
                             <Chip className='bg-green-500 mr-3 shadow-md' label="Low priority" />

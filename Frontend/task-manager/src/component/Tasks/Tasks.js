@@ -11,60 +11,59 @@ import { fetchMyTasks } from '../State/Tasks/Action'
 
 
 const Tasks = () => {
-  const auth = useSelector(store=>store.auth)
-  const tasks = useSelector(store=>store.tasks)
+  const auth = useSelector(store => store.auth)
+  const tasks = useSelector(store => store.tasks)
   const dispatch = useDispatch()
   CheckIfProfileLoad()
   const handlePageChange = (event, value) => {
     setPage(value)
   }
-  
   const handleFilterSubmit = (data) => {
     console.log(data)
     let sortedBy = "name"
     let sortingDirection = "asc"
     let filters = []
-    if(data.sortedBy === "nameAsc"){
+    if (data.sortedBy === "nameAsc") {
       sortedBy = "name"
       sortingDirection = "asc"
     }
-    else if(data.sortedBy === "nameDesc"){
+    else if (data.sortedBy === "nameDesc") {
       sortedBy = "name"
       sortingDirection = "desc"
     }
-    else if(data.sortedBy === "dateOfCreationAsc"){
+    else if (data.sortedBy === "dateOfCreationAsc") {
       sortedBy = "dateOfCreation"
       sortingDirection = "asc"
     }
-    else if(data.sortedBy === "dateOfCreationDesc"){
+    else if (data.sortedBy === "dateOfCreationDesc") {
       sortedBy = "dateOfCreation"
       sortingDirection = "desc"
     }
-    if(data.low === true){
+    if (data.low === true) {
       filters.push("low")
     }
-    if(data.medium === true){
+    if (data.medium === true) {
       filters.push("medium")
     }
-    if(data.high === true){
+    if (data.high === true) {
       filters.push("high")
     }
-    if(data.waiting === true){
+    if (data.waiting === true) {
       filters.push("waiting")
     }
-    if(data.inProgress === true){
+    if (data.inProgress === true) {
       filters.push("inProgress")
     }
-    if(data.finished === true){
+    if (data.finished === true) {
       filters.push("finished")
     }
 
     const requestBody = {
-        userId: auth.profile.id,
-        sortedBy: sortedBy,
-        pageNumber: page, 
-        filters: filters,
-        sortingDirection: sortingDirection
+      userId: auth.profile.id,
+      sortedBy: sortedBy,
+      pageNumber: page,
+      filters: filters,
+      sortingDirection: sortingDirection
     }
     try {
       dispatch(fetchMyTasks(requestBody))
@@ -81,10 +80,15 @@ const Tasks = () => {
       <Navbar />
       <div className='flex flex-row' >
         <div className='flex flex-col'>
-          <FilterBar handleFilterSubmit={handleFilterSubmit}/>
+          <FilterBar handleFilterSubmit={handleFilterSubmit} />
 
         </div>
         <div className='flex w-[100%] mr-40 ml-40 flex-col'>
+          {tasks.mytasks?.map((task) => {
+            // console.log(task)
+            return <TaskAccordion task={task}/>
+          })}
+          {/* <TaskAccordion />
           <TaskAccordion />
           <TaskAccordion />
           <TaskAccordion />
@@ -93,8 +97,7 @@ const Tasks = () => {
           <TaskAccordion />
           <TaskAccordion />
           <TaskAccordion />
-          <TaskAccordion />
-          <TaskAccordion />
+          <TaskAccordion /> */}
           <div className='flex flex-row justify-center w-full mt-7'>
             <Pagination count={3} color="primary" size='large' page={page} onChange={handlePageChange} />
           </div>
