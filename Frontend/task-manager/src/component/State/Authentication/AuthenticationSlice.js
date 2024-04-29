@@ -14,11 +14,11 @@ const authenticationSlice = createSlice({
     name: "auth",
     initialState,
     reducers:{
-        // logout(state){
-        //     state.success = "logout"
-        //     state.jwt = null
-        //     state.profile = null
-        // }
+        logout(state){
+            state.success = "logout"
+            state.jwt = null
+            state.profile = null
+        }
     },
     extraReducers: builder => {
         builder.addCase(loginUserRequest.pending, (state, action) => {
@@ -77,5 +77,5 @@ const authenticationSlice = createSlice({
         })
     }
 })
-
+export const { logout } = authenticationSlice.actions
 export default authenticationSlice.reducer
