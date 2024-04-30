@@ -64,7 +64,7 @@ const Tasks = () => {
     const requestBody = {
       userId: auth.profile.id,
       sortedBy: sortedBy,
-      pageNumber: page,
+      pageNumber: page-1,
       filters: filters,
       sortingDirection: sortingDirection
     }

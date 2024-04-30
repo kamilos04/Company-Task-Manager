@@ -2,6 +2,7 @@ import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider } from '@m
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from 'react'
 import PriorityChip from './PriorityChip';
+import StatusChip from './StatusChip';
 
 const TaskAccordion = (props) => {
     return (
@@ -20,7 +21,7 @@ const TaskAccordion = (props) => {
                         </div>
                         <div className='flex flex-row '>
                             <PriorityChip type={props.task.priority}/>
-                            <Chip className='bg-green-500 mr-3 shadow-md' label="Waiting" />
+                            <StatusChip type={props.task.status}/>
                         </div>
 
 
