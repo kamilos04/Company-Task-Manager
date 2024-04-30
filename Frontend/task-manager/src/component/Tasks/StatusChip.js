@@ -13,10 +13,9 @@ const StatusChip = (props) => {
       text= "In progress"
     }
     else if(props.type === "FINISHED"){
-      color = "bg-orange-300"
+      color = "bg-fuchsia-400"
       text= "Finished"
     }
-    console.log(color)
     return (
       <div>
         <Chip className={`${color} mr-3 shadow-md`} label={text} />

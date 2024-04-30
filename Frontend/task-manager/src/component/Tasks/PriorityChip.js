@@ -16,7 +16,6 @@ const PriorityChip = (props) => {
     color = "bg-red-500"
     text= "High priority"
   }
-  console.log(color)
   return (
     <div>
       <Chip className={`${color} mr-3 shadow-md`} label={text} />

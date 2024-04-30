@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../Navbar/Navbar'
 import TaskAccordion from './TaskAccordion'
 import CheckIfProfileLoad from '../Logic/checkIfProfileLoad'
@@ -13,16 +13,50 @@ import { fetchMyTasks } from '../State/Tasks/Action'
 const Tasks = () => {
   const auth = useSelector(store => store.auth)
   const tasks = useSelector(store => store.tasks)
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState(1)
   const dispatch = useDispatch()
+  const filteringData = useRef({
+    userId: auth.profile?.id,
+    sortedBy: "name",
+    pageNumber: page-1,
+    filters: ['low','medium','high','waiting','inProgress','finished'],
+    sortingDirection: 'asc'
+  })
+
+  useEffect(() => {
+    filteringData.current.userId = auth.profile?.id
+    filteringData.current.pageNumber = page - 1
+    if(auth.profile){
+      try {
+      dispatch(fetchMyTasks(filteringData.current))
+    }
+    catch (error) {
+      console.log(error)
+    }
+    }
+    
+  }, [auth.profile, page])
+
+
+  // useEffect(() => {
+  //   filteringData.current.pageNumber = page - 1
+    
+  // }, [page])
+
   CheckIfProfileLoad()
 
   const handlePageChange = (event, value) => {
     setPage(value)
+    // filteringData.current.pageNumber = page - 1
+    // try {
+    //   dispatch(fetchMyTasks(filteringData.current))
+    // }
+    // catch (error) {
+    //   console.log(error)
+    // }
   }
 
   const handleFilterSubmit = (data) => {
-    console.log(data)
     let sortedBy = "name"
     let sortingDirection = "asc"
     let filters = []
@@ -61,22 +95,21 @@ const Tasks = () => {
       filters.push("finished")
     }
 
-    const requestBody = {
-      userId: auth.profile.id,
+    filteringData.current = {
+      userId: auth.profile?.id,
       sortedBy: sortedBy,
       pageNumber: page-1,
       filters: filters,
       sortingDirection: sortingDirection
     }
     try {
-      dispatch(fetchMyTasks(requestBody))
+      dispatch(fetchMyTasks(filteringData.current))
     }
     catch (error) {
       console.log(error)
     }
   }
 
-  
 
   return (
     <div className='flex flex-col'>
@@ -93,7 +126,7 @@ const Tasks = () => {
           })}
 
           <div className='flex flex-row justify-center w-full mt-7 mb-5'>
-            <Pagination count={3} color="primary" size='large' page={page} onChange={handlePageChange}/>
+            <Pagination count={Math.floor(tasks.totalElements/10)+1} color="primary" size='large' page={page} onChange={handlePageChange}/>
           </div>
 
         </div>
