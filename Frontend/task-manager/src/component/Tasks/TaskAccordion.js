@@ -30,7 +30,7 @@ const TaskAccordion = (props) => {
                 <AccordionDetails className=''>
                     <div>
                         <span className='font-bold'>Description:<br /></span>
-                        Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska. Opis taska.
+                        {props.task.desc}
                     </div>
                     <div className='mt-3'>
                         <span className='font-bold'>Teams:<br /></span>

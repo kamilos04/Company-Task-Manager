@@ -13,11 +13,14 @@ import { fetchMyTasks } from '../State/Tasks/Action'
 const Tasks = () => {
   const auth = useSelector(store => store.auth)
   const tasks = useSelector(store => store.tasks)
+  const [page, setPage] = useState(0)
   const dispatch = useDispatch()
   CheckIfProfileLoad()
+
   const handlePageChange = (event, value) => {
     setPage(value)
   }
+
   const handleFilterSubmit = (data) => {
     console.log(data)
     let sortedBy = "name"
@@ -73,7 +76,7 @@ const Tasks = () => {
     }
   }
 
-  const [page, setPage] = useState(1)
+  
 
   return (
     <div className='flex flex-col'>
@@ -86,7 +89,7 @@ const Tasks = () => {
         <div className='flex w-[100%] mr-40 ml-40 flex-col'>
           {tasks.mytasks?.map((task) => {
             // console.log(task)
-            return <TaskAccordion task={task}/>
+            return <TaskAccordion key={task.id} task={task}/>
           })}
           {/* <TaskAccordion />
           <TaskAccordion />
