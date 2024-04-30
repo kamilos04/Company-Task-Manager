@@ -91,18 +91,9 @@ const Tasks = () => {
             // console.log(task)
             return <TaskAccordion key={task.id} task={task}/>
           })}
-          {/* <TaskAccordion />
-          <TaskAccordion />
-          <TaskAccordion />
-          <TaskAccordion />
-          <TaskAccordion />
-          <TaskAccordion />
-          <TaskAccordion />
-          <TaskAccordion />
-          <TaskAccordion />
-          <TaskAccordion /> */}
-          <div className='flex flex-row justify-center w-full mt-7'>
-            <Pagination count={3} color="primary" size='large' page={page} onChange={handlePageChange} />
+
+          <div className='flex flex-row justify-center w-full mt-7 mb-5'>
+            <Pagination count={3} color="primary" size='large' page={page} onChange={handlePageChange}/>
           </div>
 
         </div>

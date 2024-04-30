@@ -1,6 +1,7 @@
 import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from 'react'
+import PriorityChip from './PriorityChip';
 
 const TaskAccordion = (props) => {
     return (
@@ -18,7 +19,7 @@ const TaskAccordion = (props) => {
                             <span className=''>Date of creation: {props.task.dateOfCreation}</span>
                         </div>
                         <div className='flex flex-row '>
-                            <Chip className='bg-green-500 mr-3 shadow-md' label="Low priority" />
+                            <PriorityChip type={props.task.priority}/>
                             <Chip className='bg-green-500 mr-3 shadow-md' label="Waiting" />
                         </div>
 
