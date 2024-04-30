@@ -18,7 +18,6 @@ const Home = () => {
     <div>
       <Navbar/>
         <div onClick={() => (navigate("/login"))}>Przycisk</div>
-        <div onClick={() => dispatch(logoutUser(navigate))}>Logout</div>
       {auth.profile?.tasks?.map((task) => (<div key={task.id}>{task.name}</div>))}
     </div>
   )

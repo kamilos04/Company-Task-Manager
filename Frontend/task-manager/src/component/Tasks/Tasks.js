@@ -2,8 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../Navbar/Navbar'
 import TaskAccordion from './TaskAccordion'
 import CheckIfProfileLoad from '../Logic/checkIfProfileLoad'
-import { Button, Checkbox, FormControlLabel, FormLabel, Pagination } from '@mui/material'
-import { Controller, useForm } from 'react-hook-form'
+import { Pagination } from '@mui/material'
 import FilterBar from './FilterBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMyTasks } from '../State/Tasks/Action'
@@ -18,42 +17,29 @@ const Tasks = () => {
   const filteringData = useRef({
     userId: auth.profile?.id,
     sortedBy: "name",
-    pageNumber: page-1,
-    filters: ['low','medium','high','waiting','inProgress','finished'],
+    pageNumber: page - 1,
+    filters: ['low', 'medium', 'high', 'waiting', 'inProgress', 'finished'],
     sortingDirection: 'asc'
   })
 
   useEffect(() => {
     filteringData.current.userId = auth.profile?.id
     filteringData.current.pageNumber = page - 1
-    if(auth.profile){
+    if (auth.profile) {
       try {
-      dispatch(fetchMyTasks(filteringData.current))
+        dispatch(fetchMyTasks(filteringData.current))
+      }
+      catch (error) {
+        console.log(error)
+      }
     }
-    catch (error) {
-      console.log(error)
-    }
-    }
-    
+
   }, [auth.profile, page])
-
-
-  // useEffect(() => {
-  //   filteringData.current.pageNumber = page - 1
-    
-  // }, [page])
 
   CheckIfProfileLoad()
 
   const handlePageChange = (event, value) => {
     setPage(value)
-    // filteringData.current.pageNumber = page - 1
-    // try {
-    //   dispatch(fetchMyTasks(filteringData.current))
-    // }
-    // catch (error) {
-    //   console.log(error)
-    // }
   }
 
   const handleFilterSubmit = (data) => {
@@ -98,7 +84,7 @@ const Tasks = () => {
     filteringData.current = {
       userId: auth.profile?.id,
       sortedBy: sortedBy,
-      pageNumber: page-1,
+      pageNumber: page - 1,
       filters: filters,
       sortingDirection: sortingDirection
     }
@@ -122,11 +108,11 @@ const Tasks = () => {
         <div className='flex w-[100%] mr-40 ml-40 flex-col'>
           {tasks.mytasks?.map((task) => {
             // console.log(task)
-            return <TaskAccordion key={task.id} task={task}/>
+            return <TaskAccordion key={task.id} task={task} />
           })}
 
           <div className='flex flex-row justify-center w-full mt-7 mb-5'>
-            <Pagination count={Math.floor(tasks.totalElements/10)+1} color="primary" size='large' page={page} onChange={handlePageChange}/>
+            <Pagination count={Math.floor(tasks.totalElements / 10) + 1} color="primary" size='large' page={page} onChange={handlePageChange} />
           </div>
 
         </div>
