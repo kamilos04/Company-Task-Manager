@@ -3,6 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from 'react'
 import PriorityChip from './PriorityChip';
 import StatusChip from './StatusChip';
+import DescChip from './DescChip';
 
 const TaskAccordion = (props) => {
     return (
@@ -20,8 +21,8 @@ const TaskAccordion = (props) => {
                             <span className=''>Date of creation: {props.task.dateOfCreation}</span>
                         </div>
                         <div className='flex flex-row '>
-                            <PriorityChip type={props.task.priority}/>
-                            <StatusChip type={props.task.status}/>
+                            <PriorityChip type={props.task.priority} />
+                            <StatusChip type={props.task.status} />
                         </div>
 
 
@@ -36,27 +37,27 @@ const TaskAccordion = (props) => {
                     </div>
                     <div className='mt-3'>
                         <span className='font-bold'>Teams:<br /></span>
-                        <div className='font-medium mt-1'>
-                            <Chip className='bg-green-300 mr-3 shadow-md mb-2' label="Backend developers" />
-                            <Chip className='bg-green-300 mr-3 shadow-md mb-2' label="Help-desk" />
-                            <Chip className='bg-green-300 mr-3 shadow-md mb-2' label="Backend developers" />
-                            <Chip className='bg-green-300 mr-3 shadow-md mb-2' label="Backend developers" />
+                        <div className='font-medium mt-1 flex flex-row'>
+                            {props.task.teams.map((team, index) => {
+                                return (<DescChip type="team" text={team.name} key={index} />)
+                            })}
                         </div>
                     </div>
                     <div className='mt-3'>
                         <span className='font-bold'>Users:<br /></span>
-                        <div className='font-medium mt-1'>
-                            <Chip className='bg-violet-300 mr-3 shadow-md mb-2' label="Kamil Jach" />
-                            <Chip className='bg-violet-300 mr-3 shadow-md mb-2' label="Jan Kowalski" />
-                            <Chip className='bg-violet-300 mr-3 shadow-md mb-2' label="Franek Ostrowski" />
-                            <Chip className='bg-violet-300 mr-3 shadow-md mb-2' label="Przemysław Polański" />
+                        <div className='font-medium mt-1 flex flex-row'>
+                            {props.task.users.map((user, index) => {
+                                return (<DescChip type="user" text={`${user.name} ${user.surname}`} key={index} />)
+                            })}
+
                         </div>
                     </div>
                     <div className='mt-3'>
                         <span className='font-bold'>Admins:<br /></span>
-                        <div className='font-medium mt-1'>
-                            <Chip className='bg-cyan-200 mr-3 shadow-md mb-2' label="Kamil Jach" />
-                            <Chip className='bg-cyan-200 mr-3 shadow-md mb-2' label="Jan Kowalski" />
+                        <div className='font-medium mt-1 flex flex-row'>
+                            {props.task.admins.map((admin, index) => {
+                                return (<DescChip type="admin" text={`${admin.name} ${admin.surname}`} key={index} />)
+                            })}
                         </div>
                     </div>
 
