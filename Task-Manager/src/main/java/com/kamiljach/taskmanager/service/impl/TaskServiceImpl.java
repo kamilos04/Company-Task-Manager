@@ -236,7 +236,7 @@ public class TaskServiceImpl implements TaskService {
                 //Adding admins
                 for(Long userId : req.getAdminsIds()){
                     Optional<User> optionalUser = userRepository.findById(userId);
-                    if(optionalUser.isEmpty()){throw new Exception("Invalid users");}
+                    if(optionalUser.isEmpty()){throw new Exception("Invalid admins");}
                     User user = optionalUser.get();
                     if(!task.getAdmins().contains(user)){
                         task.getAdmins().add(user);
@@ -253,7 +253,7 @@ public class TaskServiceImpl implements TaskService {
         //Teams
         if(req.getTeamsIds() != null){
             if(teamsPermission){
-                //Removing tasks
+                //Removing teams
                 List<Team> teamsToRemove = new ArrayList<>();
                 for(Team team : task.getTeams()){
                     if(!req.getTeamsIds().contains(team.getId())){
@@ -269,7 +269,7 @@ public class TaskServiceImpl implements TaskService {
                 //Adding teams
                 for(Long teamId : req.getTeamsIds()){
                     Optional<Team> optionalTeam = teamRepository.findById(teamId);
-                    if(optionalTeam.isEmpty()){throw new Exception("Invalid users");}
+                    if(optionalTeam.isEmpty()){throw new Exception("Invalid teams");}
                     Team team = optionalTeam.get();
                     if(!task.getTeams().contains(team)){
                         task.getTeams().add(team);
