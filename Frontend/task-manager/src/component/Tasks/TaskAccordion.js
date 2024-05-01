@@ -88,9 +88,18 @@ const TaskAccordion = (props) => {
                                 '.MuiToggleButton-root': { color: 'white' },
                             }}
                         >
-                            <ToggleButton value="WAITING" className='normal-case' sx={{}}>Waiting</ToggleButton>
-                            <ToggleButton value="IN_PROGRESS" className='normal-case' sx={{}}>In progress</ToggleButton>
-                            <ToggleButton value="FINISHED" className='normal-case' sx={{}}>Finished</ToggleButton>
+                            <ToggleButton value="WAITING" className='normal-case' sx={{"&.Mui-selected": {
+    color: "black",
+    backgroundColor: '#9ffd9f'
+  }}}>Waiting</ToggleButton>
+                            <ToggleButton value="IN_PROGRESS" className='normal-case' sx={{"&.Mui-selected": {
+    color: "black",
+    backgroundColor: '#9ffd9f'
+  }}}>In progress</ToggleButton>
+                            <ToggleButton value="FINISHED" className='normal-case' sx={{"&.Mui-selected": {
+    color: "black",
+    backgroundColor: '#9ffd9f'
+  }}}>Finished</ToggleButton>
                         </ToggleButtonGroup>
                     </div>
 
