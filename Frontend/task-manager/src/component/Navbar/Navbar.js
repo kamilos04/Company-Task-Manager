@@ -19,7 +19,7 @@ const Navbar = () => {
       </div>
 
       <div className='flex flex-row'>
-        <AccountCircleIcon className='text-4xl mr-6 text-white block cursor-pointer' />
+        <AccountCircleIcon onClick={() => {navigate("/profile")}} className='text-4xl mr-6 text-white block cursor-pointer' />
         <LogoutIcon onClick={() => {dispatch(logoutUser(navigate))}} className='text-4xl mr-4 block cursor-pointer text-white'/>
       </div>
     </div>

@@ -1,11 +1,24 @@
-import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from 'react'
 import PriorityChip from './PriorityChip';
 import StatusChip from './StatusChip';
 import DescChip from './DescChip';
+import { useDispatch } from 'react-redux';
+import { updateTaskStatus } from '../State/Tasks/Action';
 
 const TaskAccordion = (props) => {
+const dispatch = useDispatch()
+
+    const handleStatusChange = (task) => (event, newValue) => {
+        const taskData = {
+            id: task.id,
+            status: newValue
+        }
+        dispatch(updateTaskStatus(taskData))
+        console.log(newValue)
+    }
+
     return (
 
         <div className='flex w-[100%] mt-5'>
@@ -60,6 +73,23 @@ const TaskAccordion = (props) => {
                             })}
                         </div>
                     </div>
+                    <div className='flex justify-end w-full'>
+                        <ToggleButtonGroup
+                            value={props.task.status}
+                            exclusive
+                            onChange={handleStatusChange(props.task)}
+                            aria-label="Platform"
+                            sx={{
+                                '.Mui-selected': { backgroundColor: 'rgba(63, 105, 168, 1)' },
+                                '.MuiToggleButton-root': { color: 'white' },
+                            }}
+                        >
+                            <ToggleButton value="WAITING" className='normal-case' sx={{ '&:hover': { backgroundColor: 'rgba(63, 105, 168, 0.719)' } }}>Waiting</ToggleButton>
+                            <ToggleButton value="IN_PROGRESS" className='normal-case' sx={{ '&:hover': { backgroundColor: 'rgba(63, 105, 168, 0.719)' } }}>In progress</ToggleButton>
+                            <ToggleButton value="FINISHED" className='normal-case' sx={{ '&:hover': { backgroundColor: 'rgba(63, 105, 168, 0.719)' } }}>Finished</ToggleButton>
+                        </ToggleButtonGroup>
+                    </div>
+
 
                 </AccordionDetails>
             </Accordion>
