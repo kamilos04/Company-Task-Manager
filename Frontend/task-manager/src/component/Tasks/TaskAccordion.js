@@ -8,15 +8,20 @@ import { useDispatch } from 'react-redux';
 import { updateTaskStatus } from '../State/Tasks/Action';
 
 const TaskAccordion = (props) => {
-const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     const handleStatusChange = (task) => (event, newValue) => {
         const taskData = {
             id: task.id,
-            status: newValue
+            status: newValue,
+            name: null,
+            description: null,
+            priority: null,
+            usersIds: null,
+            adminsIds: null,
+            teamsIds: null
         }
         dispatch(updateTaskStatus(taskData))
-        console.log(newValue)
     }
 
     return (
@@ -80,13 +85,12 @@ const dispatch = useDispatch()
                             onChange={handleStatusChange(props.task)}
                             aria-label="Platform"
                             sx={{
-                                '.Mui-selected': { backgroundColor: 'rgba(63, 105, 168, 1)' },
                                 '.MuiToggleButton-root': { color: 'white' },
                             }}
                         >
-                            <ToggleButton value="WAITING" className='normal-case' sx={{ '&:hover': { backgroundColor: 'rgba(63, 105, 168, 0.719)' } }}>Waiting</ToggleButton>
-                            <ToggleButton value="IN_PROGRESS" className='normal-case' sx={{ '&:hover': { backgroundColor: 'rgba(63, 105, 168, 0.719)' } }}>In progress</ToggleButton>
-                            <ToggleButton value="FINISHED" className='normal-case' sx={{ '&:hover': { backgroundColor: 'rgba(63, 105, 168, 0.719)' } }}>Finished</ToggleButton>
+                            <ToggleButton value="WAITING" className='normal-case' sx={{}}>Waiting</ToggleButton>
+                            <ToggleButton value="IN_PROGRESS" className='normal-case' sx={{}}>In progress</ToggleButton>
+                            <ToggleButton value="FINISHED" className='normal-case' sx={{}}>Finished</ToggleButton>
                         </ToggleButtonGroup>
                     </div>
 
