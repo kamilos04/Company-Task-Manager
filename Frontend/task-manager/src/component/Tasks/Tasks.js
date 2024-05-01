@@ -112,7 +112,7 @@ const Tasks = () => {
           })}
 
           <div className='flex flex-row justify-center w-full mt-7 mb-5'>
-            <Pagination count={Math.floor(tasks.totalElements / 10) + 1} color="primary" size='large' page={page} onChange={handlePageChange} />
+            <Pagination count={Math.floor(tasks.totalElements / 10) + 1} color="primary" size='large' page={page} onChange={handlePageChange} sx={{'.MuiPaginationItem-text': {color: 'white'}}}/>
           </div>
 
         </div>

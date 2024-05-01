@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select } from '@mui/material'
+import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select, styled } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 
 const FilterBar = (props) => {
@@ -15,11 +15,15 @@ const FilterBar = (props) => {
         }
     })
 
+    const FilterCheckBox = styled(Checkbox)({
+        color: "white"
+    })
+
     return (
         <div>
             <form onSubmit={handleSubmit((data) => props.handleFilterSubmit(data))}>
-                <div className='flex flex-col bg-slate-50 items-left pl-3 ml-3 mt-3 pt-2 pr-3 pb-4 border-solid border border-gray-200 shadow-md rounded-lg'>
-                    <span className='text-xl font-medium'>Status</span>
+                <div className='flex flex-col bg-[rgb(32,36,52)] items-left pl-3 ml-3 mt-5 pt-2 pr-3 pb-4 border-solid border border-gray-200 shadow-md rounded-lg'>
+                    <span className='text-xl font-medium text-white'>Status</span>
 
                     <Controller
                         control={control}
@@ -29,9 +33,9 @@ const FilterBar = (props) => {
                             <FormControlLabel
                                 checked={value}
                                 onChange={onChange}
-                                label="Waiting"
-                                control={<Checkbox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
-
+                                label={<span className='text-white'>Waiting</span>}
+                                control={<FilterCheckBox className='pt-1 pb-1 ' inputProps={{ 'aria-label': 'controlled' }} />
+                                
                                 } />
                         )} />
 
@@ -43,8 +47,8 @@ const FilterBar = (props) => {
                             <FormControlLabel
                                 checked={value}
                                 onChange={onChange}
-                                label="In progress"
-                                control={<Checkbox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
+                                label={<span className='text-white'>In progress</span>}
+                                control={<FilterCheckBox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
 
                                 } />
                         )} />
@@ -57,8 +61,8 @@ const FilterBar = (props) => {
                             <FormControlLabel
                                 checked={value}
                                 onChange={onChange}
-                                label="Finished"
-                                control={<Checkbox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
+                                label={<span className='text-white'>Finished</span>}
+                                control={<FilterCheckBox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
 
                                 } />
                         )} />
@@ -66,7 +70,7 @@ const FilterBar = (props) => {
 
 
 
-                    <span className='text-xl font-medium mt-5'>Priority</span>
+                    <span className='text-xl font-medium mt-5 text-white'>Priority</span>
                     <Controller
                         control={control}
                         name="low"
@@ -75,8 +79,8 @@ const FilterBar = (props) => {
                             <FormControlLabel
                                 checked={value}
                                 onChange={onChange}
-                                label="Low"
-                                control={<Checkbox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
+                                label={<span className='text-white'>Low</span>}
+                                control={<FilterCheckBox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
 
                                 } />
                         )} />
@@ -89,8 +93,8 @@ const FilterBar = (props) => {
                             <FormControlLabel
                                 checked={value}
                                 onChange={onChange}
-                                label="Medium"
-                                control={<Checkbox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
+                                label={<span className='text-white'>Medium</span>}
+                                control={<FilterCheckBox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
 
                                 } />
                         )} />
@@ -103,8 +107,8 @@ const FilterBar = (props) => {
                             <FormControlLabel
                                 checked={value}
                                 onChange={onChange}
-                                label="High"
-                                control={<Checkbox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
+                                label={<span className='text-white'>High</span>}
+                                control={<FilterCheckBox className='pt-1 pb-1' inputProps={{ 'aria-label': 'controlled' }} />
 
                                 } />
                         )} />
@@ -116,14 +120,22 @@ const FilterBar = (props) => {
                         render={({
                             field: { value, onChange } }) => (
                             <FormControl className='w-[16rem] mt-5' size='small'>
-                                <InputLabel className='text-black' id="demo-simple-select-label">Sorted by</InputLabel>
+                                <InputLabel className='text-white' id="demo-simple-select-label">Sorted by</InputLabel>
                                 <Select
                                     labelId="demo-simple-select-label"
                                     id="demo-simple-select"
                                     value={value}
                                     label="Sorted by"
                                     onChange={onChange}
-                                    
+                                    className='text-white'
+                                    sx={{color: 'white', borderColor: "red",
+                                    '.MuiOutlinedInput-notchedOutline': {
+                                        borderColor: 'white',
+                                      },
+                                    '.MuiSelect-iconOutlined': {
+                                        color: 'white'
+                                    }
+                                }}
                                 >
                                     <MenuItem value="nameAsc">Name A-Z</MenuItem>
                                     <MenuItem value="nameDesc">Name Z-A</MenuItem>

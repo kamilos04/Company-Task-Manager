@@ -28,14 +28,15 @@ export const lightTheme=createTheme({
         },
         background:{
             main:"#ffffff",
-            default:"#f8f9fd",
+            default: "rgb(24,28,44)",
+            // default:"#f8f9fd",
             // default:"#eef2ff",
             // default:"#030714",
             // default:"#D8E1FF",
-            paper:"#f0f0f0"
+            paper:"#ffffff"
         },
         textColor:{
-            main:"#242121"
+            main:"#f1f1f1"
         }
     }
 })

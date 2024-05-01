@@ -9,7 +9,13 @@ export default function CheckIfProfileLoad(){
     const navigate = useNavigate()
     
     useEffect(() => {
-      dispatch(fetchProfile());
+        if(localStorage.getItem("jwt")){
+            dispatch(fetchProfile())
+        }
+        else{
+            navigate("/login")
+        }
+      
     }, [dispatch]);
         
     //If profile didnt download - go to /login
@@ -19,3 +25,4 @@ export default function CheckIfProfileLoad(){
         }
     },[auth.fail])
 }
+

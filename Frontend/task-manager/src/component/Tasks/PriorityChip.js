@@ -13,12 +13,12 @@ const PriorityChip = (props) => {
     text= "Medium priority"
   }
   else if(props.type === "HIGH"){
-    color = "bg-red-500"
+    color = "bg-red-600"
     text= "High priority"
   }
   return (
     <div>
-      <Chip className={`${color} mr-3 shadow-md`} label={text} />
+      <Chip className={`${color} mr-3 shadow-md `} label={text} />
     </div>
   )
 }
