@@ -1,4 +1,4 @@
-import { Accordion, AccordionDetails, AccordionSummary, Chip, Divider, ToggleButton, ToggleButtonGroup } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import React from 'react'
 import PriorityChip from './PriorityChip';
@@ -88,18 +88,24 @@ const TaskAccordion = (props) => {
                                 '.MuiToggleButton-root': { color: 'white' },
                             }}
                         >
-                            <ToggleButton value="WAITING" className='normal-case' sx={{"&.Mui-selected": {
-    color: "black",
-    backgroundColor: '#9ffd9f'
-  }}}>Waiting</ToggleButton>
-                            <ToggleButton value="IN_PROGRESS" className='normal-case' sx={{"&.Mui-selected": {
-    color: "black",
-    backgroundColor: '#9ffd9f'
-  }}}>In progress</ToggleButton>
-                            <ToggleButton value="FINISHED" className='normal-case' sx={{"&.Mui-selected": {
-    color: "black",
-    backgroundColor: '#9ffd9f'
-  }}}>Finished</ToggleButton>
+                            <ToggleButton value="WAITING" className='normal-case' sx={{
+                                "&.Mui-selected": {
+                                    color: "black",
+                                    backgroundColor: '#9ffd9f'
+                                }
+                            }}>Waiting</ToggleButton>
+                            <ToggleButton value="IN_PROGRESS" className='normal-case' sx={{
+                                "&.Mui-selected": {
+                                    color: "black",
+                                    backgroundColor: '#9ffd9f'
+                                }
+                            }}>In progress</ToggleButton>
+                            <ToggleButton value="FINISHED" className='normal-case' sx={{
+                                "&.Mui-selected": {
+                                    color: "black",
+                                    backgroundColor: '#9ffd9f'
+                                }
+                            }}>Finished</ToggleButton>
                         </ToggleButtonGroup>
                     </div>
 

@@ -21,7 +21,7 @@ export const lightTheme=createTheme({
             main:"#55adff"
         },
         secondary:{
-            main:"#DBBADD"
+            main:"#ffffff"
         },
         black:{
             main:"#000000"

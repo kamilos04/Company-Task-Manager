@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Checkbox, FormControl, FormControlLabel, FormLabel, InputLabel, MenuItem, Select, styled } from '@mui/material'
+import { Button, Checkbox, FormControl, FormControlLabel, InputLabel, MenuItem, Select, styled } from '@mui/material'
 import { Controller, useForm } from 'react-hook-form'
 
 const FilterBar = (props) => {
