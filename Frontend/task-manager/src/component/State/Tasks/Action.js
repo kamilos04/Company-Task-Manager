@@ -23,3 +23,13 @@ export const updateTaskStatus = createAsyncThunk("tasks/updateTaskStatus", async
                  })
     return data
 })
+
+export const createTask = createAsyncThunk("tasks/createTask", async (reqData) => {
+    const jwt = localStorage.getItem("jwt")
+    const {data} = await axios.post(`${API_URL}/api/task`, reqData, {
+                     headers:{
+                         Authorization:`Bearer ${jwt}`
+                     }
+                 })
+    return data
+})

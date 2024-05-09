@@ -5,6 +5,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Autocomplete, Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllTeams, fetchAllUsers } from '../State/GeneralData/Action'
+import { createTask } from '../State/Tasks/Action'
 
 const CreateNewTask = () => {
   CheckIfProfileLoad()
@@ -19,8 +20,18 @@ const CreateNewTask = () => {
     dispatch(fetchAllTeams())
   }, [])
   const onSubmit = (data) => {
-    
+    let reqData = {
+      name: data.name,
+      desc: data.desc,
+      priority: data.priority,
+      usersIds: data.users?.map((user) => user.id),
+      adminsIds: data.admins?.map((user) => user.id),
+      teamsIds: data.teams?.map((team) => team.id)
+
+    }
+    console.log(reqData)
     console.log(data)
+    dispatch(createTask(reqData))
   }
 
   return (
@@ -33,13 +44,13 @@ const CreateNewTask = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='flex flex-col'>
               <div className='flex flex-row'>
-                <div className='flex flex-col place-content-between mr-10'>
+                <div className='flex flex-col place-content-between mr-5'>
                   <TextField
                     id="name"
                     label="Name"
                     variant="outlined"
                     {...register("name")}
-                    className='w-[20rem] '
+                    className='w-[25rem] '
 
                   />
                   <Controller
@@ -47,7 +58,7 @@ const CreateNewTask = () => {
                     name="priority"
                     render={({
                       field: { value, onChange } }) => (
-                      <FormControl className='w-[20rem]' size='small'>
+                      <FormControl className='w-[25rem]' size='small'>
                         <InputLabel id="demo-simple-select-label">Priority</InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
