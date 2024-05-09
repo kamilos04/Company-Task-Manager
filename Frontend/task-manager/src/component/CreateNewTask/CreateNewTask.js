@@ -141,11 +141,10 @@ const CreateNewTask = () => {
     { title: 'Monty Python and the Holy Grail', year: 1975 },
   ];
   const onSubmit = (data) => {
-    console.log(data)
     dispatch(fetchAllUsers())
+    console.log(data)
   }
 
-  console.log(allUsers.allUsers)
   return (
     <div className='flex flex-col h-screen'>
       <Navbar />
@@ -155,13 +154,13 @@ const CreateNewTask = () => {
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className='flex flex-col'>
               <div className='flex flex-row'>
-                <div className='flex flex-col mr-10'>
+                <div className='flex flex-col place-content-between mr-10'>
                   <TextField
                     id="name"
                     label="Name"
                     variant="outlined"
                     {...register("name")}
-                    className='w-[20rem] mb-4'
+                    className='w-[20rem] '
 
                   />
                   <Controller
@@ -174,7 +173,7 @@ const CreateNewTask = () => {
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
-                          value={value}
+                          value={value || ""}
                           label="Priority"
                           onChange={onChange}
                         >
@@ -198,23 +197,68 @@ const CreateNewTask = () => {
                 />
               </div>
               <div className='mt-5'>
-                <Autocomplete
-                className='w-[30rem]'
-                sx={{'.MuiChip-root': {bgcolor: "rgb(230, 186, 255)"}}}
-                  multiple
-                  id="tags-outlined"
-                  options={top100Films}
-                  getOptionLabel={(option) => option.title}
-                  defaultValue={[top100Films[13], top100Films[14]]}
-                  filterSelectedOptions
-                  renderInput={(params) => (
-                    <TextField
-                      {...params}
-                      // label="Users"
-                      placeholder="Users"
-                    />
-                  )}
-                />
+                {allUsers.allUsers &&
+                  <Controller
+                    control={control}
+                    name="users"
+                    render={({ field: { onChange } }) => (
+                      <Autocomplete
+                        className='w-[40rem] mb-3'
+                        sx={{ '.MuiChip-root': { bgcolor: "rgb(230, 186, 255)" } }}
+                        multiple
+                        id="tags-outlined"
+                        options={allUsers.allUsers}
+                        getOptionLabel={(option) => `${option.name} ${option.surname}, ${"\xa0\xa0\xa0\xa0\xa0\xa0"}E-mail: ${option.email}`}
+                        filterSelectedOptions
+                        isOptionEqualToValue={(option, value) => {
+                          if(option.email===value.email){
+                            return true
+                          }
+                          else return false
+                        }}
+                        onChange={(event, item) => {
+                          onChange(item)
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            placeholder="Users"
+                          />
+                        )}
+                      />
+                    )} />}
+                {allUsers.allUsers &&
+                  <Controller
+                    control={control}
+                    name="admins"
+                    render={({ field: { onChange } }) => (
+                      <Autocomplete
+                        className='w-[40rem] mb-3'
+                        sx={{ '.MuiChip-root': { bgcolor: "rgb(230, 186, 255)" } }}
+                        multiple
+                        id="tags-outlined"
+                        options={allUsers.allUsers}
+                        getOptionLabel={(option) => `${option.name} ${option.surname}, ${"\xa0\xa0\xa0\xa0\xa0\xa0"}E-mail: ${option.email}`}
+                        filterSelectedOptions
+                        isOptionEqualToValue={(option, value) => {
+                          if(option.email===value.email){
+                            return true
+                          }
+                          else return false
+                        }}
+                        onChange={(event, item) => {
+                          onChange(item)
+                        }}
+                        renderInput={(params) => (
+                          <TextField
+                            {...params}
+                            // label="Users"
+                            placeholder="Admins"
+                          />
+                        )}
+                      />
+                    )} />}
+                    
               </div>
             </div>
 
