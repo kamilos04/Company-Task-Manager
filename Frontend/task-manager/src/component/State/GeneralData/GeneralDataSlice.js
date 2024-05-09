@@ -9,8 +9,8 @@ const initialState = {
     fail: null,
 }
 
-const allUsersSlice = createSlice({
-    name: "allUsers",
+const generalDataSlice = createSlice({
+    name: "generalData",
     initialState,
     reducers:{},
     extraReducers: builder => {
@@ -37,4 +37,4 @@ const allUsersSlice = createSlice({
     }
 })
 
-export default allUsersSlice.reducer
+export default generalDataSlice.reducer

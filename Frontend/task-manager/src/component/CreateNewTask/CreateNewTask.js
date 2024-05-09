@@ -4,11 +4,11 @@ import Navbar from '../Navbar/Navbar'
 import { Controller, useForm } from 'react-hook-form'
 import { Autocomplete, Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchAllUsers } from '../State/AllUsers/Action'
+import { fetchAllUsers } from '../State/GeneralData/Action'
 
 const CreateNewTask = () => {
   CheckIfProfileLoad()
-  const allUsers = useSelector(store => store.allUsers)
+  const generalData = useSelector(store => store.generalData)
   const dispatch = useDispatch()
   const { register, handleSubmit, control } = useForm({
 
@@ -197,7 +197,7 @@ const CreateNewTask = () => {
                 />
               </div>
               <div className='mt-5'>
-                {allUsers.allUsers &&
+                {generalData.allUsers &&
                   <Controller
                     control={control}
                     name="users"
@@ -207,7 +207,7 @@ const CreateNewTask = () => {
                         sx={{ '.MuiChip-root': { bgcolor: "rgb(230, 186, 255)" } }}
                         multiple
                         id="tags-outlined"
-                        options={allUsers.allUsers}
+                        options={generalData.allUsers}
                         getOptionLabel={(option) => `${option.name} ${option.surname}, ${"\xa0\xa0\xa0\xa0\xa0\xa0"}E-mail: ${option.email}`}
                         filterSelectedOptions
                         isOptionEqualToValue={(option, value) => {
@@ -227,7 +227,7 @@ const CreateNewTask = () => {
                         )}
                       />
                     )} />}
-                {allUsers.allUsers &&
+                {generalData.allUsers &&
                   <Controller
                     control={control}
                     name="admins"
@@ -237,7 +237,7 @@ const CreateNewTask = () => {
                         sx={{ '.MuiChip-root': { bgcolor: "rgb(230, 186, 255)" } }}
                         multiple
                         id="tags-outlined"
-                        options={allUsers.allUsers}
+                        options={generalData.allUsers}
                         getOptionLabel={(option) => `${option.name} ${option.surname}, ${"\xa0\xa0\xa0\xa0\xa0\xa0"}E-mail: ${option.email}`}
                         filterSelectedOptions
                         isOptionEqualToValue={(option, value) => {
