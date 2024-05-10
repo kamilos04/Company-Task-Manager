@@ -6,7 +6,7 @@ import { fetchProfile, loginUserRequest } from '../State/Authentication/Action'
 import { useNavigate } from 'react-router-dom'
 import { store } from '../State/store'
 import { lightTheme } from '../Theme/LightTheme'
-import ErrorAlert from './ErrorAlert'
+import ErrorAlert from '../General/ErrorAlert'
 
 const Login = () => {
   const { register, handleSubmit, reset } = useForm()

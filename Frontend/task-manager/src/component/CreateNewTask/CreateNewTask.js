@@ -1,24 +1,55 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CheckIfProfileLoad from '../Logic/checkIfProfileLoad'
 import Navbar from '../Navbar/Navbar'
 import { Controller, useForm } from 'react-hook-form'
-import { Autocomplete, Button, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
+import { Autocomplete, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllTeams, fetchAllUsers } from '../State/GeneralData/Action'
 import { createTask } from '../State/Tasks/Action'
+import * as yup from 'yup'
+import {yupResolver} from "@hookform/resolvers/yup"
+import ErrorAlert from '../General/ErrorAlert'
+import SuccessAlert from '../General/SuccessAlert'
 
 const CreateNewTask = () => {
   CheckIfProfileLoad()
   const generalData = useSelector(store => store.generalData)
+  const tasks = useSelector(store => store.tasks)
   const dispatch = useDispatch()
-  const { register, handleSubmit, control } = useForm({
+  const [visibleErrorAlert, setVisibleErrorAlert] = useState(false)
+  const [visibleSuccessAlert, setVisibleSuccessAlert] = useState(false)
+  const [alertText, setAlertText] = useState("")
+  const schema = yup.object().shape({
+    name: yup.string().required(),
+    desc: yup.string().required(),
+    priority: yup.string().required()
 
+  })
+  const { register, handleSubmit, control, formState: {errors}, reset } = useForm({
+    resolver: yupResolver(schema)
   })
 
   useEffect(() => {
     dispatch(fetchAllUsers())
     dispatch(fetchAllTeams())
   }, [])
+  useEffect(() => {
+    if(tasks.fail==="createTask"){
+      setAlertText("Something went wrong, please make sure your details are correct")
+      setVisibleErrorAlert(true)
+    }
+    
+  }, [tasks.fail])
+
+  useEffect(() => {
+    if(tasks.success==="createTask"){
+      setAlertText("The task has been created")
+      setVisibleSuccessAlert(true)
+      reset()
+    }
+    
+  }, [tasks.success])
+
   const onSubmit = (data) => {
     let reqData = {
       name: data.name,
@@ -37,6 +68,8 @@ const CreateNewTask = () => {
   return (
     <div className='flex flex-col h-screen'>
       <Navbar />
+      {visibleErrorAlert === true && <ErrorAlert setV={setVisibleErrorAlert} text={alertText} />}
+      {visibleSuccessAlert === true && <SuccessAlert setV={setVisibleSuccessAlert} text={alertText} />}
       <div className='flex flex-col justify-center items-center h-full' >
         <div className='flex flex-col p-4 border-solid border
                 bg-white border-gray-200 shadow-md rounded-lg text-white items-center'>
@@ -51,11 +84,13 @@ const CreateNewTask = () => {
                     variant="outlined"
                     {...register("name")}
                     className='w-[25rem] '
-
+                    error={!!errors.name}
+                    helperText={!!errors.name && "Name is required"}
                   />
                   <Controller
                     control={control}
                     name="priority"
+                    
                     render={({
                       field: { value, onChange } }) => (
                       <FormControl className='w-[25rem]' size='small'>
@@ -63,6 +98,7 @@ const CreateNewTask = () => {
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
+                          error={!!errors.priority}
                           value={value || ""}
                           label="Priority"
                           onChange={onChange}
@@ -71,6 +107,7 @@ const CreateNewTask = () => {
                           <MenuItem value="MEDIUM">Medium</MenuItem>
                           <MenuItem value="HIGH">High</MenuItem>
                         </Select>
+                        {!!errors.priority && <FormHelperText className='text-red-600'>Priority is required</FormHelperText>}
                       </FormControl>
 
                     )} />
@@ -81,19 +118,22 @@ const CreateNewTask = () => {
                   label="Description"
                   multiline
                   variant="outlined"
-                  rows={4}
+                  rows={5}
+                  error={!!errors.desc}
+                  // helperText="Test"
+                  
                   {...register("desc")}
 
                 />
               </div>
-              <div className='mt-5'>
+              <div className='mt-10'>
                 {generalData.allUsers &&
                   <Controller
                     control={control}
                     name="users"
                     render={({ field: { onChange } }) => (
                       <Autocomplete
-                        className=' mb-3 w-full'
+                        className=' mb-7 w-full'
                         sx={{ '.MuiChip-root': { bgcolor: "rgb(230, 186, 255)" } }}
                         multiple
                         id="tags-outlined"
@@ -124,7 +164,7 @@ const CreateNewTask = () => {
                     name="admins"
                     render={({ field: { onChange } }) => (
                       <Autocomplete
-                        className='w-full mb-3'
+                        className='w-full mb-7'
                         sx={{ '.MuiChip-root': { bgcolor: "rgb(159, 209, 255)" } }}
                         multiple
                         id="tags-outlined"
@@ -155,7 +195,7 @@ const CreateNewTask = () => {
                     name="teams"
                     render={({ field: { onChange } }) => (
                       <Autocomplete
-                        className='w-full mb-3'
+                        className='w-full mb-5'
                         sx={{ '.MuiChip-root': { bgcolor: "rgb(159, 255, 188)" } }}
                         multiple
                         id="tags-outlined"

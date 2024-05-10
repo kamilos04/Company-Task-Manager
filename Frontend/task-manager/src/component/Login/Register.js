@@ -6,7 +6,7 @@ import { fetchProfile, getProfile, registerUserRequest } from '../State/Authenti
 import { Button, Grid, Stack, TextField } from '@mui/material'
 import { store } from '../State/store'
 import { lightTheme } from '../Theme/LightTheme'
-import ErrorAlert from './ErrorAlert'
+import ErrorAlert from '../General/ErrorAlert'
 
 const Register = () => {
     const { register, handleSubmit } = useForm()
