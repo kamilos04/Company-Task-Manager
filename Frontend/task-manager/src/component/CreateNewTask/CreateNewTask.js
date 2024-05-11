@@ -35,7 +35,7 @@ const CreateNewTask = () => {
   }, [])
   useEffect(() => {
     if(tasks.fail==="createTask"){
-      setAlertText("Something went wrong, please make sure your details are correct")
+      setAlertText("Something went wrong")
       setVisibleErrorAlert(true)
     }
     
@@ -94,7 +94,7 @@ const CreateNewTask = () => {
                     render={({
                       field: { value, onChange } }) => (
                       <FormControl className='w-[25rem]' size='small'>
-                        <InputLabel id="demo-simple-select-label">Priority</InputLabel>
+                        <InputLabel id="demo-simple-select-label" className={!!errors.priority && 'text-red-600'}>Priority</InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
                           id="demo-simple-select"
@@ -120,7 +120,7 @@ const CreateNewTask = () => {
                   variant="outlined"
                   rows={5}
                   error={!!errors.desc}
-                  // helperText="Test"
+                  helperText={!!errors.name && "Name is required"}
                   
                   {...register("desc")}
 
