@@ -1,15 +1,13 @@
 package com.kamiljach.taskmanager.service.impl;
 
 import com.kamiljach.taskmanager.dto.TaskDto;
-import com.kamiljach.taskmanager.model.Task;
-import com.kamiljach.taskmanager.model.Team;
-import com.kamiljach.taskmanager.model.USER_ROLES;
-import com.kamiljach.taskmanager.model.User;
+import com.kamiljach.taskmanager.model.*;
 import com.kamiljach.taskmanager.repository.TaskRepository;
 import com.kamiljach.taskmanager.repository.TeamRepository;
 import com.kamiljach.taskmanager.repository.UserRepository;
 import com.kamiljach.taskmanager.request.task.CreateTaskRequest;
 import com.kamiljach.taskmanager.request.task.UpdateTaskRequest;
+import com.kamiljach.taskmanager.response.TaskStatsResponse;
 import com.kamiljach.taskmanager.response.task.TasksResponsePageable;
 import com.kamiljach.taskmanager.service.TaskService;
 import com.kamiljach.taskmanager.service.UserService;
@@ -422,5 +420,18 @@ public class TaskServiceImpl implements TaskService {
         }
         tasksResponsePageable.setTasks(tasksDtoList);
         return tasksResponsePageable;
+    }
+
+    public TaskStatsResponse getTaskStats(String jwt) throws Exception {
+        User reqUser = userService.findUserByJwt(jwt);
+        TaskStatsResponse response = new TaskStatsResponse();
+
+        response.setLow(taskRepository.getCountOfPriority(reqUser.getId(), TASK_PRIORITY.LOW));
+        response.setMedium(taskRepository.getCountOfPriority(reqUser.getId(), TASK_PRIORITY.MEDIUM));
+        response.setHigh(taskRepository.getCountOfPriority(reqUser.getId(), TASK_PRIORITY.HIGH));
+        response.setWaiting(taskRepository.getCountOfStatus(reqUser.getId(), TASK_STATUS.WAITING));
+        response.setInProgress(taskRepository.getCountOfStatus(reqUser.getId(), TASK_STATUS.IN_PROGRESS));
+        response.setFinished(taskRepository.getCountOfStatus(reqUser.getId(), TASK_STATUS.FINISHED));
+        return response;
     }
 }

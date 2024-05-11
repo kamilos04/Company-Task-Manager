@@ -3,6 +3,7 @@ package com.kamiljach.taskmanager.controller;
 import com.kamiljach.taskmanager.dto.TaskDto;
 import com.kamiljach.taskmanager.request.task.CreateTaskRequest;
 import com.kamiljach.taskmanager.request.task.UpdateTaskRequest;
+import com.kamiljach.taskmanager.response.TaskStatsResponse;
 import com.kamiljach.taskmanager.response.task.TasksResponsePageable;
 import com.kamiljach.taskmanager.service.TaskService;
 import org.springframework.http.HttpStatus;
@@ -60,5 +61,10 @@ public class TaskController {
                                                                            @RequestParam List<String> filters,
                                                                            @RequestHeader("Authorization") String jwt) throws Exception{
         return new ResponseEntity<>(taskService.findUsersAndHisTeamsTasks(id, sortedBy, pageNumber, pageElementsNumber, filters, sortingDirection, jwt), HttpStatus.OK);
+    }
+
+    @GetMapping("/task-stats")
+    public ResponseEntity<TaskStatsResponse> fetchTaskStats(@RequestHeader("Authorization") String jwt) throws Exception{
+        return new ResponseEntity<>(taskService.getTaskStats(jwt), HttpStatus.OK);
     }
 }
