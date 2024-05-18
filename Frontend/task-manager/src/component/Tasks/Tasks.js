@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Navbar from '../Navbar/Navbar'
 import TaskAccordion from './TaskAccordion'
 import CheckIfProfileLoad from '../Logic/checkIfProfileLoad'
-import { Pagination } from '@mui/material'
+import { Button, Pagination } from '@mui/material'
 import FilterBar from './FilterBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMyTasks } from '../State/Tasks/Action'
@@ -103,7 +103,6 @@ const Tasks = () => {
       <div className='flex flex-row' >
         <div className='flex flex-col'>
           <FilterBar handleFilterSubmit={handleFilterSubmit} />
-
         </div>
         <div className='flex w-[100%] mr-40 ml-40 flex-col'>
           {tasks.mytasks?.map((task) => {

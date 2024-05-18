@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { fetchAllTeams, fetchAllUsers } from "./Action"
+import { fetchAllTeams, fetchAllUsers, fetchTasksStats } from "./Action"
 
 const initialState = {
     allUsers: null,
@@ -7,7 +7,8 @@ const initialState = {
     error: null,
     success: null,
     fail: null,
-    allTeams: null
+    allTeams: null,
+    tasksStats: null
 }
 
 const generalDataSlice = createSlice({
@@ -53,7 +54,25 @@ const generalDataSlice = createSlice({
             state.fail="fetchAllTeams"
             console.log("rejected")
         })
-        
+        .addCase(fetchTasksStats.pending, (state, action) => {
+            state.isLoading = true
+            state.error=null
+            state.success= null
+            state.fail = null
+            console.log("pending")
+        })
+        .addCase(fetchTasksStats.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.success= "fetchTasksStats"
+            state.tasksStats = action.payload
+            console.log("fulfilled")
+        })
+        .addCase(fetchTasksStats.rejected, (state, action) => {
+            state.isLoading = false
+            state.error=action.error
+            state.fail="fetchTasksStatus"
+            console.log("rejected")
+        })
     }
 })
 

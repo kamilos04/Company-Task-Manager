@@ -23,6 +23,16 @@ export const fetchAllTeams = createAsyncThunk("allTeams/fetchAllTeams", async (r
     return data
 })
 
+export const fetchTasksStats = createAsyncThunk("generalData/fetchTasksStats", async () => {
+    const jwt = localStorage.getItem("jwt")
+    const {data} = await axios.get(`${API_URL}/api/task-stats`, {
+                     headers:{
+                         Authorization:`Bearer ${jwt}`
+                     }
+                 })
+    return data
+})
+
 // export const updateTaskStatus = createAsyncThunk("tasks/updateTaskStatus", async (reqData) => {
 //     const jwt = localStorage.getItem("jwt")
 //     const {data} = await axios.put(`${API_URL}/api/task`, reqData, {

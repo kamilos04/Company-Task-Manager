@@ -11,7 +11,7 @@ const Navbar = () => {
   const location = useLocation()
   const dispatch = useDispatch()
   return (
-    <div className='w-[100%] shadow-lg   flex flex-row h-[4rem] justify-between items-center' style={{ borderBottom: '1px solid rgb(84, 87, 92)' }}>
+    <div className='w-[100%] shadow-lg   flex flex-row h-16 justify-between items-center' style={{ borderBottom: '1px solid rgb(84, 87, 92)' }}>
       <div className='flex flex-row items-center'>
         <div className='ml-8 text-3xl text-white mr-8 fontlogo'>COMPANY TASK MANAGER</div>
         <Button onClick={() => { navigate("/") }} className={`ml-6  ${location.pathname === "/" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Home</Button>
