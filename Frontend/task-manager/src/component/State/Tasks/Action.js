@@ -33,3 +33,24 @@ export const createTask = createAsyncThunk("tasks/createTask", async (reqData) =
                  })
     return data
 })
+
+export const updateTask = createAsyncThunk("tasks/updateTask", async (reqData) => {
+    const jwt = localStorage.getItem("jwt")
+    const {data} = await axios.put(`${API_URL}/api/task`, reqData, {
+                     headers:{
+                         Authorization:`Bearer ${jwt}`
+                     }
+                 })
+    return data
+})
+
+export const getTask = createAsyncThunk("tasks/getTask", async (reqData) => {
+    const jwt = localStorage.getItem("jwt")
+    const {data} = await axios.get(`${API_URL}/api/task?id=${reqData.id}`, {
+                     headers:{
+                         Authorization:`Bearer ${jwt}`
+                     }
+                 })
+    return data
+})
+

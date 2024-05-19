@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createTask, fetchMyTasks, updateTaskStatus } from "./Action"
+import { createTask, fetchMyTasks, getTask, updateTask, updateTaskStatus } from "./Action"
 
 const initialState = {
     mytasks: null,
@@ -7,7 +7,8 @@ const initialState = {
     error: null,
     success: null,
     fail: null,
-    totalElements: null
+    totalElements: null,
+    editTask: null
 }
 
 const tasksSlice = createSlice({
@@ -74,6 +75,43 @@ const tasksSlice = createSlice({
         .addCase(createTask.fulfilled, (state, action) => {
             state.isLoading = false
             state.success= "createTask"
+            console.log("fulfilled")
+        })
+        .addCase(updateTask.pending, (state, action) => {
+            state.isLoading = true
+            state.error=null
+            state.success= null
+            state.fail = null
+            console.log("pending")
+        })
+        .addCase(updateTask.rejected, (state, action) => {
+            state.isLoading = false
+            state.error=action.error
+            state.fail="updateTask"
+            console.log("rejected")
+        })
+        .addCase(updateTask.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.success= "updateTask"
+            console.log("fulfilled")
+        })
+        .addCase(getTask.pending, (state, action) => {
+            state.isLoading = true
+            state.error=null
+            state.success= null
+            state.fail = null
+            console.log("pending")
+        })
+        .addCase(getTask.rejected, (state, action) => {
+            state.isLoading = false
+            state.error=action.error
+            state.fail="getTask"
+            console.log("rejected")
+        })
+        .addCase(getTask.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.success= "getTask"
+            state.editTask = action.payload
             console.log("fulfilled")
         })
         
