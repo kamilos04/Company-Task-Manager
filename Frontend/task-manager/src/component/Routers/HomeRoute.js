@@ -6,6 +6,7 @@ import Register from '../Login/Register'
 import Tasks from '../Tasks/Tasks'
 import Profile from '../Profile/Profile'
 import CreateNewTask from '../CreateNewTask/CreateNewTask'
+import EditTask from '../EditTask.js/EditTask'
 
 const HomeRoute = () => {
   return (
@@ -17,6 +18,7 @@ const HomeRoute = () => {
         <Route path='/tasks' element={<Tasks/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/create-new-task' element={<CreateNewTask/>}/>
+        <Route path='/update-task/:id' element={<EditTask/>}/>
         <Route path='*' element={<Navigate to="/login"/>}/>
       </Routes>
     </div>
