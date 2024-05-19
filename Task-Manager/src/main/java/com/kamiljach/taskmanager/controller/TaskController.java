@@ -67,4 +67,9 @@ public class TaskController {
     public ResponseEntity<TaskStatsResponse> fetchTaskStats(@RequestHeader("Authorization") String jwt) throws Exception{
         return new ResponseEntity<>(taskService.getTaskStats(jwt), HttpStatus.OK);
     }
+
+    @GetMapping("/task")
+    public ResponseEntity<TaskDto> getTask(@RequestParam Long id, @RequestHeader("Authorization") String jwt) throws Exception {
+        return new ResponseEntity<>(taskService.getTask(id, jwt), HttpStatus.OK);
+    }
 }

@@ -434,4 +434,49 @@ public class TaskServiceImpl implements TaskService {
         response.setFinished(taskRepository.getCountOfStatus(reqUser.getId(), TASK_STATUS.FINISHED));
         return response;
     }
+
+    public TaskDto getTask(Long taskId, String jwt) throws Exception{
+        User userReq = userService.findUserByJwt(jwt);
+        Optional<Task> optionalTask = taskRepository.findById(taskId);
+        if(optionalTask.isEmpty()){
+            throw new Exception("Invalid task");
+        }
+        Task task = optionalTask.get();
+
+        //Check permission
+        boolean permission = false;
+        if(userReq.getRole().equals(USER_ROLES.SUPER_ADMIN)){permission = true;}
+        else {
+            boolean isAdminByTeamAdmin = false;
+            for(Team t : userReq.getTeamsAdmin()){
+                if(task.getTeams().contains(t)){
+                    isAdminByTeamAdmin = true;
+                    break;
+                }
+            }
+
+            if(userReq.getTasksAdmin().contains(task) || isAdminByTeamAdmin){
+                permission = true;
+            }
+            else{
+                boolean isMemberOfTaskTeams = false;
+                for(Team t : userReq.getTeams()){
+                    if(task.getTeams().contains(t)){
+                        isMemberOfTaskTeams = true;
+                        break;
+                    }
+                }
+                if(userReq.getTasks().contains(task) || isMemberOfTaskTeams){
+                    permission = true;
+                }
+            }
+
+
+        }
+        if(!permission){
+            throw new Exception("No permission");
+        }
+
+        return(new TaskDto(task));
+    }
 }

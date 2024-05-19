@@ -19,4 +19,6 @@ public interface TaskService {
     public TasksResponsePageable findUsersAndHisTeamsTasks(Long userId, String sortedBy, Long pageNumber, Long pageElementsNumber, List<String> filters, String sortDirection, String jwt) throws Exception;
 
     public TaskStatsResponse getTaskStats(String jwt) throws Exception;
+
+    public TaskDto getTask(Long taskId, String jwt) throws Exception;
 }
