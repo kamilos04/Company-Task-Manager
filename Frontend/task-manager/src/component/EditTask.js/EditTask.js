@@ -5,12 +5,12 @@ import { Controller, useForm } from 'react-hook-form'
 import { Autocomplete, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllTeams, fetchAllUsers } from '../State/GeneralData/Action'
-import { createTask, getTask } from '../State/Tasks/Action'
+import { createTask, getTask, updateTask } from '../State/Tasks/Action'
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
 import ErrorAlert from '../General/ErrorAlert'
 import SuccessAlert from '../General/SuccessAlert'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 
 const EditTask = () => {
     CheckIfProfileLoad()
@@ -21,6 +21,7 @@ const EditTask = () => {
     const [visibleErrorAlert, setVisibleErrorAlert] = useState(false)
     const [visibleSuccessAlert, setVisibleSuccessAlert] = useState(false)
     const [alertText, setAlertText] = useState("")
+    const navigate = useNavigate()
     const schema = yup.object().shape({
         name: yup.string().required(),
         desc: yup.string().required(),
@@ -40,6 +41,12 @@ const EditTask = () => {
     })
 
     useEffect(() => {
+        dispatch(getTask({ id: id }))
+        dispatch(fetchAllUsers())
+        dispatch(fetchAllTeams())
+    }, [])
+    
+    useEffect(() => {
 
         if (!!tasks.editTask && !!generalData.allUsers) {
             reset({
@@ -55,13 +62,12 @@ const EditTask = () => {
         }
     }, [tasks.editTask, generalData.allUsers])
 
-    useEffect(() => {
-        dispatch(getTask({ id: id }))
-        dispatch(fetchAllUsers())
-        dispatch(fetchAllTeams())
-    }, [])
+    
 
     useEffect(() => {
+        if(tasks.fail ==="getTask"){
+            navigate("/")
+        }
         if (tasks.fail === "updateTask") {
             setAlertText("Something went wrong")
             setVisibleErrorAlert(true)
@@ -81,18 +87,20 @@ const EditTask = () => {
 
     const onSubmit = (data) => {
         let reqData = {
+            id: id,
             name: data.name,
             desc: data.desc,
             priority: data.priority,
             usersIds: data.users?.map((user) => user.id),
             adminsIds: data.admins?.map((user) => user.id),
-            teamsIds: data.teams?.map((team) => team.id)
+            teamsIds: data.teams?.map((team) => team.id),
+            status: null
 
         }
         
         console.log(reqData)
         console.log(data)
-        dispatch(createTask(reqData))
+        dispatch(updateTask(reqData))
     }
 
     return (
@@ -262,7 +270,7 @@ const EditTask = () => {
                             </div>
                         </div>
                         <div className='flex flex-row justify-end '>
-                            <Button type="submit" variant="contained">Create task</Button>
+                            <Button type="submit" variant="contained">Update task</Button>
                         </div>
 
 
