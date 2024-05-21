@@ -16,7 +16,7 @@ const Tasks = () => {
   const dispatch = useDispatch()
   const filteringData = useRef({
     userId: auth.profile?.id,
-    sortedBy: "name",
+    sortedBy: "dateOfCreation",
     pageNumber: page - 1,
     filters: ['low', 'medium', 'high', 'waiting', 'inProgress', 'finished'],
     sortingDirection: 'asc'
