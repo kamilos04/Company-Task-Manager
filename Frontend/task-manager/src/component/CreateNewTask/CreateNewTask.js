@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllTeams, fetchAllUsers } from '../State/GeneralData/Action'
 import { createTask } from '../State/Tasks/Action'
 import * as yup from 'yup'
-import {yupResolver} from "@hookform/resolvers/yup"
+import { yupResolver } from "@hookform/resolvers/yup"
 import ErrorAlert from '../General/ErrorAlert'
 import SuccessAlert from '../General/SuccessAlert'
 
@@ -25,7 +25,7 @@ const CreateNewTask = () => {
     priority: yup.string().required()
 
   })
-  const { register, handleSubmit, control, formState: {errors}, reset } = useForm({
+  const { register, handleSubmit, control, formState: { errors }, reset } = useForm({
     resolver: yupResolver(schema)
   })
 
@@ -34,20 +34,20 @@ const CreateNewTask = () => {
     dispatch(fetchAllTeams())
   }, [])
   useEffect(() => {
-    if(tasks.fail==="createTask"){
+    if (tasks.fail === "createTask") {
       setAlertText("Something went wrong")
       setVisibleErrorAlert(true)
     }
-    
+
   }, [tasks.fail])
 
   useEffect(() => {
-    if(tasks.success==="createTask"){
+    if (tasks.success === "createTask") {
       setAlertText("The task has been created")
       setVisibleSuccessAlert(true)
       reset()
     }
-    
+
   }, [tasks.success])
 
   const onSubmit = (data) => {
@@ -73,9 +73,9 @@ const CreateNewTask = () => {
       <div className='flex flex-col justify-center items-center h-full' >
         <div className='flex flex-col p-4 border-solid border
                 bg-white border-gray-200 shadow-md rounded-lg text-white items-center'>
-                  <h1 className='text-[rgb(24,28,44)] mt-0'>Create new task</h1>
+          <h1 className='text-[rgb(24,28,44)] mt-0'>Create new task</h1>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <div className='flex flex-col'>
+            <div className='flex flex-col w-[60rem]'>
               <div className='flex flex-row'>
                 <div className='flex flex-col place-content-between mr-5'>
                   <TextField
@@ -90,7 +90,7 @@ const CreateNewTask = () => {
                   <Controller
                     control={control}
                     name="priority"
-                    
+
                     render={({
                       field: { value, onChange } }) => (
                       <FormControl className='w-[25rem]' size='small'>
@@ -113,7 +113,7 @@ const CreateNewTask = () => {
                     )} />
                 </div>
                 <TextField
-                  className=' w-[30rem]'
+                  className=' flex-grow'
                   id="desc"
                   label="Description"
                   multiline
@@ -121,7 +121,7 @@ const CreateNewTask = () => {
                   rows={5}
                   error={!!errors.desc}
                   helperText={!!errors.name && "Name is required"}
-                  
+
                   {...register("desc")}
 
                 />
@@ -131,17 +131,18 @@ const CreateNewTask = () => {
                   <Controller
                     control={control}
                     name="users"
-                    render={({ field: { onChange } }) => (
+                    render={({ field: { onChange, value } }) => (
                       <Autocomplete
-                        className=' mb-7 w-full'
+                        className=' mb-7 w-full flex-grow-1'
                         sx={{ '.MuiChip-root': { bgcolor: "rgb(230, 186, 255)" } }}
                         multiple
                         id="tags-outlined"
                         options={generalData.allUsers}
                         getOptionLabel={(option) => `${option.name} ${option.surname}, ${"\xa0\xa0\xa0\xa0\xa0\xa0"}E-mail: ${option.email}`}
                         filterSelectedOptions
+                        value={value || []}
                         isOptionEqualToValue={(option, value) => {
-                          if(option.email===value.email){
+                          if (option.email === value.email) {
                             return true
                           }
                           else return false
@@ -162,7 +163,7 @@ const CreateNewTask = () => {
                   <Controller
                     control={control}
                     name="admins"
-                    render={({ field: { onChange } }) => (
+                    render={({ field: { onChange, value } }) => (
                       <Autocomplete
                         className='w-full mb-7'
                         sx={{ '.MuiChip-root': { bgcolor: "rgb(159, 209, 255)" } }}
@@ -171,8 +172,9 @@ const CreateNewTask = () => {
                         options={generalData.allUsers}
                         getOptionLabel={(option) => `${option.name} ${option.surname}, ${"\xa0\xa0\xa0\xa0\xa0\xa0"}E-mail: ${option.email}`}
                         filterSelectedOptions
+                        value={value || []}
                         isOptionEqualToValue={(option, value) => {
-                          if(option.email===value.email){
+                          if (option.email === value.email) {
                             return true
                           }
                           else return false
@@ -184,16 +186,16 @@ const CreateNewTask = () => {
                           <TextField
                             {...params}
                             label="Admins"
-                            // placeholder="Admins"
+                          // placeholder="Admins"
                           />
                         )}
                       />
                     )} />}
-                    {generalData.allTeams &&
+                {generalData.allTeams &&
                   <Controller
                     control={control}
                     name="teams"
-                    render={({ field: { onChange } }) => (
+                    render={({ field: { onChange, value  } }) => (
                       <Autocomplete
                         className='w-full mb-5'
                         sx={{ '.MuiChip-root': { bgcolor: "rgb(159, 255, 188)" } }}
@@ -202,8 +204,9 @@ const CreateNewTask = () => {
                         options={generalData.allTeams}
                         getOptionLabel={(option) => `${option.name}`}
                         filterSelectedOptions
+                        value={value || []}
                         isOptionEqualToValue={(option, value) => {
-                          if(option.name===value.name){
+                          if (option.name === value.name) {
                             return true
                           }
                           else return false
@@ -221,7 +224,7 @@ const CreateNewTask = () => {
                         )}
                       />
                     )} />}
-                    
+
               </div>
             </div>
             <div className='flex flex-row justify-end '>
@@ -231,7 +234,7 @@ const CreateNewTask = () => {
 
 
 
-            
+
           </form>
         </div>
 

@@ -90,7 +90,7 @@ const EditTask = () => {
             setAlertText("The task has been deleted")
             setVisibleSuccessAlert(true)
             setTimeout(() => {
-                setVisibleSuccessAlert(false) 
+                setVisibleSuccessAlert(false)
                 navigate("/tasks")
             }, 2000)
 
@@ -119,7 +119,7 @@ const EditTask = () => {
     }
 
     const handleOnClickDeleteTask = () => {
-        dispatch(deleteTask({id: id}))
+        dispatch(deleteTask({ id: id }))
     }
 
     return (
@@ -133,7 +133,7 @@ const EditTask = () => {
                 bg-white border-gray-200 shadow-md rounded-lg text-white items-center'>
                     <h1 className='text-[rgb(24,28,44)] mt-0'>Update task</h1>
                     <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className='flex flex-col'>
+                        <div className='flex flex-col w-[60rem]'>
                             <div className='flex flex-row'>
                                 <div className='flex flex-col place-content-between mr-5'>
                                     <TextField
@@ -174,7 +174,7 @@ const EditTask = () => {
                                 </div>
                                 <TextField
                                     InputLabelProps={{ shrink: true }}
-                                    className=' w-[30rem]'
+                                    className=' flex-grow'
                                     id="desc"
                                     label="Description"
                                     multiline
@@ -192,7 +192,7 @@ const EditTask = () => {
                                     <Controller
                                         control={control}
                                         name="users"
-                                        render={({ field: { onChange } }) => (
+                                        render={({ field: { onChange, value } }) => (
                                             <Autocomplete
                                                 className=' mb-7 w-full'
                                                 sx={{ '.MuiChip-root': { bgcolor: "rgb(230, 186, 255)" } }}
@@ -201,6 +201,7 @@ const EditTask = () => {
                                                 options={generalData.allUsers}
                                                 getOptionLabel={(option) => `${option.name} ${option.surname}, ${"\xa0\xa0\xa0\xa0\xa0\xa0"}E-mail: ${option.email}`}
                                                 filterSelectedOptions
+                                                value={value || []}
                                                 isOptionEqualToValue={(option, value) => {
                                                     if (option.email === value.email) {
                                                         return true
@@ -224,7 +225,7 @@ const EditTask = () => {
                                     <Controller
                                         control={control}
                                         name="admins"
-                                        render={({ field: { onChange } }) => (
+                                        render={({ field: { onChange, value } }) => (
                                             <Autocomplete
                                                 className='w-full mb-7'
                                                 sx={{ '.MuiChip-root': { bgcolor: "rgb(159, 209, 255)" } }}
@@ -233,6 +234,7 @@ const EditTask = () => {
                                                 options={generalData.allUsers}
                                                 getOptionLabel={(option) => `${option.name} ${option.surname}, ${"\xa0\xa0\xa0\xa0\xa0\xa0"}E-mail: ${option.email}`}
                                                 filterSelectedOptions
+                                                value={value || []}
                                                 defaultValue={tasks.editTask?.admins}
                                                 isOptionEqualToValue={(option, value) => {
                                                     if (option.email === value.email) {
@@ -256,7 +258,7 @@ const EditTask = () => {
                                     <Controller
                                         control={control}
                                         name="teams"
-                                        render={({ field: { onChange } }) => (
+                                        render={({ field: { onChange, value } }) => (
                                             <Autocomplete
                                                 className='w-full mb-5'
                                                 sx={{ '.MuiChip-root': { bgcolor: "rgb(159, 255, 188)" } }}
@@ -265,6 +267,7 @@ const EditTask = () => {
                                                 options={generalData.allTeams}
                                                 getOptionLabel={(option) => `${option.name}`}
                                                 filterSelectedOptions
+                                                value={value || []}
                                                 defaultValue={tasks.editTask?.teams}
                                                 isOptionEqualToValue={(option, value) => {
                                                     if (option.name === value.name) {
