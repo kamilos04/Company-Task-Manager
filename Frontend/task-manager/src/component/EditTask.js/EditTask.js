@@ -104,7 +104,7 @@ const EditTask = () => {
         let reqData = {
             id: id,
             name: data.name,
-            desc: data.desc,
+            description: data.desc,
             priority: data.priority,
             usersIds: data.users?.map((user) => user.id),
             adminsIds: data.admins?.map((user) => user.id),

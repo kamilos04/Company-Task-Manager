@@ -102,7 +102,7 @@ const TaskAccordion = (props) => {
                         </div>
                     </div>
                     <div className='flex justify-end w-full'>
-                    {ifUserHasPermissionToEditTask() && <Button variant="contained" className='mr-3' onClick={handleClickUpdateTask}>Update</Button>}
+                    {ifUserHasPermissionToEditTask() && <Button variant="contained" className='mr-3 w-20' onClick={handleClickUpdateTask}>Edit</Button>}
                         <ToggleButtonGroup
                             value={props.task.status}
                             exclusive

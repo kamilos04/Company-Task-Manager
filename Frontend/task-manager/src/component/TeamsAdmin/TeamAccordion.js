@@ -1,5 +1,5 @@
 import React from 'react'
-import { Accordion, AccordionDetails, AccordionSummary } from '@mui/material'
+import { Accordion, AccordionDetails, AccordionSummary, Button } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DescChip from '../Tasks/DescChip';
 
@@ -8,7 +8,7 @@ const TeamAccordion = (props) => {
     <div>
       <Accordion className='bg-slate-300 w-[20rem] shadow-xl shadow-slate-800 text-[rgb(24,28,44)] rounded-xl m-3'>
                 <AccordionSummary
-                    className='font-medium'
+                    className='font-medium h-12'
                     expandIcon={<ExpandMoreIcon />}
                     id="panel1-header"
                 >
@@ -40,7 +40,9 @@ const TeamAccordion = (props) => {
                             })}
                         </div>
                     </div>
-
+                    <div className='flex flex-row justify-end'>
+                    <Button variant="contained" className="w-20">Edit</Button>
+                    </div>
 
 
                 </AccordionDetails>
