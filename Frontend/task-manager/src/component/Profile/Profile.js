@@ -11,7 +11,7 @@ const Profile = () => {
     <div className='flex flex-col h-screen'>
       <Navbar />
       <div className='flex flex-col justify-center items-center h-full' >
-        <div className='flex flex-col bg-[rgb(32,36,52)] p-4 border-solid border border-gray-200 shadow-md rounded-lg text-white'>
+        <div className='flex flex-col bg-[rgb(32,36,52)] p-4 border-solid border border-gray-200 shadow-md rounded-lg text-white max-w-[50rem]'>
           <div className='flex flex-col text-xl'>
             <div><span className='font-bold '>Name: </span><span>{auth.profile?.name}</span></div>
             <div className='mt-2'><span className='font-bold'>Surname: </span><span>{auth.profile?.surname}</span></div>
@@ -19,7 +19,7 @@ const Profile = () => {
           </div>
           <div className='mt-5 text-xl flex flex-col'>
             <span className='font-bold mb-1'>Teams:</span>
-            <div className='flex flex-row'>
+            <div className='flex flex-row flex-wrap'>
               {auth.profile?.teams.map((team, index) => {
                 return (<CustomChip text={team.name} key={index} />)
               })}
@@ -27,7 +27,7 @@ const Profile = () => {
           </div>
           <div className='mt-5 text-xl flex flex-col'>
             <span className='font-bold mb-1'>Teams with admin role:</span>
-            <div className='flex flex-row'>
+            <div className='flex flex-row flex-wrap'>
               {auth.profile?.teamsAdmin.map((team, index) => {
                 return (<CustomChip text={team.name} key={index} />)
               })}

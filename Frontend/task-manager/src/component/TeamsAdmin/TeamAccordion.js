@@ -25,7 +25,7 @@ const TeamAccordion = (props) => {
                 <AccordionDetails className=''>
                     <div className='mt-3'>
                         <span className='font-bold'>Users:<br /></span>
-                        <div className='font-medium mt-1 flex flex-row'>
+                        <div className='font-medium mt-1 flex flex-row flex-wrap'>
                             {props.team.users.map((user, index) => {
                                 return (<DescChip type="user" text={`${user.name} ${user.surname}`} key={index} />)
                             })}
@@ -34,7 +34,7 @@ const TeamAccordion = (props) => {
                     </div>
                     <div className='mt-3'>
                         <span className='font-bold'>Admins:<br /></span>
-                        <div className='font-medium mt-1 flex flex-row'>
+                        <div className='font-medium mt-1 flex flex-row flex-wrap'>
                             {props.team.admins.map((admin, index) => {
                                 return (<DescChip type="admin" text={`${admin.name} ${admin.surname}`} key={index} />)
                             })}

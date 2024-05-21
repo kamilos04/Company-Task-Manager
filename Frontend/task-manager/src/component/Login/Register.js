@@ -36,7 +36,12 @@ const Register = () => {
     },[auth.success])
 
 
-
+    useEffect(() => {
+        if (auth.fail === "register") {
+            setAlertText("Something went wrong!")
+            setVisibleAlert(true)
+        }
+      }, [auth.fail])
 
     const onSubmit = (data) => {
         console.log(data)

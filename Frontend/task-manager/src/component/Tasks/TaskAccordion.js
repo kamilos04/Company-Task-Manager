@@ -78,7 +78,7 @@ const TaskAccordion = (props) => {
                     </div>
                     <div className='mt-3'>
                         <span className='font-bold'>Teams:<br /></span>
-                        <div className='font-medium mt-1 flex flex-row'>
+                        <div className='font-medium mt-1 flex flex-row flex-wrap'>
                             {props.task.teams.map((team, index) => {
                                 return (<DescChip type="team" text={team.name} key={index} />)
                             })}
@@ -86,7 +86,7 @@ const TaskAccordion = (props) => {
                     </div>
                     <div className='mt-3'>
                         <span className='font-bold'>Users:<br /></span>
-                        <div className='font-medium mt-1 flex flex-row'>
+                        <div className='font-medium mt-1 flex flex-row flex-wrap'>
                             {props.task.users.map((user, index) => {
                                 return (<DescChip type="user" text={`${user.name} ${user.surname}`} key={index} />)
                             })}
@@ -95,7 +95,7 @@ const TaskAccordion = (props) => {
                     </div>
                     <div className='mt-3'>
                         <span className='font-bold'>Admins:<br /></span>
-                        <div className='font-medium mt-1 flex flex-row'>
+                        <div className='font-medium mt-1 flex flex-row flex-wrap'>
                             {props.task.admins.map((admin, index) => {
                                 return (<DescChip type="admin" text={`${admin.name} ${admin.surname}`} key={index} />)
                             })}

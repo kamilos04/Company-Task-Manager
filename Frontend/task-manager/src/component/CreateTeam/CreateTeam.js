@@ -146,38 +146,6 @@ const CreateTeam = () => {
                           )}
                         />
                       )} />}
-                  {generalData.allTeams &&
-                    <Controller
-                      control={control}
-                      name="teams"
-                      render={({ field: { onChange } }) => (
-                        <Autocomplete
-                          className='w-full mb-5'
-                          sx={{ '.MuiChip-root': { bgcolor: "rgb(159, 255, 188)" } }}
-                          multiple
-                          id="tags-outlined"
-                          options={generalData.allTeams}
-                          getOptionLabel={(option) => `${option.name}`}
-                          filterSelectedOptions
-                          isOptionEqualToValue={(option, value) => {
-                            if (option.name === value.name) {
-                              return true
-                            }
-                            else return false
-                          }}
-                          onChange={(event, item) => {
-                            onChange(item)
-                          }}
-                          renderInput={(params) => (
-                            <TextField
-                              {...params}
-                              // label="Users"
-                              // placeholder="Teams"
-                              label="Teams"
-                            />
-                          )}
-                        />
-                      )} />}
   
                 </div>
               </div>
