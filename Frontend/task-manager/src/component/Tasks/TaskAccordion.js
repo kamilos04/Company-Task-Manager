@@ -50,7 +50,7 @@ const TaskAccordion = (props) => {
     return (
 
         <div className='flex w-[100%] mt-5'>
-            <Accordion className='bg-slate-500 w-[100%] shadow-lg text-white'>
+            <Accordion className='bg-slate-500 w-[100%] shadow-lg text-white rounded-xl'>
                 <AccordionSummary
                     className='font-medium'
                     expandIcon={<ExpandMoreIcon />}

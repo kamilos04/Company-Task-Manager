@@ -11,7 +11,7 @@ const FilterBar = (props) => {
             low: true,
             medium: true,
             high: true,
-            sortedBy: "nameAsc"
+            sortedBy: "dateOfCreationAsc"
         }
     })
 
