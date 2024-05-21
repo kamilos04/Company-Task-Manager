@@ -96,7 +96,6 @@ const Tasks = () => {
     }
   }
 
-  console.log(tasks.totalElements)
 
   return (
     <div className='flex flex-col'>

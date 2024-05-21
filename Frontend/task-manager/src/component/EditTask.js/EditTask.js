@@ -5,7 +5,7 @@ import { Controller, useForm } from 'react-hook-form'
 import { Autocomplete, Button, FormControl, FormHelperText, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchAllTeams, fetchAllUsers } from '../State/GeneralData/Action'
-import { createTask, getTask, updateTask } from '../State/Tasks/Action'
+import { createTask, deleteTask, getTask, updateTask } from '../State/Tasks/Action'
 import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
 import ErrorAlert from '../General/ErrorAlert'
@@ -41,11 +41,12 @@ const EditTask = () => {
     })
 
     useEffect(() => {
+        console.log("idzie")
         dispatch(getTask({ id: id }))
         dispatch(fetchAllUsers())
         dispatch(fetchAllTeams())
     }, [])
-    
+
     useEffect(() => {
 
         if (!!tasks.editTask && !!generalData.allUsers) {
@@ -58,17 +59,21 @@ const EditTask = () => {
                 admins: tasks.editTask?.admins,
                 teams: tasks.editTask?.teams
             })
-            console.log(tasks.editTask?.users.map((user)=> user.id))
+            console.log(tasks.editTask?.users?.map((user) => user.id))
         }
     }, [tasks.editTask, generalData.allUsers])
 
-    
+
 
     useEffect(() => {
-        if(tasks.fail ==="getTask"){
+        if (tasks.fail === "getTask") {
             navigate("/")
         }
         if (tasks.fail === "updateTask") {
+            setAlertText("Something went wrong")
+            setVisibleErrorAlert(true)
+        }
+        if (tasks.fail === "deleteTask") {
             setAlertText("Something went wrong")
             setVisibleErrorAlert(true)
         }
@@ -79,6 +84,16 @@ const EditTask = () => {
         if (tasks.success === "updateTask") {
             setAlertText("The task has been updated")
             setVisibleSuccessAlert(true)
+            // reset()
+        }
+        if (tasks.success === "deleteTask") {
+            setAlertText("The task has been deleted")
+            setVisibleSuccessAlert(true)
+            setTimeout(() => {
+                setVisibleSuccessAlert(false) 
+                navigate("/tasks")
+            }, 2000)
+
             // reset()
         }
 
@@ -97,10 +112,14 @@ const EditTask = () => {
             status: null
 
         }
-        
-        console.log(reqData)
-        console.log(data)
+
+        // console.log(reqData)
+        // console.log(data)
         dispatch(updateTask(reqData))
+    }
+
+    const handleOnClickDeleteTask = () => {
+        dispatch(deleteTask({id: id}))
     }
 
     return (
@@ -134,7 +153,7 @@ const EditTask = () => {
                                         render={({
                                             field: { value, onChange } }) => (
                                             <FormControl className='w-[25rem]' size='small'>
-                                                
+
                                                 <InputLabel id="demo-simple-select-label" className={!!errors.priority && 'text-red-600'}>Priority</InputLabel>
                                                 <Select
                                                     labelId="demo-simple-select-label"
@@ -154,7 +173,7 @@ const EditTask = () => {
                                         )} />
                                 </div>
                                 <TextField
-                                InputLabelProps={{ shrink: true }}
+                                    InputLabelProps={{ shrink: true }}
                                     className=' w-[30rem]'
                                     id="desc"
                                     label="Description"
@@ -269,7 +288,8 @@ const EditTask = () => {
 
                             </div>
                         </div>
-                        <div className='flex flex-row justify-end '>
+                        <div className='flex flex-row justify-between '>
+                            <Button variant="contained" className='bg-red-400' onClick={handleOnClickDeleteTask}>Delete task</Button>
                             <Button type="submit" variant="contained">Update task</Button>
                         </div>
 
