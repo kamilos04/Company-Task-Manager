@@ -20,7 +20,6 @@ const TaskAccordion = (props) => {
     const ifUserHasPermissionToEditTask = () => {
         let permission = false
         let usersTeamsAdminNames = auth.profile.teamsAdmin.map((team) => team.name)
-        console.log(usersTeamsAdminNames)
         props.task.teams.forEach((team) => {
             if(usersTeamsAdminNames.includes(team.name)){
                 permission = true
@@ -31,7 +30,6 @@ const TaskAccordion = (props) => {
                 permission = true
             }
         })
-        console.log(permission)
         return permission
     }
 

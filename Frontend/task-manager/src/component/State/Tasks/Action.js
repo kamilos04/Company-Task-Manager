@@ -54,3 +54,14 @@ export const getTask = createAsyncThunk("tasks/getTask", async (reqData) => {
     return data
 })
 
+export const deleteTask = createAsyncThunk("tasks/deleteTask", async (reqData) => {
+    const jwt = localStorage.getItem("jwt")
+    const {data} = await axios.delete(`${API_URL}/api/task?id=${reqData.id}`, {
+                     headers:{
+                         Authorization:`Bearer ${jwt}`
+                     }
+                 })
+    return data
+})
+
+

@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createTask, fetchMyTasks, getTask, updateTask, updateTaskStatus } from "./Action"
+import { createTask, deleteTask, fetchMyTasks, getTask, updateTask, updateTaskStatus } from "./Action"
 
 const initialState = {
     mytasks: null,
@@ -112,6 +112,24 @@ const tasksSlice = createSlice({
             state.isLoading = false
             state.success= "getTask"
             state.editTask = action.payload
+            console.log("fulfilled")
+        })
+        .addCase(deleteTask.pending, (state, action) => {
+            state.isLoading = true
+            state.error=null
+            state.success= null
+            state.fail = null
+            console.log("pending")
+        })
+        .addCase(deleteTask.rejected, (state, action) => {
+            state.isLoading = false
+            state.error=action.error
+            state.fail="deleteTask"
+            console.log("rejected")
+        })
+        .addCase(deleteTask.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.success= "deleteTask"
             console.log("fulfilled")
         })
         
