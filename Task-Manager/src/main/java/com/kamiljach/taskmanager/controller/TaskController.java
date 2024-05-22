@@ -24,7 +24,7 @@ public class TaskController {
 
     @PostMapping("/task")
     public ResponseEntity<TaskDto> createTask(@RequestBody CreateTaskRequest req, @RequestHeader("Authorization") String jwt) throws Exception {
-        TaskDto createdTask = taskService.createTask(req);
+        TaskDto createdTask = taskService.createTask(req, jwt);
         return new ResponseEntity<>(createdTask, HttpStatus.CREATED);
     }
 

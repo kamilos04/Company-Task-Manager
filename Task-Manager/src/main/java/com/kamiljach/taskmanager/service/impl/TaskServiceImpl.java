@@ -37,7 +37,17 @@ public class TaskServiceImpl implements TaskService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public TaskDto createTask(CreateTaskRequest req) throws Exception{
+    public TaskDto createTask(CreateTaskRequest req, String jwt) throws Exception{
+        User reqUser = userService.findUserByJwt(jwt);
+        boolean permission = false;
+        if(reqUser.getRole().equals(USER_ROLES.SUPER_ADMIN)){
+            permission = true;
+        }
+        else if(!reqUser.getTeamsAdmin().isEmpty()){
+            permission = true;
+        }
+        if(!permission){throw new Exception("No permission");}
+        
         Task newTask = new Task();
         newTask.setName(req.getName());
         newTask.setDescription(req.getDesc());

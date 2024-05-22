@@ -9,7 +9,7 @@ import com.kamiljach.taskmanager.response.task.TasksResponsePageable;
 import java.util.List;
 
 public interface TaskService {
-    public TaskDto createTask(CreateTaskRequest req) throws Exception;
+    public TaskDto createTask(CreateTaskRequest req, String jwt) throws Exception;
 
     public TaskDto updateTask(UpdateTaskRequest req, String jwt) throws Exception;
     public TasksResponsePageable getAllTasksWithSortingAndFiltering(String sortedBy, Long pageNumber, Long pageElementsNumber, List<String> filters, String sortDirection, String jwt) throws Exception;
