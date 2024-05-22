@@ -20,7 +20,8 @@ const Navbar = () => {
         <div className='ml-8 text-3xl text-white mr-8 fontlogo'>COMPANY TASK MANAGER</div>
         <Button onClick={() => { navigate("/") }} className={`ml-6  ${location.pathname === "/" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Home</Button>
         <Button onClick={() => { navigate("/tasks") }} className={`ml-2  ${location.pathname === "/tasks" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Tasks</Button>
-        {auth.profile?.role==="SUPER_ADMIN" && <Button onClick={() => { navigate("/teams-admin") }} className={`ml-2  ${location.pathname === "/teams-admin" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Teams - admin panel</Button>}
+        {auth.profile?.role==="SUPER_ADMIN" && <Button onClick={() => { navigate("/teams-admin") }} className={`ml-3  ${location.pathname === "/teams-admin" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Teams - admin panel</Button>}
+        {auth.profile?.role==="SUPER_ADMIN" && <Button onClick={() => { navigate("/tasks-admin") }} className={`ml-3  ${location.pathname === "/tasks-admin" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Tasks - admin panel</Button>}
       </div>
 
       <div className='flex flex-row'>

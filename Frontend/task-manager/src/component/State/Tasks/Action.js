@@ -65,9 +65,9 @@ export const deleteTask = createAsyncThunk("tasks/deleteTask", async (reqData) =
 })
 
 export const fetchAllTasksAdmin = createAsyncThunk("tasks/fetchAllTasksAdmin", async (reqData) => {
-    console.log(`${API_URL}/api/admin/alltasks?id=${reqData.userId}&sortedBy=${reqData.sortedBy}&pageNumber=${reqData.pageNumber}&pageElementsNumber=10&filters=${reqData.filters}&sortingDirection=${reqData.sortingDirection}`)
+    console.log(`${API_URL}/api/admin/alltasks?sortedBy=${reqData.sortedBy}&pageNumber=${reqData.pageNumber}&pageElementsNumber=10&filters=${reqData.filters}&sortingDirection=${reqData.sortingDirection}`)
     const jwt = localStorage.getItem("jwt")
-    const {data} = await axios.get(`${API_URL}/api/mytasks?id=${reqData.userId}&sortedBy=${reqData.sortedBy}&pageNumber=${reqData.pageNumber}&pageElementsNumber=10&filters=${reqData.filters}&sortingDirection=${reqData.sortingDirection}`, {
+    const {data} = await axios.get(`${API_URL}/api/admin/alltasks?sortedBy=${reqData.sortedBy}&pageNumber=${reqData.pageNumber}&pageElementsNumber=10&filters=${reqData.filters}&sortingDirection=${reqData.sortingDirection}`, {
                      headers:{
                          Authorization:`Bearer ${jwt}`
                      }

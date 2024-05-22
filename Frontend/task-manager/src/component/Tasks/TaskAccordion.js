@@ -30,6 +30,9 @@ const TaskAccordion = (props) => {
                 permission = true
             }
         })
+        if(auth.profile.role==="SUPER_ADMIN"){
+            permission = true
+        }
         return permission
     }
 

@@ -10,6 +10,7 @@ import EditTask from '../EditTask.js/EditTask'
 import TeamsAdmin from '../TeamsAdmin/TeamsAdmin'
 import CreateTeam from '../CreateTeam/CreateTeam'
 import EditTeam from '../EditTeam/EditTeam'
+import TasksAdmin from '../TasksAdmin/TasksAdmin'
 
 const HomeRoute = () => {
   return (
@@ -25,6 +26,7 @@ const HomeRoute = () => {
         <Route path='/teams-admin' element={<TeamsAdmin/>}/>
         <Route path='/create-new-team' element={<CreateTeam/>}/>
         <Route path='/update-team/:id' element={<EditTeam/>}/>
+        <Route path='/tasks-admin' element={<TasksAdmin/>}/>
         <Route path='*' element={<Navigate to="/login"/>}/>
       </Routes>
     </div>
