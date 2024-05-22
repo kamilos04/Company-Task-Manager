@@ -22,3 +22,13 @@ export const updateTeam = createAsyncThunk("teams/updateTeam", async (reqData) =
                  })
     return data
 })
+
+export const deleteTeam = createAsyncThunk("teams/deleteTeam", async (reqData) => {
+    const jwt = localStorage.getItem("jwt")
+    const {data} = await axios.delete(`${API_URL}/api/team?id=${reqData.id}`, {
+                     headers:{
+                         Authorization:`Bearer ${jwt}`
+                     }
+                 })
+    return data
+})
