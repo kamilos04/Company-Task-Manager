@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
-import { createTeam } from "./Action"
+import { createTeam, updateTeam } from "./Action"
 
 
 const initialState = {
@@ -33,7 +33,24 @@ const teamsSlice = createSlice({
             state.fail="createTeam"
             console.log("rejected")
         })
-       
+        .addCase(updateTeam.pending, (state, action) => {
+            state.isLoading = true
+            state.error=null
+            state.success= null
+            state.fail = null
+            console.log("pending")
+        })
+        .addCase(updateTeam.fulfilled, (state, action) => {
+            state.isLoading = false
+            state.success= "updateTeam"
+            console.log("fulfilled")
+        })
+        .addCase(updateTeam.rejected, (state, action) => {
+            state.isLoading = false
+            state.error=action.error
+            state.fail="updateTeam"
+            console.log("rejected")
+        })
         
     }
 })

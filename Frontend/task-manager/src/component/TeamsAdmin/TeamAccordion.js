@@ -2,9 +2,14 @@ import React from 'react'
 import { Accordion, AccordionDetails, AccordionSummary, Button } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import DescChip from '../Tasks/DescChip';
+import { useNavigate } from 'react-router-dom';
 
 const TeamAccordion = (props) => {
-  return (
+    const navigate = useNavigate()
+    const handleClickEditTeam = () => {
+        navigate(`/update-team/${props.team.id}`)
+    }
+    return (
     <div>
       <Accordion className='bg-slate-300 w-[20rem] shadow-xl shadow-slate-800 text-[rgb(24,28,44)] rounded-xl m-3'>
                 <AccordionSummary
@@ -41,7 +46,7 @@ const TeamAccordion = (props) => {
                         </div>
                     </div>
                     <div className='flex flex-row justify-end'>
-                    <Button variant="contained" className="w-20">Edit</Button>
+                    <Button variant="contained" className="w-20" onClick={handleClickEditTeam}>Edit</Button>
                     </div>
 
 

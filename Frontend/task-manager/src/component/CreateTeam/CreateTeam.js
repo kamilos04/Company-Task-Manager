@@ -13,10 +13,12 @@ import SuccessAlert from '../General/SuccessAlert'
 import { createTeam } from '../State/Teams/Action'
 import { fetchProfile } from '../State/Authentication/Action'
 import { useNavigate } from 'react-router-dom'
+import checkIfProfileLoadAndIsSuperAdmin from '../Logic/checkIfProfileLoadAndIsSuperAdmin'
+import CheckIfProfileLoadAndIsSuperAdmin from '../Logic/checkIfProfileLoadAndIsSuperAdmin'
 
 
 const CreateTeam = () => {
-    CheckIfProfileLoad()
+    CheckIfProfileLoadAndIsSuperAdmin()
     const generalData = useSelector(store => store.generalData)
     const auth = useSelector(store => store.auth)
     const teams = useSelector(store => store.teams)
@@ -38,12 +40,12 @@ const CreateTeam = () => {
       dispatch(fetchProfile())
     }, [])
 
-    useEffect(() => {
-      if (auth.profile?.role !== "SUPER_ADMIN") {
-        navigate("/")
-      }
+    // useEffect(() => {
+    //   if (auth.success==="profile" && auth.profile?.role !== "SUPER_ADMIN") {
+    //     navigate("/")
+    //   }
   
-    }, [auth.profile])
+    // }, [auth.success])
 
     useEffect(() => {
       if (teams.fail === "createTeam") {

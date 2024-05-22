@@ -1,21 +1,26 @@
 import { Button } from '@mui/material'
-import React from 'react'
+import React, { useEffect } from 'react'
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import { useLocation, useNavigate } from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useDispatch } from 'react-redux';
-import { logoutUser } from '../State/Authentication/Action';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchProfile, logoutUser } from '../State/Authentication/Action';
 
 const Navbar = () => {
+  const auth = useSelector(store => store.auth)
   const navigate = useNavigate()
   const location = useLocation()
   const dispatch = useDispatch()
+  useEffect(() => {
+    dispatch(fetchProfile())
+  }, [])
   return (
     <div className='w-[100%] shadow-lg   flex flex-row h-16 justify-between items-center' style={{ borderBottom: '1px solid rgb(84, 87, 92)' }}>
       <div className='flex flex-row items-center'>
         <div className='ml-8 text-3xl text-white mr-8 fontlogo'>COMPANY TASK MANAGER</div>
         <Button onClick={() => { navigate("/") }} className={`ml-6  ${location.pathname === "/" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Home</Button>
         <Button onClick={() => { navigate("/tasks") }} className={`ml-2  ${location.pathname === "/tasks" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Tasks</Button>
+        {auth.profile?.role==="SUPER_ADMIN" && <Button onClick={() => { navigate("/teams-admin") }} className={`ml-2  ${location.pathname === "/teams-admin" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Teams - admin panel</Button>}
       </div>
 
       <div className='flex flex-row'>
