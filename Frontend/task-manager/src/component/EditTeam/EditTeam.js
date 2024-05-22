@@ -8,10 +8,11 @@ import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
 import ErrorAlert from '../General/ErrorAlert'
 import SuccessAlert from '../General/SuccessAlert'
-import { createTeam, updateTeam } from '../State/Teams/Action'
+import { createTeam, deleteTeam, updateTeam } from '../State/Teams/Action'
 import { fetchProfile } from '../State/Authentication/Action'
 import CheckIfProfileLoadAndIsSuperAdmin from '../Logic/checkIfProfileLoadAndIsSuperAdmin'
 import { useNavigate, useParams } from 'react-router-dom'
+import { setSuccessNull } from '../State/Teams/TeamsSlice'
 
 const EditTeam = () => {
     CheckIfProfileLoadAndIsSuperAdmin()
@@ -46,6 +47,11 @@ const EditTeam = () => {
             setVisibleErrorAlert(true)
         }
 
+        if (teams.fail === "deleteTeam") {
+            setAlertText("Something went wrong")
+            setVisibleErrorAlert(true)
+        }
+
     }, [teams.fail])
 
     useEffect(() => {
@@ -66,6 +72,16 @@ const EditTeam = () => {
             setVisibleSuccessAlert(true)
         }
 
+        if (teams.success === "deleteTeam") {
+            setAlertText("The team has been deleted")
+            setVisibleSuccessAlert(true)
+            setTimeout(() => {
+                setVisibleSuccessAlert(false)
+                dispatch(setSuccessNull())
+                navigate("/teams-admin")
+            }, 2000)
+
+        }
     }, [teams.success])
 
 
@@ -92,6 +108,10 @@ const EditTeam = () => {
         console.log(reqData)
         console.log(data)
         dispatch(updateTeam(reqData))
+    }
+
+    const handleClickDeleteTeam = () => {
+        dispatch(deleteTeam({id: id}))
     }
 
     return (
@@ -183,8 +203,10 @@ const EditTeam = () => {
 
                             </div>
                         </div>
-                        <div className='flex flex-row justify-end '>
-                            <Button type="submit" variant="contained">Update team</Button>
+                        <div className='flex flex-row justify-between '>
+                            
+                            <Button variant="contained bg-red-400 text-black" onClick={handleClickDeleteTeam}>Delete team</Button>
+                            <Button type="submit" variant="contained" >Update team</Button>
                         </div>
 
 
