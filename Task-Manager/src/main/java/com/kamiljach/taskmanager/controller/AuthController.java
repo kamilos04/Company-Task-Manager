@@ -3,9 +3,11 @@ package com.kamiljach.taskmanager.controller;
 import com.kamiljach.taskmanager.config.JwtProvider;
 import com.kamiljach.taskmanager.model.User;
 import com.kamiljach.taskmanager.repository.UserRepository;
+import com.kamiljach.taskmanager.request.ChangePasswordAdminRequest;
 import com.kamiljach.taskmanager.request.LoginRequest;
 import com.kamiljach.taskmanager.response.AuthResponse;
 import com.kamiljach.taskmanager.service.CustomUserDetailsService;
+import com.kamiljach.taskmanager.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -14,10 +16,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -30,11 +29,15 @@ public class AuthController {
     private JwtProvider jwtProvider;
     private CustomUserDetailsService customUserDetailsService;
 
-    public AuthController(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, CustomUserDetailsService customUserDetailsService) {
+    private UserService userService;
+
+
+    public AuthController(UserRepository userRepository, PasswordEncoder passwordEncoder, JwtProvider jwtProvider, CustomUserDetailsService customUserDetailsService, UserService userService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.jwtProvider = jwtProvider;
         this.customUserDetailsService = customUserDetailsService;
+        this.userService = userService;
     }
 
     @PostMapping("/signup")
@@ -83,6 +86,14 @@ public class AuthController {
 
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }
+
+    @PostMapping("/change-password-admin")
+    public ResponseEntity<String> signIn(@RequestBody ChangePasswordAdminRequest req, @RequestHeader("Authorization") String jwt) throws Exception {
+        userService.changePasswordAdmin(req, jwt);
+        return new ResponseEntity<>("Password changed", HttpStatus.OK);
+    }
+
+
 
     private Authentication authenticate(String email, String password){
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);

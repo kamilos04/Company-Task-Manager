@@ -47,7 +47,7 @@ public class TaskServiceImpl implements TaskService {
             permission = true;
         }
         if(!permission){throw new Exception("No permission");}
-        
+
         Task newTask = new Task();
         newTask.setName(req.getName());
         newTask.setDescription(req.getDesc());
