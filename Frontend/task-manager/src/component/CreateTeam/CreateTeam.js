@@ -11,13 +11,17 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import ErrorAlert from '../General/ErrorAlert'
 import SuccessAlert from '../General/SuccessAlert'
 import { createTeam } from '../State/Teams/Action'
+import { fetchProfile } from '../State/Authentication/Action'
+import { useNavigate } from 'react-router-dom'
 
 
 const CreateTeam = () => {
     CheckIfProfileLoad()
     const generalData = useSelector(store => store.generalData)
+    const auth = useSelector(store => store.auth)
     const teams = useSelector(store => store.teams)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const [visibleErrorAlert, setVisibleErrorAlert] = useState(false)
     const [visibleSuccessAlert, setVisibleSuccessAlert] = useState(false)
     const [alertText, setAlertText] = useState("")
@@ -31,7 +35,16 @@ const CreateTeam = () => {
   
     useEffect(() => {
       dispatch(fetchAllUsers())
+      dispatch(fetchProfile())
     }, [])
+
+    useEffect(() => {
+      if (auth.profile?.role !== "SUPER_ADMIN") {
+        navigate("/")
+      }
+  
+    }, [auth.profile])
+
     useEffect(() => {
       if (teams.fail === "createTeam") {
         setAlertText("Something went wrong")
@@ -39,6 +52,7 @@ const CreateTeam = () => {
       }
   
     }, [teams.fail])
+
   
     useEffect(() => {
       if (teams.success === "createTeam") {
