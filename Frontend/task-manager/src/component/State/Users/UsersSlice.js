@@ -11,7 +11,11 @@ const initialState = {
 const usersSlice = createSlice({
     name: "users",
     initialState,
-    reducers:{},
+    reducers:{
+        setSuccessNull(state) {
+            state.success=null
+        }
+    },
     extraReducers: builder => {
         builder.addCase(changePasswordAdmin.pending, (state, action) => {
             state.isLoading = true
@@ -35,5 +39,5 @@ const usersSlice = createSlice({
         
     }
 })
-
+export const { setSuccessNull } = usersSlice.actions
 export default usersSlice.reducer

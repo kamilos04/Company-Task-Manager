@@ -29,7 +29,7 @@ const Home = () => {
   
   const isUserTeamAdminOrSuperAdmin = () => {
     let result = false
-    if(auth.profile?.role === "SUPER_ADMIN" || auth.profile?.teams.length>0){
+    if(auth.profile?.role === "SUPER_ADMIN" || auth.profile?.teamsAdmin.length>0){
       result = true
     }
     return result

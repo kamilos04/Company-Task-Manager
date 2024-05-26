@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Controller, useForm } from 'react-hook-form'
 import { Autocomplete, Button, TextField } from '@mui/material'
 import { changePasswordAdmin } from '../State/Users/Action'
+import { setSuccessNull } from '../State/Users/UsersSlice'
 
 
 const UsersAdmin = () => {
@@ -58,6 +59,7 @@ const UsersAdmin = () => {
           setAlertText("Password has been changed")
           setVisibleSuccessAlert(true)
           reset()
+          dispatch(setSuccessNull())
         }
     
       }, [users.success])

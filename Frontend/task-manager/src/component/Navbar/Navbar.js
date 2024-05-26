@@ -15,6 +15,7 @@ const Navbar = () => {
     dispatch(fetchProfile())
   }, [])
   return (
+    <div>
     <div className='w-[100%] shadow-lg   flex flex-row h-16 justify-between items-center' style={{ borderBottom: '1px solid rgb(84, 87, 92)' }}>
       <div className='flex flex-row items-center'>
         <div className='ml-8 text-3xl text-white mr-8 fontlogo'>COMPANY TASK MANAGER</div>
@@ -29,6 +30,7 @@ const Navbar = () => {
         <AccountCircleIcon onClick={() => { navigate("/profile") }} className='text-4xl mr-6 text-white block cursor-pointer' />
         <LogoutIcon onClick={() => { dispatch(logoutUser(navigate)) }} className='text-4xl mr-4 block cursor-pointer text-white' />
       </div>
+    </div>
     </div>
   )
 }
