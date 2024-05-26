@@ -55,7 +55,7 @@ const UsersAdmin = () => {
     
       useEffect(() => {
         if (users.success === "changePasswordAdmin") {
-          setAlertText("The task has been created")
+          setAlertText("Password has been changed")
           setVisibleSuccessAlert(true)
           reset()
         }

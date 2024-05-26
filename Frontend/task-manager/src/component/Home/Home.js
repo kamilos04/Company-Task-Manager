@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getProfile, logoutUser } from '../State/Authentication/Action';
 import { useNavigate } from 'react-router-dom';
@@ -12,6 +12,8 @@ const Home = () => {
   // const dispatch=useDispatch()
   // const auth = useSelector(store=>store.auth)
   const generalData = useSelector(store => store.generalData)
+  const auth = useSelector(store => store.auth)
+  // const [createTaskButtonVisible, setCreateTaskButtonVisible] = useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -24,6 +26,14 @@ const Home = () => {
     dispatch(fetchTasksStats())
   }, [])
 
+  
+  const isUserTeamAdminOrSuperAdmin = () => {
+    let result = false
+    if(auth.profile?.role === "SUPER_ADMIN" || auth.profile?.teams.length>0){
+      result = true
+    }
+    return result
+  }
 
   CheckIfProfileLoad()
 
@@ -80,7 +90,7 @@ const Home = () => {
           </div>}
           </div>
           
-          <Button variant="contained" className='w-36' onClick={createTaskHandleClick}>Create task</Button>
+          {isUserTeamAdminOrSuperAdmin() && <Button variant="contained" className='w-36' onClick={createTaskHandleClick}>Create task</Button>}
         </div>
       </div>
 
