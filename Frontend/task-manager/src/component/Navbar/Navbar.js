@@ -22,6 +22,7 @@ const Navbar = () => {
         <Button onClick={() => { navigate("/tasks") }} className={`ml-2  ${location.pathname === "/tasks" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Tasks</Button>
         {auth.profile?.role==="SUPER_ADMIN" && <Button onClick={() => { navigate("/teams-admin") }} className={`ml-3  ${location.pathname === "/teams-admin" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Teams - admin panel</Button>}
         {auth.profile?.role==="SUPER_ADMIN" && <Button onClick={() => { navigate("/tasks-admin") }} className={`ml-3  ${location.pathname === "/tasks-admin" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Tasks - admin panel</Button>}
+        {auth.profile?.role==="SUPER_ADMIN" && <Button onClick={() => { navigate("/users-admin") }} className={`ml-3  ${location.pathname === "/users-admin" ? "text-green-300" : "text-white"} text-lg normal-case`} variant="text">Users - admin panel</Button>}
       </div>
 
       <div className='flex flex-row'>

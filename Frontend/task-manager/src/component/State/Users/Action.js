@@ -5,7 +5,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit"
 
 export const changePasswordAdmin = createAsyncThunk("users/changePasswordAdmin", async (reqData) => {
         const jwt = localStorage.getItem("jwt")
-        const {data} = await axios.get(`${API_URL}/auth/change-password-admin`, reqData, {
+        const {data} = await axios.post(`${API_URL}/auth/change-password-admin`, reqData, {
                          headers:{
                              Authorization:`Bearer ${jwt}`
                          }

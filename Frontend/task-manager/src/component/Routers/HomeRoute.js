@@ -11,6 +11,7 @@ import TeamsAdmin from '../TeamsAdmin/TeamsAdmin'
 import CreateTeam from '../CreateTeam/CreateTeam'
 import EditTeam from '../EditTeam/EditTeam'
 import TasksAdmin from '../TasksAdmin/TasksAdmin'
+import UsersAdmin from '../UsersAdmin/UsersAdmin'
 
 const HomeRoute = () => {
   return (
@@ -27,6 +28,7 @@ const HomeRoute = () => {
         <Route path='/create-new-team' element={<CreateTeam/>}/>
         <Route path='/update-team/:id' element={<EditTeam/>}/>
         <Route path='/tasks-admin' element={<TasksAdmin/>}/>
+        <Route path='/users-admin' element={<UsersAdmin/>}/>
         <Route path='*' element={<Navigate to="/login"/>}/>
       </Routes>
     </div>
