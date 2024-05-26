@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -21,6 +22,8 @@ public class UserController {
     @GetMapping("/profile")
     public ResponseEntity<UserDto> userProfileByJwt(@RequestHeader("Authorization") String jwt) throws Exception {
         UserDto userDto = userService.findUserDtoByJwtToken(jwt);
+        userDto.setTasks(new ArrayList<>());
+        userDto.setTasksAdmin(new ArrayList<>());
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 
