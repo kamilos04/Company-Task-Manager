@@ -14,6 +14,9 @@ const usersSlice = createSlice({
     reducers:{
         setSuccessNull(state) {
             state.success=null
+        },
+        setFailNull(state) {
+            state.fail=null
         }
     },
     extraReducers: builder => {
@@ -39,5 +42,5 @@ const usersSlice = createSlice({
         
     }
 })
-export const { setSuccessNull } = usersSlice.actions
+export const { setSuccessNull, setFailNull } = usersSlice.actions
 export default usersSlice.reducer

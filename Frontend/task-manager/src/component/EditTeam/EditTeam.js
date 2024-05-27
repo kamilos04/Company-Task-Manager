@@ -12,7 +12,7 @@ import { createTeam, deleteTeam, updateTeam } from '../State/Teams/Action'
 import { fetchProfile } from '../State/Authentication/Action'
 import CheckIfProfileLoadAndIsSuperAdmin from '../Logic/checkIfProfileLoadAndIsSuperAdmin'
 import { useNavigate, useParams } from 'react-router-dom'
-import { setSuccessNull } from '../State/Teams/TeamsSlice'
+import { setFailNull, setSuccessNull } from '../State/Teams/TeamsSlice'
 
 const EditTeam = () => {
     CheckIfProfileLoadAndIsSuperAdmin()
@@ -70,6 +70,7 @@ const EditTeam = () => {
         if (teams.success === "updateTeam") {
             setAlertText("The team has been updated")
             setVisibleSuccessAlert(true)
+            dispatch(setSuccessNull())
         }
 
         if (teams.success === "deleteTeam") {
