@@ -10,7 +10,6 @@ import EditTask from '../EditTask.js/EditTask'
 import TeamsAdmin from '../TeamsAdmin/TeamsAdmin'
 import CreateTeam from '../CreateTeam/CreateTeam'
 import EditTeam from '../EditTeam/EditTeam'
-import TasksAdmin from '../TasksAdmin/TasksAdmin'
 import UsersAdmin from '../UsersAdmin/UsersAdmin'
 
 const HomeRoute = () => {
@@ -20,14 +19,14 @@ const HomeRoute = () => {
         <Route path='/' element={<Home/>}/>
         <Route path='/login' element={<Login/>}/>
         <Route path='/register' element={<Register/>}/>
-        <Route path='/tasks' element={<Tasks/>}/>
+        <Route path='/tasks' element={<Tasks superAdmin={false}/>}/>
         <Route path='/profile' element={<Profile/>}/>
         <Route path='/create-new-task' element={<CreateNewTask/>}/>
         <Route path='/update-task/:id' element={<EditTask/>}/>
         <Route path='/teams-admin' element={<TeamsAdmin/>}/>
         <Route path='/create-new-team' element={<CreateTeam/>}/>
         <Route path='/update-team/:id' element={<EditTeam/>}/>
-        <Route path='/tasks-admin' element={<TasksAdmin/>}/>
+        <Route path='/tasks-admin' element={<Tasks superAdmin={true}/>}/>
         <Route path='/users-admin' element={<UsersAdmin/>}/>
         <Route path='*' element={<Navigate to="/login"/>}/>
       </Routes>

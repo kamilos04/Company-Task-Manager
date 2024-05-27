@@ -5,18 +5,24 @@ import CheckIfProfileLoad from '../Logic/checkIfProfileLoad'
 import { Button, Pagination } from '@mui/material'
 import FilterBar from './FilterBar'
 import { useDispatch, useSelector } from 'react-redux'
-import { fetchMyTasks } from '../State/Tasks/Action'
+import { fetchAllTasksAdmin, fetchMyTasks } from '../State/Tasks/Action'
 import { useMediaQuery } from 'react-responsive';
+import CheckIfProfileLoadAndIsSuperAdmin from '../Logic/checkIfProfileLoadAndIsSuperAdmin'
+import { fetchProfile } from '../State/Authentication/Action'
+import { useNavigate } from 'react-router-dom'
 
 
 
-const Tasks = () => {
+const Tasks = (props) => {
+
+
   const auth = useSelector(store => store.auth)
   const tasks = useSelector(store => store.tasks)
   const [page, setPage] = useState(1)
   const dispatch = useDispatch()
   const [showFilterBar, setShowFilterBar] = useState(false)
-  const isSmallScreen = useMediaQuery({maxWidth: 1023})
+  const isSmallScreen = useMediaQuery({ maxWidth: 1023 })
+  const navigate = useNavigate()
   const filteringData = useRef({
     userId: auth.profile?.id,
     sortedBy: "dateOfCreation",
@@ -25,21 +31,53 @@ const Tasks = () => {
     sortingDirection: 'asc'
   })
 
+  
+  useEffect(() => {
+    if (localStorage.getItem("jwt")) {
+      dispatch(fetchProfile())
+    }
+    else {
+      navigate("/login")
+    }
+
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (auth.fail === "profile" && auth.profile === null) {
+      navigate("/login")
+    }
+  }, [auth.fail])
+
+  useEffect(() => {
+    if (auth.success === "profile" && auth.profile?.role !== "SUPER_ADMIN" && props.superAdmin===true) {
+      navigate("/")
+    }
+
+  }, [auth.success])
+
+  // if(props.superAdmin===true){
+  //   CheckIfProfileLoadAndIsSuperAdmin()
+  // }
+  // else{
+  //   CheckIfProfileLoad()
+  // }
+
+
   useEffect(() => {
     filteringData.current.userId = auth.profile?.id
     filteringData.current.pageNumber = page - 1
     if (auth.profile) {
-      try {
-        dispatch(fetchMyTasks(filteringData.current))
+      if (props.superAdmin === true) {
+        dispatch(fetchAllTasksAdmin(filteringData.current))
       }
-      catch (error) {
-        console.log(error)
+      else {
+        dispatch(fetchMyTasks(filteringData.current))
       }
     }
 
-  }, [auth.profile, page])
+  }, [auth.profile, page, props.superAdmin])
 
-  CheckIfProfileLoad()
+
 
   const handlePageChange = (event, value) => {
     setPage(value)
@@ -91,11 +129,11 @@ const Tasks = () => {
       filters: filters,
       sortingDirection: sortingDirection
     }
-    try {
-      dispatch(fetchMyTasks(filteringData.current))
+    if (props.superAdmin === true) {
+      dispatch(fetchAllTasksAdmin(filteringData.current))
     }
-    catch (error) {
-      console.log(error)
+    else {
+      dispatch(fetchMyTasks(filteringData.current))
     }
   }
 
@@ -106,7 +144,7 @@ const Tasks = () => {
     <div className='flex flex-col'>
       <Navbar />
       <div className='flex flex-col max-lg:mt-[4rem] lg:flex-row max-lg:items-center' >
-        {isSmallScreen && <Button variant="outlined" onClick={handleClickShowFilterBar} className='mt-4'>{showFilterBar ? "HIDE FILTER BAR": "SHOW FILTER BAR"}</Button>}
+        {isSmallScreen && <Button variant="outlined" onClick={handleClickShowFilterBar} className='mt-4'>{showFilterBar ? "HIDE FILTER BAR" : "SHOW FILTER BAR"}</Button>}
         <div className='flex-row flex'>
           {(!isSmallScreen || showFilterBar) && <FilterBar handleFilterSubmit={handleFilterSubmit} />}
         </div>
@@ -117,7 +155,7 @@ const Tasks = () => {
           })}
 
           <div className='flex flex-row justify-center w-full mt-7 mb-5'>
-            <Pagination count={Math.floor((tasks.totalElements-1) / 10) + 1} color="primary" size='large' page={page} onChange={handlePageChange} sx={{'.MuiPaginationItem-text': {color: 'white'}}}/>
+            <Pagination count={Math.floor((tasks.totalElements - 1) / 10) + 1} color="primary" size='large' page={page} onChange={handlePageChange} sx={{ '.MuiPaginationItem-text': { color: 'white' } }} />
           </div>
 
         </div>
