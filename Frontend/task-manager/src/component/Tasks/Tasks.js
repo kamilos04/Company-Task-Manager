@@ -100,7 +100,7 @@ const Tasks = () => {
   return (
     <div className='flex flex-col'>
       <Navbar />
-      <div className='flex flex-row' >
+      <div className='flex flex-row mt-[4rem]' >
         <div className='flex flex-col'>
           <FilterBar handleFilterSubmit={handleFilterSubmit} />
         </div>
