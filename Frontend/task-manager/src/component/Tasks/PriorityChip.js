@@ -18,7 +18,7 @@ const PriorityChip = (props) => {
   }
   return (
     <div>
-      <Chip className={`${color} mr-3 shadow-md `} label={text} />
+      <Chip className={`${color} mr-3 shadow-md max-lg:mt-2`} label={text} />
     </div>
   )
 }

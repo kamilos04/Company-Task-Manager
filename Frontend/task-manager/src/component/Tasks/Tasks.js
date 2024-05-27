@@ -6,6 +6,7 @@ import { Button, Pagination } from '@mui/material'
 import FilterBar from './FilterBar'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchMyTasks } from '../State/Tasks/Action'
+import { useMediaQuery } from 'react-responsive';
 
 
 
@@ -14,6 +15,8 @@ const Tasks = () => {
   const tasks = useSelector(store => store.tasks)
   const [page, setPage] = useState(1)
   const dispatch = useDispatch()
+  const [showFilterBar, setShowFilterBar] = useState(false)
+  const isSmallScreen = useMediaQuery({maxWidth: 1023})
   const filteringData = useRef({
     userId: auth.profile?.id,
     sortedBy: "dateOfCreation",
@@ -96,15 +99,18 @@ const Tasks = () => {
     }
   }
 
-
+  const handleClickShowFilterBar = () => {
+    setShowFilterBar(!showFilterBar)
+  }
   return (
     <div className='flex flex-col'>
       <Navbar />
-      <div className='flex flex-row max-lg:mt-[4rem]' >
-        <div className='flex flex-col'>
-          <FilterBar handleFilterSubmit={handleFilterSubmit} />
+      <div className='flex flex-col max-lg:mt-[4rem] lg:flex-row max-lg:items-center' >
+        {isSmallScreen && <Button variant="outlined" onClick={handleClickShowFilterBar} className='mt-4'>{showFilterBar ? "HIDE FILTER BAR": "SHOW FILTER BAR"}</Button>}
+        <div className='flex-row flex'>
+          {(!isSmallScreen || showFilterBar) && <FilterBar handleFilterSubmit={handleFilterSubmit} />}
         </div>
-        <div className='flex w-[100%] mr-40 ml-40 flex-col'>
+        <div className='flex w-[100%] max-lg:p-3 mr-40 ml-40 flex-col'>
           {tasks.mytasks?.map((task) => {
             // console.log(task)
             return <TaskAccordion key={task.id} task={task} />

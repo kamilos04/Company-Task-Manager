@@ -22,7 +22,7 @@ const FilterBar = (props) => {
     return (
         <div>
             <form onSubmit={handleSubmit((data) => props.handleFilterSubmit(data))}>
-                <div className='flex flex-col bg-[rgb(32,36,52)] items-left pl-3 ml-3 mt-5 pt-2 pr-3 pb-4 border-solid border border-gray-200 shadow-md rounded-lg'>
+                <div className='flex flex-col bg-[rgb(32,36,52)] items-left pl-3 lg:ml-3 mt-5 pt-2 pr-3 pb-4 border-solid border border-gray-200 shadow-md rounded-lg'>
                     <span className='text-xl font-medium text-white'>Status</span>
 
                     <Controller

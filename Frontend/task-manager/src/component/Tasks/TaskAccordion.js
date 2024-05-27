@@ -7,10 +7,13 @@ import DescChip from './DescChip';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateTaskStatus } from '../State/Tasks/Action';
 import { useNavigate } from 'react-router-dom';
+import DateChip from './DateChip';
+import { useMediaQuery } from 'react-responsive';
 
 const TaskAccordion = (props) => {
     const navigate = useNavigate()
     const dispatch = useDispatch()
+    const isSmallScreen = useMediaQuery({ maxWidth: 1023 })
     const auth = useSelector(store => store.auth)
 
     const handleClickUpdateTask = () => {
@@ -21,16 +24,16 @@ const TaskAccordion = (props) => {
         let permission = false
         let usersTeamsAdminNames = auth.profile.teamsAdmin.map((team) => team.name)
         props.task.teams.forEach((team) => {
-            if(usersTeamsAdminNames.includes(team.name)){
+            if (usersTeamsAdminNames.includes(team.name)) {
                 permission = true
             }
         })
         props.task.admins.forEach((admin) => {
-            if(admin.id === auth.profile.id){
+            if (admin.id === auth.profile.id) {
                 permission = true
             }
         })
-        if(auth.profile.role==="SUPER_ADMIN"){
+        if (auth.profile.role === "SUPER_ADMIN") {
             permission = true
         }
         return permission
@@ -59,18 +62,33 @@ const TaskAccordion = (props) => {
                     expandIcon={<ExpandMoreIcon />}
                     id="panel1-header"
                 >
-                    <div className='flex flex-row justify-between items-center w-[100%]'>
-                        <div className='flex flex-row '>
-                            <span className='mr-8 font-bold'>{props.task.name}</span>
-                            <span className=''>Date of creation: {props.task.dateOfCreation}</span>
-                        </div>
-                        <div className='flex flex-row '>
-                            <PriorityChip type={props.task.priority} />
-                            <StatusChip type={props.task.status} />
-                        </div>
+                        {isSmallScreen ?
+                            <div className='flex flex-col w-[100%]'>
+                                <span className='mr-8 font-bold text-pretty'>{props.task.name}</span>
+                                {/* <div className='flex flex-col lg:flex-row items-center'>
+                                    <span className='mr-8 font-bold text-pretty'>{props.task.name}</span>
+                                    <DateChip text={props.task.dateOfCreation} />
+                                </div> */}
+                                <div className='flex flex-row flex-wrap'>
+                                    <DateChip text={props.task.dateOfCreation} />
+                                    <PriorityChip type={props.task.priority} />
+                                    <StatusChip type={props.task.status} />
+                                </div>
+                            </div>
+                            :
+                            <div className='justify-between items-center flex flex-row w-[100%]'>
+                                <div className='flex flex-row items-center'>
+                                    <div><span className='mr-8 font-bold text-pretty'>{props.task.name}</span></div>
+                                    <DateChip text={props.task.dateOfCreation} />
+                                </div>
+                                <div className='flex flex-row '>
+                                    <PriorityChip type={props.task.priority} />
+                                    <StatusChip type={props.task.status} />
+                                </div>
+                            </div>}
 
 
-                    </div>
+
 
 
                 </AccordionSummary>
@@ -104,8 +122,8 @@ const TaskAccordion = (props) => {
                             })}
                         </div>
                     </div>
-                    <div className='flex justify-end w-full'>
-                    {ifUserHasPermissionToEditTask() && <Button variant="contained" className='mr-3 w-20' onClick={handleClickUpdateTask}>Edit</Button>}
+                    <div className='flex justify-end w-full mt-2'>
+                        {ifUserHasPermissionToEditTask() && <Button variant="contained" className='mr-3 w-20' onClick={handleClickUpdateTask}>Edit</Button>}
                         <ToggleButtonGroup
                             value={props.task.status}
                             exclusive

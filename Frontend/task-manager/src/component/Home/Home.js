@@ -44,6 +44,7 @@ const Home = () => {
       <div className='flex flex-col h-full max-lg:mt-[4rem] justify-center items-center'>
         <div className='flex flex-col  bg-white p-8 shadow-md rounded-lg'>
           <div className='flex flex-col lg:flex-row mb-5'>
+            {/* Desktop */}
             {!!generalData.tasksStats && <div className='p-4 bg-slate-200 shadow-md rounded-lg lg:flex flex-col items-center h-[20rem] w-[25rem] hidden'>
               <span className=' font-medium text-xl mb-3'>Status</span>
               <PieChart
@@ -67,6 +68,7 @@ const Home = () => {
                 // sx={{height: '15rem'}}
                 className='mt-2' />
             </div>}
+            {/* Desktop */}
             {!!generalData.tasksStats && <div className='p-4 bg-slate-200 shadow-md rounded-lg ml-5 lg:flex flex-col items-center  h-[20rem] w-[25rem] hidden'>
               <span className=' font-medium text-xl mb-3'>Priority</span>
               <PieChart
@@ -88,6 +90,7 @@ const Home = () => {
               // height={200} 
               />
             </div>}
+            {/* Mobile */}
             {!!generalData.tasksStats && <div className='p-4 bg-slate-200 shadow-md rounded-lg flex flex-col items-center lg:hidden mb-5'>
               <span className=' font-medium text-xl mb-3'>Status</span>
               <PieChart
@@ -108,7 +111,7 @@ const Home = () => {
 
               />
             </div>}
-            
+            {/* Mobile */}
             {!!generalData.tasksStats && <div className='p-2 bg-slate-200 shadow-md rounded-lg flex flex-col items-center lg:hidden'>
               <span className=' font-medium text-xl mb-3'>Priority</span>
               <PieChart
