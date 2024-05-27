@@ -17,7 +17,7 @@ const SuccessAlert = (props) => {
 
     return (
         <div>
-            <Alert sx={{ position: "fixed", top: "2rem", left: "50%", transform: "translateX(-50%)"}} variant="filled" severity="success" onClose={() => {handleClose()}}>
+            <Alert className='z-20' sx={{ position: "fixed", top: "2rem", left: "50%", transform: "translateX(-50%)"}} variant="filled" severity="success" onClose={() => {handleClose()}}>
                 {props.text}
             </Alert>
         </div>

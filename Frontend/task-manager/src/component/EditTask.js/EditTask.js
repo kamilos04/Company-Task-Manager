@@ -11,6 +11,7 @@ import { yupResolver } from "@hookform/resolvers/yup"
 import ErrorAlert from '../General/ErrorAlert'
 import SuccessAlert from '../General/SuccessAlert'
 import { useNavigate, useParams } from 'react-router-dom'
+import { useMediaQuery } from 'react-responsive'
 
 const EditTask = () => {
     CheckIfProfileLoad()
@@ -21,6 +22,7 @@ const EditTask = () => {
     const [visibleErrorAlert, setVisibleErrorAlert] = useState(false)
     const [visibleSuccessAlert, setVisibleSuccessAlert] = useState(false)
     const [alertText, setAlertText] = useState("")
+    const isSmallScreen = useMediaQuery({maxWidth: 1023})
     const navigate = useNavigate()
     const schema = yup.object().shape({
         name: yup.string().required(),
@@ -126,23 +128,26 @@ const EditTask = () => {
 
         <div className='flex flex-col h-screen'>
             <Navbar />
+            {/* <div className='max-lg:mt-[4rem]'>
+
+            </div> */}
             {visibleErrorAlert === true && <ErrorAlert setV={setVisibleErrorAlert} text={alertText} />}
             {visibleSuccessAlert === true && <SuccessAlert setV={setVisibleSuccessAlert} text={alertText} />}
-            <div className='flex flex-col justify-center items-center h-full' >
-                <div className='flex flex-col p-4 border-solid border
-                bg-white border-gray-200 shadow-md rounded-lg text-white items-center'>
+            <div className='flex flex-col justify-center items-center lg:h-full' >
+                <div className='max-lg:mt-[4rem] flex flex-col p-4 border-solid border
+                bg-white border-gray-200 shadow-md rounded-lg text-white items-center max-lg:w-full'>
                     <h1 className='text-[rgb(24,28,44)] mt-0'>Update task</h1>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className='flex flex-col w-[60rem]'>
-                            <div className='flex flex-row'>
-                                <div className='flex flex-col place-content-between mr-5'>
+                    <form onSubmit={handleSubmit(onSubmit)} className='w-full '>
+                        <div className='flex flex-col w-full lg:w-[60rem]'>
+                            <div className='flex flex-col lg:flex-row'>
+                                <div className='flex flex-col place-content-between lg:mr-5'>
                                     <TextField
                                         InputLabelProps={{ shrink: true }}
                                         id="name"
                                         label="Name"
                                         variant="outlined"
                                         {...register("name")}
-                                        className='w-[25rem] '
+                                        className='w-[100%] lg:w-[25rem] max-lg:mb-7'
                                         error={!!errors.name}
                                         helperText={!!errors.name && "Name is required"}
                                     />
@@ -152,7 +157,7 @@ const EditTask = () => {
 
                                         render={({
                                             field: { value, onChange } }) => (
-                                            <FormControl className='w-[25rem]' size='small'>
+                                            <FormControl className='lg:w-[25rem] max-lg:mb-7' size='small'>
 
                                                 <InputLabel id="demo-simple-select-label" className={!!errors.priority && 'text-red-600'}>Priority</InputLabel>
                                                 <Select
@@ -187,7 +192,7 @@ const EditTask = () => {
 
                                 />
                             </div>
-                            <div className='mt-10'>
+                            <div className='mt-7'>
                                 {(generalData.allUsers && tasks.editTask) &&
                                     <Controller
                                         control={control}
