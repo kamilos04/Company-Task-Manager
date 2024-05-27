@@ -41,7 +41,7 @@ const Navbar = () => {
 
       <div className='flex lg:hidden w-[100%] fixed flex-col justify-between items-center z-10 bg-[rgb(24,28,44)]' style={{ borderBottom: '1px solid rgb(84, 87, 92)' }}>
         <div className='flex justify-between  w-full  p-4 h-16'>
-          <div className='ml-1 text-2xl text-white mr-1 fontlogo'>COMPANY TASK MANAGER</div>
+          <div className='ml-1 text-2xl text-white mr-1 fontlogo'></div>
           <div className='flex flex-row'>
             <AccountCircleIcon onClick={() => { navigate("/profile") }} className='text-4xl mr-6 text-white block cursor-pointer' />
             <LogoutIcon onClick={() => { dispatch(logoutUser(navigate)) }} className='text-4xl mr-4 block cursor-pointer text-white' />
