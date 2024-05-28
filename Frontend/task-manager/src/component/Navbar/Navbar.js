@@ -53,11 +53,11 @@ const Navbar = () => {
 
         {visibleMenuMobile && <div className='flex flex-col items-center bg- w-full mb-2'>
 
-          <Button onClick={() => { navigate("/") }} className={`${location.pathname === "/" ? "text-green-300" : "text-white"} text-2xl normal-case pb-2 pt-2 border-b-2 border-slate-500 border-solid w-full`} variant="text">Home</Button>
-          <Button onClick={() => { navigate("/tasks") }} className={`${location.pathname === "/tasks" ? "text-green-300" : "text-white"} text-2xl normal-case pb-2 pt-2 border-b-2 border-slate-500 border-solid w-full`} variant="text">Tasks</Button>
-          {auth.profile?.role === "SUPER_ADMIN" && <Button onClick={() => { navigate("/teams-admin") }} className={`${location.pathname === "/teams-admin" ? "text-green-300" : "text-white"} text-2xl normal-case pb-2 pt-2 border-b-2 border-slate-500 border-solid w-full`} variant="text">Teams - admin panel</Button>}
-          {auth.profile?.role === "SUPER_ADMIN" && <Button onClick={() => { navigate("/tasks-admin") }} className={`${location.pathname === "/tasks-admin" ? "text-green-300" : "text-white"} text-2xl normal-case pb-2 pt-2 border-b-2 border-slate-500 border-solid w-full`} variant="text">Tasks - admin panel</Button>}
-          {auth.profile?.role === "SUPER_ADMIN" && <Button onClick={() => { navigate("/users-admin") }} className={`${location.pathname === "/users-admin" ? "text-green-300" : "text-white"} text-2xl normal-case pb-2 pt-2 `} variant="text">Users - admin panel</Button>}
+          <Button onClick={() => { navigate("/") }} className={`${location.pathname === "/" ? "text-green-300" : "text-white"} text-xl normal-case pb-2 pt-2 border-b-[1px] border-slate-500 border-solid w-full`} variant="text">Home</Button>
+          <Button onClick={() => { navigate("/tasks") }} className={`${location.pathname === "/tasks" ? "text-green-300" : "text-white"} text-xl normal-case pb-2 pt-2 border-b-[1px] border-slate-500 border-solid w-full`} variant="text">Tasks</Button>
+          {auth.profile?.role === "SUPER_ADMIN" && <Button onClick={() => { navigate("/teams-admin") }} className={`${location.pathname === "/teams-admin" ? "text-green-300" : "text-white"} text-xl normal-case pb-2 pt-2 border-b-[1px] border-slate-500 border-solid w-full`} variant="text">Teams - admin panel</Button>}
+          {auth.profile?.role === "SUPER_ADMIN" && <Button onClick={() => { navigate("/tasks-admin") }} className={`${location.pathname === "/tasks-admin" ? "text-green-300" : "text-white"} text-xl normal-case pb-2 pt-2 border-b-[1px] border-slate-500 border-solid w-full`} variant="text">Tasks - admin panel</Button>}
+          {auth.profile?.role === "SUPER_ADMIN" && <Button onClick={() => { navigate("/users-admin") }} className={`${location.pathname === "/users-admin" ? "text-green-300" : "text-white"} text-xl normal-case pb-2 pt-2 `} variant="text">Users - admin panel</Button>}
         </div>}
 
 

@@ -10,6 +10,7 @@ import * as yup from 'yup'
 import { yupResolver } from "@hookform/resolvers/yup"
 import ErrorAlert from '../General/ErrorAlert'
 import SuccessAlert from '../General/SuccessAlert'
+import { useMediaQuery } from 'react-responsive'
 
 const CreateNewTask = () => {
   CheckIfProfileLoad()
@@ -18,6 +19,7 @@ const CreateNewTask = () => {
   const dispatch = useDispatch()
   const [visibleErrorAlert, setVisibleErrorAlert] = useState(false)
   const [visibleSuccessAlert, setVisibleSuccessAlert] = useState(false)
+  const isSmallScreen = useMediaQuery({maxWidth: 1023})
   const [alertText, setAlertText] = useState("")
   const schema = yup.object().shape({
     name: yup.string().required(),
@@ -70,20 +72,20 @@ const CreateNewTask = () => {
       <Navbar />
       {visibleErrorAlert === true && <ErrorAlert setV={setVisibleErrorAlert} text={alertText} />}
       {visibleSuccessAlert === true && <SuccessAlert setV={setVisibleSuccessAlert} text={alertText} />}
-      <div className='flex flex-col justify-center items-center h-full' >
-        <div className='flex flex-col p-4 border-solid border
-                bg-white border-gray-200 shadow-md rounded-lg text-white items-center'>
+      <div className='flex flex-col justify-center items-center lg:h-full' >
+        <div className='max-lg:mt-[4rem] flex flex-col p-4 border-solid border
+                bg-white border-gray-200 shadow-md rounded-lg text-white items-center max-lg:w-full'>
           <h1 className='text-[rgb(24,28,44)] mt-0'>Create new task</h1>
-          <form onSubmit={handleSubmit(onSubmit)}>
-            <div className='flex flex-col w-[60rem]'>
-              <div className='flex flex-row'>
-                <div className='flex flex-col place-content-between mr-5'>
+          <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
+            <div className='flex flex-col w-full lg:w-[60rem]'>
+              <div className='flex flex-col lg:flex-row'>
+                <div className='flex flex-col place-content-between lg:mr-5'>
                   <TextField
                     id="name"
                     label="Name"
                     variant="outlined"
                     {...register("name")}
-                    className='w-[25rem] '
+                    className='w-full lg:w-[25rem] max-lg:mb-7'
                     error={!!errors.name}
                     helperText={!!errors.name && "Name is required"}
                   />
@@ -93,7 +95,7 @@ const CreateNewTask = () => {
 
                     render={({
                       field: { value, onChange } }) => (
-                      <FormControl className='w-[25rem]' size='small'>
+                      <FormControl className='lg:w-[25rem] max-lg:mb-7' size='small'>
                         <InputLabel id="demo-simple-select-label" className={!!errors.priority && 'text-red-600'}>Priority</InputLabel>
                         <Select
                           labelId="demo-simple-select-label"
@@ -126,7 +128,7 @@ const CreateNewTask = () => {
 
                 />
               </div>
-              <div className='mt-10'>
+              <div className='mt-7'>
                 {generalData.allUsers &&
                   <Controller
                     control={control}
