@@ -62,8 +62,8 @@ const CreateNewTask = () => {
       teamsIds: data.teams?.map((team) => team.id)
 
     }
-    console.log(reqData)
-    console.log(data)
+    // console.log(reqData)
+    // console.log(data)
     dispatch(createTask(reqData))
   }
 

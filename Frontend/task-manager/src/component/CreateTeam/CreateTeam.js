@@ -72,8 +72,8 @@ const CreateTeam = () => {
         adminsIds: data.admins?.map((user) => user.id),
         tasksIds: []
       }
-      console.log(reqData)
-      console.log(data)
+      // console.log(reqData)
+      // console.log(data)
       dispatch(createTeam(reqData))
     }
   

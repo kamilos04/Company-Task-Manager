@@ -43,7 +43,6 @@ const EditTask = () => {
     })
 
     useEffect(() => {
-        console.log("idzie")
         dispatch(getTask({ id: id }))
         dispatch(fetchAllUsers())
         dispatch(fetchAllTeams())
@@ -61,7 +60,7 @@ const EditTask = () => {
                 admins: tasks.editTask?.admins,
                 teams: tasks.editTask?.teams
             })
-            console.log(tasks.editTask?.users?.map((user) => user.id))
+            // console.log(tasks.editTask?.users?.map((user) => user.id))
         }
     }, [tasks.editTask, generalData.allUsers])
 

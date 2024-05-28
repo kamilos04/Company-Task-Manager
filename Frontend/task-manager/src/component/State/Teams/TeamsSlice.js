@@ -16,6 +16,9 @@ const teamsSlice = createSlice({
     reducers:{
         setSuccessNull(state) {
             state.success=null
+        },
+        setFailNull(state) {
+            state.fail=null
         }
     },
     extraReducers: builder => {
@@ -24,57 +27,57 @@ const teamsSlice = createSlice({
             state.error=null
             state.success= null
             state.fail = null
-            console.log("pending")
+            // console.log("pending")
         })
         .addCase(createTeam.fulfilled, (state, action) => {
             state.isLoading = false
             state.success= "createTeam"
-            console.log("fulfilled")
+            // console.log("fulfilled")
         })
         .addCase(createTeam.rejected, (state, action) => {
             state.isLoading = false
             state.error=action.error
             state.fail="createTeam"
-            console.log("rejected")
+            // console.log("rejected")
         })
         .addCase(updateTeam.pending, (state, action) => {
             state.isLoading = true
             state.error=null
             state.success= null
             state.fail = null
-            console.log("pending")
+            // console.log("pending")
         })
         .addCase(updateTeam.fulfilled, (state, action) => {
             state.isLoading = false
             state.success= "updateTeam"
-            console.log("fulfilled")
+            // console.log("fulfilled")
         })
         .addCase(updateTeam.rejected, (state, action) => {
             state.isLoading = false
             state.error=action.error
             state.fail="updateTeam"
-            console.log("rejected")
+            // console.log("rejected")
         })
         .addCase(deleteTeam.pending, (state, action) => {
             state.isLoading = true
             state.error=null
             state.success= null
             state.fail = null
-            console.log("pending")
+            // console.log("pending")
         })
         .addCase(deleteTeam.fulfilled, (state, action) => {
             state.isLoading = false
             state.success= "deleteTeam"
-            console.log("fulfilled")
+            // console.log("fulfilled")
         })
         .addCase(deleteTeam.rejected, (state, action) => {
             state.isLoading = false
             state.error=action.error
             state.fail="deleteTeam"
-            console.log("rejected")
+            // console.log("rejected")
         })
         
     }
 })
-export const { setSuccessNull } = teamsSlice.actions
+export const { setSuccessNull, setFailNull } = teamsSlice.actions
 export default teamsSlice.reducer
