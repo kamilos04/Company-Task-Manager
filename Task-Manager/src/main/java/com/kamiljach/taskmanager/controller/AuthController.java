@@ -74,15 +74,12 @@ public class AuthController {
 
         Authentication authentication = authenticate(email, password);
 
-//        Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
-//        String role = authorities.isEmpty()?null:authorities.iterator().next().getAuthority();
 
         String jwt = jwtProvider.generateToken(authentication);
 
         AuthResponse authResponse = new AuthResponse();
         authResponse.setJwt(jwt);
         authResponse.setMessage("Register success");
-//        authResponse.setRole(User_ROLE.valueOf(role));
 
         return new ResponseEntity<>(authResponse, HttpStatus.OK);
     }

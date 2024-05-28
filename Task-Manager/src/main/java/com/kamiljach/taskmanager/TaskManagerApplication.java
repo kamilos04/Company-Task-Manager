@@ -29,33 +29,7 @@ public class TaskManagerApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(TaskManagerApplication.class, args);
 
-//		Team team1 = new Team();
-//		team1.setName("Testowa grupa");
-//
-//		teamRepository.save(team1);
-//
-//		User user1 = new User();
-//		user1.setName("Kamil");
-//		user1.setSurname("Jach");
-//		user1.setEmail("kamiljach2004@gmail.com");
-//		user1.setPassword("test");
-//		userRepository.save(user1);
-//
-//		team1.getUsers().add(user1);
-//		user1.getTeams().add(team1);
-//		userRepository.save(user1);
-//		teamRepository.save(team1);
 
-//		CreateTaskRequest request = new CreateTaskRequest();
-//		request.setName("pierwszy");
-//		taskService.createTask(request);
-
-
-
-//		teamRepository.save(team1);
-
-
-//		userRepository.save(user1);
 	}
 
 }
