@@ -71,7 +71,7 @@ const UsersAdmin = () => {
             {visibleErrorAlert === true && <ErrorAlert setV={setVisibleErrorAlert} text={alertText} />}
             {visibleSuccessAlert === true && <SuccessAlert setV={setVisibleSuccessAlert} text={alertText} />}
             <div className='flex flex-col h-full justify-center items-center'>
-                <div className='flex flex-col bg-white p-4 shadow-md rounded-lg items-center max-lg:w-full'>
+                <div className='flex flex-col max-lg:mt-[4rem] bg-white p-4 shadow-md rounded-lg items-center max-lg:w-full'>
                 <h1 className='text-[rgb(24,28,44)] mt-0 text-3xl'>Change user password</h1>
                     <form onSubmit={handleSubmit(onSubmit)} className='max-lg:w-full'>
                         <div className='flex flex-col'>

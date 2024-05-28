@@ -120,12 +120,12 @@ const EditTeam = () => {
             <Navbar />
             {visibleErrorAlert === true && <ErrorAlert setV={setVisibleErrorAlert} text={alertText} />}
             {visibleSuccessAlert === true && <SuccessAlert setV={setVisibleSuccessAlert} text={alertText} />}
-            <div className='flex flex-col justify-center items-center h-full' >
-                <div className='flex flex-col p-4 border-solid border
-                  bg-white border-gray-200 shadow-md rounded-lg text-white items-center'>
+            <div className='flex flex-col justify-center items-center h-full max-lg:w-full' >
+                <div className='flex flex-col p-4 border-solid border max-lg:mt-[4rem]
+                  bg-white border-gray-200 shadow-md rounded-lg text-white items-center max-lg:w-full'>
                     <h1 className='text-[rgb(24,28,44)] mt-0'>Update team</h1>
-                    <form onSubmit={handleSubmit(onSubmit)}>
-                        <div className='flex flex-col w-[50rem]'>
+                    <form onSubmit={handleSubmit(onSubmit)} className='max-lg:w-full'>
+                        <div className='flex flex-col lg:w-[50rem]'>
                             <TextField
                                 id="name"
                                 label="Name"
@@ -136,7 +136,7 @@ const EditTeam = () => {
                                 error={!!errors.name}
                                 helperText={!!errors.name && "Name is required"}
                             />
-                            <div className='mt-10'>
+                            <div className='mt-7'>
                                 {generalData.allUsers &&
                                     <Controller
                                         control={control}
