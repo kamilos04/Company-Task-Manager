@@ -11,7 +11,7 @@ An application for managing the tasks of teams and company employees
 **Frontend:** React, Tailwind, Redux, MaterialUI, JavaScript, HTML, CSS
 
 ## Permission System
-Creating tasks - Every team admin can create tasks.
+Creating tasks - Every team-admin can create tasks.
 
 Editing and deleting tasks - Only the admin of a specific task can edit it.
 
