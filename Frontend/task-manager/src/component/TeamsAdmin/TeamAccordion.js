@@ -11,7 +11,7 @@ const TeamAccordion = (props) => {
     }
     return (
     <div>
-      <Accordion className='bg-slate-300 w-[20rem] shadow-xl shadow-slate-800 text-[rgb(24,28,44)] rounded-xl m-3'>
+      <Accordion className='bg-slate-300 lg:w-[20rem] shadow-xl shadow-slate-800 text-[rgb(24,28,44)] rounded-xl m-2 lg:m-3'>
                 <AccordionSummary
                     className='font-medium h-12'
                     expandIcon={<ExpandMoreIcon />}

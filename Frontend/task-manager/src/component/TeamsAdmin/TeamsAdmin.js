@@ -24,10 +24,11 @@ const TeamsAdmin = () => {
     return (
         <div className='flex flex-col'>
             <Navbar />
-            <div className='flex flex-col justify-center items-center pt-10'>
-                <div className='flex flex-wrap justify-center w-[80rem]'>
+            <div className='flex flex-col justify-center items-center lg:pt-10 max-lg:mt-[4rem] '>
+                <div className='flex max-lg:flex-col lg:flex-wrap justify-center  lg:w-[80rem] w-screen'>
+                    <Button variant="contained" className="lg:w-[20rem] h-12 rounded-xl m-3" onClick={handleClickCreateTeam}>Create Team</Button>
                     {generalData.allTeams?.map((team) => <TeamAccordion key={team.id} team={team}/>)}
-                    <Button variant="contained" className="w-[20rem] h-12 rounded-xl m-3" onClick={handleClickCreateTeam}>Create Team</Button>
+                    
                 </div>
             </div>
 
