@@ -1,7 +1,7 @@
 
 # Company Task Manager
 
-An application for managing the tasks of teams and company employees
+An application for managing the tasks of employees and teams in the company.
 
 
 ## Tech Stack
