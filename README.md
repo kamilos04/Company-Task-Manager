@@ -11,7 +11,7 @@ An application for managing the tasks of employees and teams in the company.
 **Frontend:** React, Tailwind, Redux, MaterialUI, JavaScript, HTML, CSS
 
 ## Permission System
-User can see the task when he is a task member, task admin, team member or admin of the team assigned to this task, or SuperAdmin.
+User can see the task when he is a task-member, task-admin, team-member or admin of the team assigned to this task, or SuperAdmin.
 
 Creating tasks - Every team-admin can create tasks.
 
