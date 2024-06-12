@@ -1,16 +1,16 @@
 
-# Company Task Manager
+# Company Task Manager 📋 
 
 An application for managing the tasks of employees and teams in the company.
 
 
-## Tech Stack
+## Tech Stack 🚀 
 
 **Backend:** Spring Boot, Java, PostgreSQL, Hibernate
 
 **Frontend:** React, Tailwind, Redux, MaterialUI, JavaScript, HTML, CSS
 
-## Permission System
+## Permission System 🔐 
 User can see the task when he is a task-member, task-admin, team-member or admin of the team assigned to this task, or SuperAdmin.
 
 Creating tasks - Every team-admin can create tasks.
@@ -24,7 +24,7 @@ Creating teams - Only the SuperAdmin (main admin in the app) can create teams.
 Editing and deleting teams - Only the SuperAdmin (main admin in the app) can edit teams.
 
 
-## Screenshots
+## Screenshots 🖼️
 <img src="Screenshots/5.png" width="800">
 <img src="Screenshots/1.png" width="800">
 <img src="Screenshots/19.png" width="800">
