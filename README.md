@@ -25,6 +25,23 @@ Editing and deleting teams - Only the SuperAdmin (main admin in the app) can edi
 
 
 ## Screenshots 🖼️
+<div center>
+<img src="Screenshots/mobile3.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile2.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile1.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile4.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile5.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile6.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile7.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile8.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile9.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile10.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile11.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile12.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile13.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<img src="Screenshots/mobile14.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</div>
+
 <img src="Screenshots/5.png" width="800">
 <img src="Screenshots/1.png" width="800">
 <img src="Screenshots/19.png" width="800">
@@ -48,24 +65,7 @@ Editing and deleting teams - Only the SuperAdmin (main admin in the app) can edi
 <img src="Screenshots/10.png" width="800">
 <!-- <img src="Screenshots/2.png" width="800"> -->
 
-<div center>
-<img src="Screenshots/mobile3.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile2.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile1.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile4.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile5.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile6.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile7.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile8.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile9.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile10.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile11.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile12.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile13.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<img src="Screenshots/mobile14.jpg" width="250">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 
-
-</div>
 
 
 
